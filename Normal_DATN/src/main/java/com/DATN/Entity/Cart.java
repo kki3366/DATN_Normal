@@ -13,30 +13,39 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Category")
-@AllArgsConstructor
+@Table(name = "Carts")
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
-public class Category {
+@AllArgsConstructor
+public class Cart {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	int id;
+	int Id;
 	
-	@Column(name = "NameCategory")
-	String nameCategory;
+	@Column(name = "nameProductCart")
+	String nameProductCart;
 	
+	@Column(name = "priceProductCart")
+	float priceProductCart;
+	
+	@Column(name = "quanlityProductCart")
+	int quanlityProductCart;
+	
+	@Column(name = "imgProductCart")
+	int imgProductCart;
+	
+	@ManyToOne
+	@JoinColumn(name = "Id_Users")
+	User user;
 	
 	@OneToMany
 	List<Product> products;
-	
-	@ManyToOne
-	@JoinColumn(name = "CategoryId")
-	SubCategory subcategory;
 }

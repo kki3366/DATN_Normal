@@ -69,4 +69,12 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "CategoryId")
 	Category category;
+	
+	@ManyToOne
+	@JoinColumn(name = "SubcategoryId")
+	SubCategory subcategory;
+	
+	@ManyToOne
+	@JoinColumn(name = "idProductCart")
+	Product products;
 }
