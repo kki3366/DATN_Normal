@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>CẬP NHẬT TÀI KHOẢN</title>
+<script src="assets/js/jquery.min.js"></script>
+
+<!-- Custom Theme files -->
+<link href="assets/css/styleLogin.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- for-mobile-apps -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="Classy Login form Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!-- //for-mobile-apps -->
+<!--Google Fonts-->
+<!-- <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'> -->
+</head>
+<body>
+<!--header start here-->
+<div class="header">
+		<div class="header-main">
+		       <h2 style="color:white;text-align:center;font-size:40px;padding-bottom: 0.8em">CẬP NHẬT TÀI KHOẢN</h2>
+		       <center><span style="color:red" th:text="${tb}"></span></center>
+			<div class="header-bottom">
+				<div class="header-right w3agile">
+					
+			<div class="header-left-bottom agileinfo">
+						
+	<form action="/editProfile" method="post">
+					  
+		<input type="text"name="username" th:value="${username}" placeholder="Username"readonly/>
+		<input type="password"name="password" th:value="${pass}" placeholder="Password"/>			
+		<input type="text"name="fullname" th:value="${fullname}" placeholder="Username"/>
+		<input type="text"name="email" th:value="${email}" placeholder="Email"/>	   
+	<input type="submit" value="Gửi">
+  </form>	
+					
+					
+						
+				</div>
+				</div>
+			  
+			</div>
+		</div>
+</div>
+<!--header end here-->
+<div class="copyright">
+	
+</div>
+<!--footer end here-->
+</body>
+</html>
