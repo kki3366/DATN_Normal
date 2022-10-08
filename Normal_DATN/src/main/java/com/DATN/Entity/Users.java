@@ -36,7 +36,7 @@ public class Users implements Serializable{
 	
 	@Column(name = "Email")
 	String email;
-	
+	//
 	@Column(name = "Activated")
 	boolean activated;
 	
