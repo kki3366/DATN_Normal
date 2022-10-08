@@ -44,7 +44,7 @@ public class Cart {
 	
 	@ManyToOne
 	@JoinColumn(name = "Id_Users")
-	User user;
+	Users user;
 	
 	@OneToMany
 	List<Product> products;

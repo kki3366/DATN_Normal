@@ -52,5 +52,5 @@ public class Orders {
 	
 	@ManyToOne
 	@JoinColumn(name = "UserId")
-	User user;
+	Users user;
 }

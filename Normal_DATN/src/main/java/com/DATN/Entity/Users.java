@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Users {
 	
 	@Id
 	@Column(name = "Id")
@@ -38,7 +38,7 @@ public class User {
 	boolean active;
 	
 	@Column(name = "Admin")
-	boolean admin;
+	Boolean admin;
 	
 	@OneToMany
 	List<Cart> carts;
