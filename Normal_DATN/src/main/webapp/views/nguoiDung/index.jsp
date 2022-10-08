@@ -1,20 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%><%@ page
+	language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
-<meta charset="UTF-8" http-equiv="x-ua-compatible" content="ie=edge" name="description" content="" name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="assets\img\favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="..\assets\img\favicon.png">
 		
 		<!-- all css here -->
-        <link rel="stylesheet" href="assets\css\bootstrap.min.css">
-        <link rel="stylesheet" href="assets\css\plugin.css">
-        <link rel="stylesheet" href="assets\css\bundle.css">
-        <link rel="stylesheet" href="assets\css\style.css">
-        <link rel="stylesheet" href="assets\css\responsive.css">
-        <script src="assets\js\vendor\modernizr-2.8.3.min.js"></script>
+        <link rel="stylesheet" href="..\assets\css\bootstrap.min.css">
+        <link rel="stylesheet" href="..\assets\css\plugin.css">
+        <link rel="stylesheet" href="..\assets\css\bundle.css">
+        <link rel="stylesheet" href="..\assets\css\style.css">
+        <link rel="stylesheet" href="..\assets\css\responsive.css">
+        <script src="..\assets\js\vendor\modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 
@@ -631,6 +634,7 @@
                                         <div class="row">
                                             <div class="product_active owl-carousel">
                                                 <div class="col-lg-3">
+                                              <c:forEach var="HoLy" items="${item}"> 
                                                     <div class="single_product">
                                                         <div class="product_thumb">
                                                            <a href="single-product.html"><img src="assets\img\product\product1.jpg" alt=""></a> 
@@ -643,7 +647,7 @@
                                                         </div>
                                                         <div class="product_content">
                                                             <span class="product_price">$50.00</span>
-                                                            <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
+                                                            <h3 class="product_title"><a href="#"></a></h3>
                                                         </div>
                                                         <div class="product_info">
                                                             <ul>
@@ -652,6 +656,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
+                                                </c:forEach> 
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="single_product">

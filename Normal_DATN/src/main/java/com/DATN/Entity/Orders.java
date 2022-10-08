@@ -32,7 +32,7 @@ public class Orders {
 	int Id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "OrderDate")
+	@Column(name = "Date")
 	Date orderDate = new Date();
 	
 	@Column(name = "Telephone")

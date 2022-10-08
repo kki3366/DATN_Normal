@@ -29,14 +29,12 @@ public class Category {
 	@Column(name = "Id")
 	int id;
 	
-	@Column(name = "NameCategory")
+	@Column(name = "Name")
 	String nameCategory;
 	
 	
 	@OneToMany
 	List<Product> products;
 	
-	@ManyToOne
-	@JoinColumn(name = "CategoryId")
-	SubCategory subcategory;
+
 }

@@ -30,21 +30,25 @@ public class Cart {
 	@Column(name = "Id")
 	int Id;
 	
-	@Column(name = "nameProductCart")
+	@Column(name = "Name")
 	String nameProductCart;
 	
-	@Column(name = "priceProductCart")
+	@Column(name = "Price")
 	float priceProductCart;
 	
-	@Column(name = "quanlityProductCart")
+	@Column(name = "Quanlity")
 	int quanlityProductCart;
 	
-	@Column(name = "imgProductCart")
+	@Column(name = "Img")
 	int imgProductCart;
 	
 	@ManyToOne
-	@JoinColumn(name = "Id_Users")
+	@JoinColumn(name = "Userid")
 	User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "idProduct")
+	Product product;
 	
 	@OneToMany
 	List<Product> products;

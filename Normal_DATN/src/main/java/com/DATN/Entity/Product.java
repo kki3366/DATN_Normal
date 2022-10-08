@@ -1,5 +1,6 @@
 package com.DATN.Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,12 +18,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "Products")
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class Product {
+//@AllArgsConstructor
+//@NoArgsConstructor
+
+public class Product implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +32,7 @@ public class Product {
 	int id;
 	
 	@Column(name = "Name")
-	String nameProduct;
+	String name;
 	
 	@Column(name = "Price")
 	float priceProduct;
@@ -40,7 +42,7 @@ public class Product {
 	
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "ProductDate")
+	@Column(name = "Date")
 	Date productDate = new Date();
 	
 	
@@ -58,7 +60,7 @@ public class Product {
 	float discount;
 	
 	
-	@Column(name = "ViewCount")
+	@Column(name = "Viewcount")
 	int viewCount;
 
 	
@@ -67,14 +69,10 @@ public class Product {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "CategoryId")
+	@JoinColumn(name = "Categoryid")
 	Category category;
 	
 	@ManyToOne
-	@JoinColumn(name = "SubcategoryId")
+	@JoinColumn(name = "Subcategoryid")
 	SubCategory subcategory;
-	
-	@ManyToOne
-	@JoinColumn(name = "idProductCart")
-	Product products;
 }
