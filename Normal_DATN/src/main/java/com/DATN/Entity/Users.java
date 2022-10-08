@@ -1,5 +1,6 @@
 package com.DATN.Entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,17 +10,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+@Data
 @Entity
 @Table(name = "Users")
-@Getter
-@Setter
+//@Getter
+//@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Users implements Serializable{
 	
 	@Id
 	@Column(name = "Id")
@@ -35,10 +38,10 @@ public class User {
 	String email;
 	
 	@Column(name = "Activated")
-	boolean active;
+	boolean activated;
 	
 	@Column(name = "Admin")
-	boolean admin;
+	Boolean admin;
 	
 	@OneToMany
 	List<Cart> carts;

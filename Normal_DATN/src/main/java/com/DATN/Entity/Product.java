@@ -16,13 +16,17 @@ import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+
 @Entity
 @Table(name = "Products")
-//@AllArgsConstructor
-//@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Product implements Serializable{
 	
@@ -35,15 +39,15 @@ public class Product implements Serializable{
 	String name;
 	
 	@Column(name = "Price")
-	float priceProduct;
+	float price;
 	
 	@Column(name = "Image")
-	String imgProduct;
+	String imgage;
 	
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Date")
-	Date productDate = new Date();
+	Date date = new Date();
 	
 	
 	@Column(name = "Available")

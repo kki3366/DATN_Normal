@@ -1,5 +1,6 @@
 package com.DATN.Entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+public class Cart implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,7 @@ public class Cart {
 	
 	@ManyToOne
 	@JoinColumn(name = "Userid")
-	User user;
+	Users user;
 	
 	@ManyToOne
 	@JoinColumn(name = "idProduct")

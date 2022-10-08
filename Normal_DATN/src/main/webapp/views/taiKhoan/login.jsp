@@ -4,9 +4,9 @@
 <html>
 <head>
 <title>Đăng nhập</title>
-<script src="assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!-- Custom Theme files -->
-<link href="assets/css/styleLogin.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="/assets/css/styleLogin.css" rel="stylesheet" type="text/css" media="all"/>
 <!-- for-mobile-apps -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -21,7 +21,7 @@
 <div class="header">
 		<div class="header-main">
 		       <h1>ĐĂNG NHẬP</h1>
-		       <center><span th:text="${tb}" style="color:red"></span></center>
+		       <center><span style="color:red">${tb}</span></center>
 		       <center><span th:text="${tbforgotPassword}" style="color:red"></span></center>
 			<div class="header-bottom">
 				<div class="header-right w3agile">

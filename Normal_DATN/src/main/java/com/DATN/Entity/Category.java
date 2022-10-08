@@ -1,5 +1,6 @@
 package com.DATN.Entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Category {
+public class Category implements Serializable{
 
 	
 	@Id
