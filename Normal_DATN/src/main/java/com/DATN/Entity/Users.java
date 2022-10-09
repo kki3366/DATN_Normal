@@ -42,6 +42,7 @@ public class Users implements Serializable{
 	@Column(name = "Admin")
 	Boolean admin;
 	
+
 	@OneToMany
 	List<Cart> carts;
 
@@ -112,4 +113,5 @@ public class Users implements Serializable{
 		this.orders = orders;
 	}
 	
+
 }
