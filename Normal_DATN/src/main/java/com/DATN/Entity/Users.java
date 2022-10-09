@@ -43,9 +43,9 @@ public class Users implements Serializable{
 	@Column(name = "Admin")
 	Boolean admin;
 	
-	@OneToMany
-	List<Cart> carts;
-
-	@OneToMany
-	List<Orders> orders;
+//	@OneToMany
+//	List<Cart> carts;
+//
+//	@OneToMany
+//	List<Orders> orders;
 }

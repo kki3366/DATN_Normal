@@ -18,7 +18,7 @@ public interface UserService extends UserDetailsService {
 	
 	Users saveAccountService(Users accounts);
 	
-	Users findByUsernameService(String username);
+	Optional<Users> findByUsernameService(String username);
 	Users findByEmailService(String email);
 
 	void deleteAccountById(int id);

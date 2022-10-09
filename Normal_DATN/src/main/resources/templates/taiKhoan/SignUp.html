@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html xmlns= "http://www.thymeleaf.org">
 <head>
@@ -27,19 +25,19 @@
 					
 					<div class="header-left-bottom agileinfo">
 						
-					 <form action="/register" method="post" th:object="${acc}">
-					   <i style="color:red"th:errors="*{username}"></i>
+					 <form action="/dk" method="post" th:object="${acc}">
+					   <i style="color:red"th:errors="*{id}"></i>
 					   <i style="color:red"th:text="${ktTonTai}"></i>
-						<input th:field="*{username}" type="text"name="username" placeholder="Nhập Username"/>
+					   <input th:field="*{id}" type="text"name="username" placeholder="Nhập Username"/>
 						<i style="color:red"th:errors="*{password}"></i>
 					   <input th:field="*{password}"type="password"name="password" placeholder="Nhập Password"/>
 					   <i style="color:red"th:text="${ktPass}"></i>
 						<input type="password"name="NLpassword" placeholder="Nhập lại Password"/>
 						<i style="color:red"th:errors="*{fullname}"></i>
 						<input th:field="*{fullname}"type="text"name="fullname" placeholder="Nhập FullName"/>
-						<i style="color:red"th:errors="*{email}"></i>
+						<i style="color:red"th:errors="*{Email}"></i>
 						<i style="color:red"th:text="${ktEmail}"></i>
-						<input th:field="*{email}"type="text"name="email" placeholder="Nhập Email"/>
+						<input th:field="*{Email}"type="text"name="email" placeholder="Nhập Email"/>
 	   
 					 	<div class="remember">
 			         
