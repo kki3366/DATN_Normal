@@ -1,5 +1,6 @@
 //package com.DATN.Service;
 //
+//import java.util.Collection;
 //import java.util.List;
 //import java.util.Optional;
 //
@@ -9,40 +10,60 @@
 //import com.DATN.Entity.Cart;
 //import com.DATN.Repository.CartRepository;
 //
+//
+//
+//
 //@Service
 //public class CartServiceImpl implements  CartService {
-//
-//	@Autowired
+//	@Autowired 
 //	CartRepository cartRepository;
-//	
 //	@Override
-//	public Cart saveCartService(Cart cart) {
-//		return cartRepository.save(cart);
-//	
+//	public double getAmount() {
+//		// TODO Auto-generated method stub
+//		return 0;
 //	}
 //
 //	@Override
-//	public List<Cart> findAllCartService() {
+//	public int getCount() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public Collection<Cart> getAll() {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
 //
 //	@Override
-//	public List<Cart> findCartByNameService(String cartName) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public void deleteCartById(int id) {
+//	public void clear() {
 //		// TODO Auto-generated method stub
 //		
 //	}
 //
 //	@Override
-//	public Optional<Cart> findByIdCart(int id) {
+//	public Cart update(Integer id, Integer qty) {
 //		// TODO Auto-generated method stub
-//		return Optional.empty();
+//		return null;
 //	}
 //
+//	@Override
+//	public void remove(Integer id) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void add(Cart item) {
+//		Item item2 = map.get(item.getId());
+//
+//		if(item2 == null) {
+//			map.put(item.getId(), item);
+//		}else {
+//			item2.setQty(item2.getQty()+1);
+//		}
+//		
+//	}
+//
+//	
 //}

@@ -53,4 +53,70 @@ public class Cart implements Serializable{
 	
 	@OneToMany
 	List<Product> products;
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+	public String getNameProductCart() {
+		return nameProductCart;
+	}
+
+	public void setNameProductCart(String nameProductCart) {
+		this.nameProductCart = nameProductCart;
+	}
+
+	public float getPriceProductCart() {
+		return priceProductCart;
+	}
+
+	public void setPriceProductCart(float priceProductCart) {
+		this.priceProductCart = priceProductCart;
+	}
+
+	public int getQuanlityProductCart() {
+		return quanlityProductCart;
+	}
+
+	public void setQuanlityProductCart(int quanlityProductCart) {
+		this.quanlityProductCart = quanlityProductCart;
+	}
+
+	public int getImgProductCart() {
+		return imgProductCart;
+	}
+
+	public void setImgProductCart(int imgProductCart) {
+		this.imgProductCart = imgProductCart;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+	
+	
 }

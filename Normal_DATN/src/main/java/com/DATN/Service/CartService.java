@@ -1,19 +1,23 @@
-//package com.DATN.Service;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//import com.DATN.Entity.Cart;
-//
-//public interface CartService {
-// 
-//	Cart saveCartService(Cart cart);
-//	
-//	List<Cart> findAllCartService();
-//	
-//    List<Cart> findCartByNameService(String userName);
-//	
-//	void deleteCartById(int id);
-//	
-//	Optional<Cart> findByIdCart(int id);
-//}
+package com.DATN.Service;
+
+import java.util.Collection;
+
+import com.DATN.Entity.Cart;
+
+
+public interface CartService {
+ 
+	double getAmount();
+
+	int getCount();
+
+	Collection<Cart> getAll();
+
+	void clear();
+
+	Cart update(Integer id, Integer qty);
+
+	void remove(Integer id);
+
+	void add(Cart cart);
+}
