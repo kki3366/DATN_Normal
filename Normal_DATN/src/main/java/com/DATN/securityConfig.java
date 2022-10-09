@@ -30,33 +30,33 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.csrf().disable();
-//		http.authorizeRequests()
-//
-//			.antMatchers("/order/**","/giohang").authenticated()
-//			.antMatchers("/admin/**").hasAnyRole("ADMIN")
-////			.antMatchers("/rest/authorities").hasRole("ADMIN")
-//			.anyRequest().permitAll();
-//		
-//		http.formLogin()
-//			.loginPage("/security/login/form")
-//			.loginProcessingUrl("/security/login")
-//			.defaultSuccessUrl("/index",false)
-//			.failureUrl("/security/error");
-//		
-//		http.exceptionHandling()
-//			.accessDeniedPage("/security/");
-//		
-//		http.logout()
-//			.logoutUrl("/security/logout")
-//			.logoutSuccessUrl("/security/logout");
-//		
-//		http.oauth2Login()
-//			.loginPage("/security/login/form")
-//			.defaultSuccessUrl("/loginSuccess",true)
-//			.failureUrl("/security/login/error")
-//			.authorizationEndpoint()
-//			    .baseUri("/oauth2/authorization");
+		http.csrf().disable();
+		http.authorizeRequests()
+
+			.antMatchers("/order/**","/giohang").authenticated()
+			.antMatchers("/admin/**").hasAnyRole("ADMIN")
+//			.antMatchers("/rest/authorities").hasRole("ADMIN")
+			.anyRequest().permitAll();
+		
+		http.formLogin()
+			.loginPage("/security/login/form")
+			.loginProcessingUrl("/security/login")
+			.defaultSuccessUrl("/index",false)
+			.failureUrl("/security/error");
+		
+		http.exceptionHandling()
+			.accessDeniedPage("/security/");
+		
+		http.logout()
+			.logoutUrl("/security/logout")
+			.logoutSuccessUrl("/security/logout/success");
+		
+		http.oauth2Login()
+			.loginPage("/security/login/form")
+			.defaultSuccessUrl("/loginSuccess",true)
+			.failureUrl("/security/error")
+			.authorizationEndpoint()
+			    .baseUri("/oauth2/authorization");
 
 
 

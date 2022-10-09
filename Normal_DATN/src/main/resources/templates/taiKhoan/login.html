@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
-<html>
+<html xmlns= "http://www.thymeleaf.org">
 <head>
 <title>Đăng nhập</title>
 <script src="/assets/js/jquery.min.js"></script>
@@ -21,7 +19,7 @@
 <div class="header">
 		<div class="header-main">
 		       <h1>ĐĂNG NHẬP</h1>
-		       <center><span style="color:red">${tb}</span></center>
+		      <center><span th:text="${tb}" style="color:red"></span></center>
 		       <center><span th:text="${tbforgotPassword}" style="color:red"></span></center>
 			<div class="header-bottom">
 				<div class="header-right w3agile">

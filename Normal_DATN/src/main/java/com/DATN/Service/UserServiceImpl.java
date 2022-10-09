@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		if(findByEmailService(email) == null) {
 			Users acc = new Users();
 			acc.setId(System.currentTimeMillis()+"");
-			acc.setActive(true);
+			acc.setActivated(true);
 			acc.setAdmin(role);
 			acc.setFullname(name);
 			acc.setPassword(pass);

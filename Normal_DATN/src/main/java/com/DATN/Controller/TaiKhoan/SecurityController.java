@@ -1,5 +1,7 @@
 package com.DATN.Controller.TaiKhoan;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -10,11 +12,12 @@ import com.DATN.Service.UserServiceImpl;
 
 
 
+
+
 @Controller
 public class SecurityController {
      @Autowired
      UserServiceImpl account;
-     
 	@RequestMapping("/security/login/form")
 	public String loginForm(Model m) {
 		m.addAttribute("tb","Vui lòng đăng nhập!!");
@@ -40,7 +43,7 @@ public class SecurityController {
 		m.addAttribute("tb","Không có quyền truy cập!!");
 		return "taiKhoan/login";
 	}
-	@RequestMapping("/security/logout")
+	@RequestMapping("/security/logout/success")
 	public String LogoutSuccess(Model m) {
 		m.addAttribute("tb","Bạn đã đăng xuất!!");
 		return "taiKhoan/login";
