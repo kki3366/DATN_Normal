@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Giỏ hàng</title>
+</head>
+<body>
+<table>
+ <div th:each="HoLy:${item}"  class="col-lg-3">
+ <th> [[${HoLy.nameProductCart}]]</th>
+  <th> [[${HoLy.quanlityProductCart}]]</th>
+ 
+ </div>
+ </table>
+</body>
+</html>

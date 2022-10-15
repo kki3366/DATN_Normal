@@ -42,7 +42,7 @@ public class Product implements Serializable{
 	Double price;
 	
 	@Column(name = "Image")
-	String imgage;
+	String image;
 	
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -104,12 +104,12 @@ public class Product implements Serializable{
 		this.price = price;
 	}
 
-	public String getImgage() {
-		return imgage;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImgage(String imgage) {
-		this.imgage = imgage;
+	public void setImgage(String image) {
+		this.image = image;
 	}
 
 	public Date getDate() {

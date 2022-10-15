@@ -29,37 +29,37 @@ public class Cart implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	int Id;
+	int id;
 	
 	@Column(name = "Name")
 	String nameProductCart;
 	
 	@Column(name = "Price")
-	float priceProductCart;
+	Double priceProductCart;
 	
 	@Column(name = "Quanlity")
 	int quanlityProductCart;
 	
 	@Column(name = "Img")
-	int imgProductCart;
+	String imgProductCart;
 	
 	@ManyToOne
 	@JoinColumn(name = "Userid")
 	Users user;
 	
 	@ManyToOne
-	@JoinColumn(name = "idProduct")
+	@JoinColumn(name = "idproduct")
 	Product product;
 	
 	@OneToMany
 	List<Product> products;
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNameProductCart() {
@@ -70,11 +70,11 @@ public class Cart implements Serializable{
 		this.nameProductCart = nameProductCart;
 	}
 
-	public float getPriceProductCart() {
+	public Double getPriceProductCart() {
 		return priceProductCart;
 	}
 
-	public void setPriceProductCart(float priceProductCart) {
+	public void setPriceProductCart(Double priceProductCart) {
 		this.priceProductCart = priceProductCart;
 	}
 
@@ -86,11 +86,11 @@ public class Cart implements Serializable{
 		this.quanlityProductCart = quanlityProductCart;
 	}
 
-	public int getImgProductCart() {
+	public String getImgProductCart() {
 		return imgProductCart;
 	}
 
-	public void setImgProductCart(int imgProductCart) {
+	public void setImgProductCart(String imgProductCart) {
 		this.imgProductCart = imgProductCart;
 	}
 
