@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body >
+<aside class="main-sidebar" th:fragment ="aside_templates">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" style="height: auto;">
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu tree" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Forms</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i>User Manager</a></li>
+            <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i>Product Manager</a></li>
+            <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i>Category Manager</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+</body>
+</html>

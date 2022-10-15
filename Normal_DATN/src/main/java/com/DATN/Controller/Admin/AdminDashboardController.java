@@ -9,7 +9,12 @@ public class AdminDashboardController {
 	
 	@GetMapping("test")
 	public String t(){
-		return "Admin/components/header";
+		return "Admin/test/a";
 	}
 	
+	@GetMapping("testb")
+	public String b() {
+		return "Admin/category";
+	}
+//	
 }
