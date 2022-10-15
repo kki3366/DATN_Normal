@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <!DOCTYPE HTML>
-<html>
+<!DOCTYPE HTML>
+<html xmlns= "http://www.thymeleaf.org">
 <head>
-<title>Đổi mật khẩu</title>
+<title>Quên mật khẩu</title>
 <script src="assets/js/jquery.min.js"></script>
 
 <!-- Custom Theme files -->
@@ -21,20 +19,24 @@
 <!--header start here-->
 <div class="header">
 		<div class="header-main">
-		       <h2 style="color:white;text-align:center;font-size: 50px;padding-bottom: 0.8em">ĐỔI MẬT KHẨU</h2>
-		       <center><span style="color:red" th:text="${tb}"></span></center>
+		       <h2 style="color:white;text-align:center;font-size: 50px;padding-bottom: 0.8em">QUÊN MẬT KHẨU</h2>
+		       <center><span style="color:red" th:text="${tbforgotPassword}"></span></center>
 			<div class="header-bottom">
 				<div class="header-right w3agile">
 					
 			<div class="header-left-bottom agileinfo">
 						
-	<form action="/changePass" method="post">
+	<form action="/fogetPass" method="post">
 					  
-		<input type="text"name="username" th:value="${username}" placeholder="Username"readonly/>
-		<input type="password"name="passwordcu" th:value="${password}" placeholder="Password cũ"/>			
-		<input type="password"name="passwordMoi" th:value="${password}" placeholder="Password mới"/>			   
-		<input type="password"name="passwordXN" th:value="${password}" placeholder="Xác nhận lại Password"/>
-			   
+		<input  type="text"name="username" th:value="${username}" placeholder="Nhập Username"/>
+						
+					   
+						
+	<input type="text"name="email" th:value="${email}" placeholder="Nhập Email"/>
+							  
+						
+						
+					   
 	<input type="submit" value="Gửi">
   </form>	
 					

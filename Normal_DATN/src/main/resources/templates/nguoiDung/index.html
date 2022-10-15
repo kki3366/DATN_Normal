@@ -65,8 +65,8 @@
 												          
 												        </a>
 												        <ul class="dropdown-menu">
-												          <li><a class="dropdown-item" href="#">ChangePassword</a></li>
-												           <li><a class="dropdown-item" href="#">Edit profile</a></li>
+												          <li><a class="dropdown-item" href="/changePass">ChangePassword</a></li>
+												           <li><a class="dropdown-item" href="/editProfile">Edit profile</a></li>
 												          <li th:if="${#request.isUserInRole('ADMIN')}">
                                       	                         <a th:href="@{/admin/accounts}">Administration</a>
                                                                        </li>
@@ -82,8 +82,8 @@
 												        </a>
 												        <ul class="dropdown-menu">
 												          <li><a href="/login" title="Login">Login</a></li>
-												           <li><a class="dropdown-item" href="#">Register</a></li>
-												           <li><a class="dropdown-item" href="#">Forgot password</a></li>
+												           <li><a class="dropdown-item" href="dk">Register</a></li>
+												           <li><a class="dropdown-item" href="/fogetPass">Forgot password</a></li>
 												          <li th:if="${#request.isUserInRole('ADMIN')}">
                                       	                         <a th:href="@{/admin/accounts}">Administration</a>
                                                                        </li>
