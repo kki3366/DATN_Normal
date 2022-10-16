@@ -3,12 +3,15 @@ package com.DATN.Controller.Admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class CategoryController {
+public class UserController {
 
-	@GetMapping ("admin/category")
-	public String categoryPage() {
-		return "Admin/page/category";
+	
+	@GetMapping("admin/user")
+	public String u() {
+		return "Admin/page/user";
 	}
+	
 }
