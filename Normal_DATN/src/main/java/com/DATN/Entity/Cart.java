@@ -28,7 +28,7 @@ public class Cart implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@Column(name = "Cartid")
 	int id;
 	
 	@Column(name = "Name")
@@ -45,7 +45,7 @@ public class Cart implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "Userid")
-	Users user;
+	users user;
 	
 	@ManyToOne
 	@JoinColumn(name = "idproduct")
@@ -94,11 +94,11 @@ public class Cart implements Serializable{
 		this.imgProductCart = imgProductCart;
 	}
 
-	public Users getUser() {
+	public users getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(users user) {
 		this.user = user;
 	}
 

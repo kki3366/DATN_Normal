@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.DATN.Entity.Users;
+import com.DATN.Entity.users;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.UserServiceImpl;
 
@@ -59,19 +59,19 @@ public class TaiKhoan {
 	}
 	@GetMapping("/dk")
 	public String SignUp(Model m) {
-		Users acc = new Users();
+		users acc = new users();
 		m.addAttribute("acc", acc);
 		return "taiKhoan/SignUp";
 	}
 	@SuppressWarnings("unlikely-arg-type")
 	@PostMapping("/dk")
-	public String SignUp(Model m,@Validated @ModelAttribute("acc") Users acc, Errors errors,
+	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,
 			@RequestParam("NLpassword") String NLpass) {
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Vui lòng sửa các lỗi sau:");
 		}else {
 			Integer kt = 0;
-			Optional<Users> account = users.findByUsernameService(acc.getId());
+			Optional<users> account = users.findByUsernameService(acc.getId());
 			System.err.println(account);
 			if (!account.isEmpty()) {
 				kt++;
@@ -104,7 +104,7 @@ public class TaiKhoan {
 	}
 	@PostMapping("/fogetPass")
 	public String fogetPass(Model m,@RequestParam("username") String username, @RequestParam("email") String email) {
-		Users user = u.getById(username);
+		users user = u.getById(username);
 		m.addAttribute("username", username);
 		m.addAttribute("email", email);
 		if(user != null && user.getEmail().equalsIgnoreCase(email)) {
@@ -132,7 +132,7 @@ public class TaiKhoan {
 			m.addAttribute("tbforgotPassword","Mã xác nhận không đúng!");
 			return "TaiKhoan/MaOTP";
 		}else {
-			Users acc = u.getById(name);
+			users acc = u.getById(name);
 			for(int i=0;i<1;i++) {
 	            double random = Math.random();		             
 	           random =random *1000000;   
@@ -157,7 +157,7 @@ public class TaiKhoan {
 			@RequestParam("passwordXN") String XNPass) {
 		m.addAttribute("username",req.getRemoteUser());
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		Users acc =u.getById(req.getRemoteUser());
+		users acc =u.getById(req.getRemoteUser());
 		if(acc != null) {
 			if(passMoi.isEmpty() || passMoi.isEmpty() || XNPass.isEmpty()) {
 				m.addAttribute("tb","Các dòng đang trống");
@@ -192,7 +192,7 @@ public class TaiKhoan {
 	@GetMapping("/editProfile")
 	public String editProfile(Model m) {
 		m.addAttribute("username",req.getRemoteUser());
-		Users acc = u.getById(req.getRemoteUser());
+		users acc = u.getById(req.getRemoteUser());
 		if(acc != null) {
 			m.addAttribute("pass",acc.getPassword());
 			m.addAttribute("fullname",acc.getFullname());
@@ -205,7 +205,7 @@ public class TaiKhoan {
 			@RequestParam("email") String email) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		m.addAttribute("username",req.getRemoteUser());
-		Users acc = u.getById(req.getRemoteUser());
+		users acc = u.getById(req.getRemoteUser());
 		if(acc != null) {
 			
 			if(!pass.isEmpty() && !fullname.isEmpty() && !email.isEmpty()) {

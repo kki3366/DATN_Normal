@@ -7,23 +7,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.DATN.Entity.Users;
+import com.DATN.Entity.users;
 
 
 
 public interface UserService extends UserDetailsService {
 
-	List<Users> findAllAccountService();
-	List<Users> getAllService();
+	List<users> findAllAccountService();
+	List<users> getAllService();
 	
-	Users saveAccountService(Users accounts);
+	users saveAccountService(users accounts);
 	
-	Optional<Users> findByUsernameService(String username);
-	Users findByEmailService(String email);
+	Optional<users> findByUsernameService(String username);
+	users findByEmailService(String email);
 
 	void deleteAccountById(int id);
 
 	int checkAccountName(String username);
-	Optional<Users> findByIdAccount(int id);
+	Optional<users> findByIdAccount(int id);
 	
 }

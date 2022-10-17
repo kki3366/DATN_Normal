@@ -27,7 +27,7 @@ public class SubCategory implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@Column(name = "Subcategoryid")
 	int id;
 	
 	@Column(name = "Name")

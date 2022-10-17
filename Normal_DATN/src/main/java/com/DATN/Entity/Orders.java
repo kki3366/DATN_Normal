@@ -52,7 +52,7 @@ public class Orders {
 	
 	@ManyToOne
 	@JoinColumn(name = "Userid")
-	Users user;
+	users user;
 
 	public int getId() {
 		return Id;
@@ -110,11 +110,11 @@ public class Orders {
 		this.status = status;
 	}
 
-	public Users getUser() {
+	public users getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(users user) {
 		this.user = user;
 	}
 	

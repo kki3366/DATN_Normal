@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import com.DATN.Entity.Users;
+import com.DATN.Entity.users;
 import com.DATN.Repository.UserRepository;
 @Service
 @Transactional
@@ -24,25 +24,25 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository user;
 	@Override
-	public List<Users> findAllAccountService() {
+	public List<users> findAllAccountService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Users> getAllService() {
+	public List<users> getAllService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Users saveAccountService(Users accounts) {
+	public users saveAccountService(users accounts) {
 		// TODO Auto-generated method stub
 		return user.save(accounts);
 	}
 
 	@Override
-	public Optional<Users> findByUsernameService(String username) {
+	public Optional<users> findByUsernameService(String username) {
 		// TODO Auto-generated method stub
 		return user.findById(username);
 	}
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<Users> findByIdAccount(int id) {
+	public Optional<users> findByIdAccount(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		Users acc = user.getById(username);
+		users acc = user.getById(username);
 		String pass = acc.getPassword();
 		Boolean role = acc.getAdmin();
 		
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 		
 		String email = oauth2.getPrincipal().getAttribute("email");
 		if(findByEmailService(email) == null) {
-			Users acc = new Users();
+			users acc = new users();
 			acc.setId(System.currentTimeMillis()+"");
 			acc.setActivated(true);
 			acc.setAdmin(role);
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Users findByEmailService(String email) {
+	public users findByEmailService(String email) {
 		
 		return user.findByEmail(email);
 	}

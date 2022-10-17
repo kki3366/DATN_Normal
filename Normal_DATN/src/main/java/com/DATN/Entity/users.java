@@ -21,10 +21,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users implements Serializable{
+public class users implements Serializable{
 	
 	@Id
-	@Column(name = "Id")
+	@Column(name = "Userid")
 	String id;
 	
 	@Column(name = "Password")
@@ -43,11 +43,11 @@ public class Users implements Serializable{
 	Boolean admin;
 	
 
-	@OneToMany
-	List<Cart> carts;
-
-	@OneToMany
-	List<Orders> orders;
+//	@OneToMany
+//	List<Cart> carts;
+//
+//	@OneToMany
+//	List<Orders> orders;
 
 	public String getId() {
 		return id;
@@ -97,21 +97,21 @@ public class Users implements Serializable{
 		this.admin = admin;
 	}
 
-	public List<Cart> getCarts() {
-		return carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	public List<Orders> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Orders> orders) {
-		this.orders = orders;
-	}
+//	public List<Cart> getCarts() {
+//		return carts;
+//	}
+//
+//	public void setCarts(List<Cart> carts) {
+//		this.carts = carts;
+//	}
+//
+//	public List<Orders> getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(List<Orders> orders) {
+//		this.orders = orders;
+//	}
 	
 
 }

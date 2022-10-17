@@ -2,9 +2,9 @@ package com.DATN.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.DATN.Entity.Users;
+import com.DATN.Entity.users;
 
-public interface UserRepository extends JpaRepository<Users, String> {
+public interface UserRepository extends JpaRepository<users, String> {
 
-	Users findByEmail(String email);
+	users findByEmail(String email);
 }
