@@ -3,11 +3,16 @@ package com.DATN.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DATN.Entity.Category;
+import com.DATN.Repository.CategoryRepository;
 @Service  
 public class CategoryServiceImpl implements CategoryService {
+	
+	@Autowired
+	CategoryRepository cateRepo;
 
 	@Override
 	public Category saveCategoryService(Category category) {
@@ -17,8 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> findAllCategoryService() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Category> list = cateRepo.findAll();
+		return list;
 	}
 
 	@Override
