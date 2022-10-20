@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,6 +33,7 @@ public class Category implements Serializable{
 	@Column(name = "Categoryid")
 	int id;
 	
+	@NotEmpty(message = "Không được để trống tên category")
 	@Column(name = "Name")
 	String nameCategory;
 	
