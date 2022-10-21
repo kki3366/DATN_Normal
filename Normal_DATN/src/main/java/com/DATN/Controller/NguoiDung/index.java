@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.DATN.Entity.Product;
+import com.DATN.Repository.ProductRepository;
+
 
 
 
@@ -15,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class index {
-//	@Autowired
-//	ProductRepository productRepository;
+	@Autowired
+	ProductRepository productRepository;
 
 	@RequestMapping("/index")
 	public String form(Model model) {
-//		List<Product> item = productRepository.findAll();
-//		model.addAttribute("item", item);
+		List<Product> item = productRepository.findAll();
+		model.addAttribute("item", item);
 		return "nguoiDung/index";
 	}
 }
