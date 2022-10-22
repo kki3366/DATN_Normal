@@ -55,7 +55,7 @@ public class cart {
 			item.setPriceProductCart(product.getPrice());
 			item.setImgProductCart(product.getImage());
 			item.setUser(users);
-	//		
+			
 		
 //			if(qty == 0) {
 			item.setQuanlityProductCart(1);
