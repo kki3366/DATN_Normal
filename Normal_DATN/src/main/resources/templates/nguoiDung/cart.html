@@ -37,7 +37,7 @@
                                             
                                       
                                             
-                                            
+                                          
                                                 <div  class="cart_page table-responsive">
                                                     <table>
                                                 <thead>
@@ -52,23 +52,28 @@
                                                 </thead>
                                                 <tbody >
                                                     <tr th:each="HoLy:${item}">
-                                                       <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                                        <td class="product_thumb"><a href="#"><img src="assets\img\cart\cart17.jpg" alt=""></a></td>
+                                                           <input  type="hidden" id="id" th:value="${HoLy.id}">
+                                                       <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
+                                                        <td class="product_thumb"><a href="#"><img  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
-                                                        <td class="product-price">[[${HoLy.quanlityProductCart}]]</td>
-                                                        <td class="product_quantity"><input min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
+                                                        <td class="product-price">[[${HoLy.priceProductCart}]]</td>
+                                                        <td class="product_quantity"><input id="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
                                                         <td class="product_total">£130.00</td>
 
 
                                                     </tr>
-
+                                              
                                                  
                                                 </tbody>
                                             </table>   
                                                 </div>  
                                                 <div class="cart_submit">
-                                                    <button type="submit">update cart</button>
-                                                </div>      
+                                                  <button><a th:href="@{/clearCart}">Clear cart</a></button>
+                                                    <button><a th:href="@{/updateCart}">update cart</a></button>
+                                                     <input type="submit" value="Update cart">
+                                                </div>   
+                                                     
+                                             
                                             </div>
                                          </div>
                                      </div>

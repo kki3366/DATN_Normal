@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -66,4 +67,27 @@ public class cart {
 	
 		return "redirect:/cart";
 	}
+	
+
+	@RequestMapping("/updateCart")
+	public String update( 
+			@RequestParam("id") Integer id,
+			@RequestParam("qty") Integer qty
+			) {
+		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
+			cart.update(id,qty);
+		
+		return "redirect:/cart";
+	}
+	@RequestMapping("/deleteCart/{id}")
+	public String remove(@PathVariable("id") Integer id) {
+		cart.remove(id);
+		return "redirect:/cart";
+	}
+	@RequestMapping("/clearCart")
+	public String clear() {
+		cart.clear();
+		return "redirect:/cart";
+	}
+	
 }

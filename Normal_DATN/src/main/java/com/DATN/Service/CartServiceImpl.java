@@ -13,6 +13,7 @@ import com.DATN.Repository.CartRepository;
 
 
 
+
 @Service
 public class CartServiceImpl implements  CartService {
 	@Autowired 
@@ -37,22 +38,22 @@ public class CartServiceImpl implements  CartService {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+	cartRepository.deleteAll();
 		
 	}
 
 	@Override
 	public Cart update(Integer id, Integer qty) {
-		// TODO Auto-generated method stub
-		return null;
+		Cart item =  cartRepository.getById(id);
+		item.setQuanlityProductCart(qty);
+		cartRepository.save(item);
+		return item;
 	}
 
 	@Override
 	public void remove(Integer id) {
-		// TODO Auto-generated method stub
-		//
+	cartRepository.deleteById(id);
 	}
-
 	@Override
 	public void add(Cart item) {
 	Cart	 item2 = cartRepository.findByMaSP(item.getProduct().getId());
