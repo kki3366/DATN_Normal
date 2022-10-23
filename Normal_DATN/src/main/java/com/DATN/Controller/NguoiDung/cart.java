@@ -74,8 +74,9 @@ public class cart {
 			@RequestParam("id") Integer id,
 			@RequestParam("qty") Integer qty
 			) {
-		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
-			cart.update(id,qty);
+		System.err.println(id);
+//		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
+//			cart.update(id,qty);
 		
 		return "redirect:/cart";
 	}

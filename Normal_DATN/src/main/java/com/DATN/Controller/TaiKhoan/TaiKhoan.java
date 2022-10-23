@@ -68,11 +68,15 @@ public class TaiKhoan {
 	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,
 			@RequestParam("NLpassword") String NLpass) {
 		if(errors.hasErrors()) {
-			m.addAttribute("tb", "Vui lòng sửa các lỗi sau:");
+//			m.addAttribute("tb", "Vui lòng sửa các lỗi sau:");
 		}else {
 			Integer kt = 0;
 			Optional<users> account = users.findByUsernameService(acc.getId());
 			System.err.println(account);
+//			if(acc.getId().isEmpty()) {
+//				kt++;
+//				m.addAttribute("ktTonTai", "User đã tồn tại.");
+//			}
 			if (!account.isEmpty()) {
 				kt++;
 				m.addAttribute("ktTonTai", "User đã tồn tại.");
@@ -104,7 +108,7 @@ public class TaiKhoan {
 	}
 	@PostMapping("/fogetPass")
 	public String fogetPass(Model m,@RequestParam("username") String username, @RequestParam("email") String email) {
-		users user = u.getById(username);
+		users user = u.findId(username);
 		m.addAttribute("username", username);
 		m.addAttribute("email", email);
 		if(user != null && user.getEmail().equalsIgnoreCase(email)) {

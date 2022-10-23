@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,20 +24,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class users implements Serializable{
-	
+	@NotBlank(message = "Bạn chưa nhập username")
 	@Id
 	@Column(name = "Userid")
 	String id;
 	
+	@NotBlank(message = "Bạn chưa nhập mật khẩu")
 	@Column(name = "Password")
 	String password;
 	
+	@NotBlank(message = "Bạn chưa nhập họ tên")
 	@Column(name = "fullname")
 	String fullname;
 	
+	@NotBlank(message = "Bạn chưa nhập email")
+	@Email(message = "Email chưa đúng định dạng")
 	@Column(name = "Email")
 	String email;
-	//
+	
 	@Column(name = "Activated")
 	Boolean activated;
 	
