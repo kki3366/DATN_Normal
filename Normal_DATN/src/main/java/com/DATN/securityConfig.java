@@ -34,8 +34,8 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 
 			.antMatchers("/order/**","/giohang").authenticated()
-			.antMatchers("/admin/**").hasAnyRole("ADMIN")
-			.antMatchers("/rest/authorities").hasRole("ADMIN")
+			.antMatchers("/admin/**").hasAnyRole(true+"")
+			.antMatchers("/rest/authorities").hasRole(true+"")
 			.anyRequest().permitAll();
 		
 		http.formLogin()
@@ -45,7 +45,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 			.failureUrl("/security/error");
 		
 		http.exceptionHandling()
-			.accessDeniedPage("/security/");
+			.accessDeniedPage("/security/unauthoried");
 		
 		http.logout()
 			.logoutUrl("/security/logout")
