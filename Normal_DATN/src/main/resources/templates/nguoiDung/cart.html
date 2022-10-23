@@ -30,7 +30,7 @@
 
                          <!--shopping cart area start -->
                         <div class="shopping_cart_area">
-                            <form action="#"> 
+                            <form action="/updateCart" method="POST"> 
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table_desc">
@@ -69,7 +69,7 @@
                                                 </div>  
                                                 <div class="cart_submit">
                                                   <button><a th:href="@{/clearCart}">Clear cart</a></button>
-                                                    <button><a th:href="@{/updateCart}">update cart</a></button>
+                                                    <button formaction="/updateCart">update cart<button>
                                                      <input type="submit" value="Update cart">
                                                 </div>   
                                                      
