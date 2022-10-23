@@ -52,11 +52,11 @@ public class CartServiceImpl implements  CartService {
 
 	@Override
 	public void remove(Integer id) {
-	cartRepository.deleteById(id);
+	cartRepository.deleteByIdCart(id);
 	}
 	@Override
 	public void add(Cart item) {
-	Cart	 item2 = cartRepository.findByMaSP(item.getProduct().getId());
+	Cart	 item2 = cartRepository.findByMaSP(item.getProduct().getId(),item.getUser().getId());
 
 		if(item2 == null) {
 			cartRepository.save(item);

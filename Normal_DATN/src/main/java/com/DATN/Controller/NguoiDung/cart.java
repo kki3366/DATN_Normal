@@ -2,6 +2,8 @@ package com.DATN.Controller.NguoiDung;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ import com.DATN.Service.CartService;
 @Controller
 public class cart {
 	@Autowired
+	HttpServletRequest req;
+	@Autowired
 	ProductRepository productRepository;
 	@Autowired
 	CartRepository cartRepository;
@@ -35,7 +39,7 @@ public class cart {
 
 	@RequestMapping("/cart")
 	public String form(Model model) {
-		List<Cart> item = cartRepository.findAll();
+		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 		model.addAttribute("item", item);
 		return "nguoiDung/cart";
 	}
@@ -45,7 +49,7 @@ public class cart {
 //			, @RequestParam("NLpassword") String user
 			) {
 		Product product = productRepository.getById(id);
-		users users = userRepository.getById("BaoDG");
+		users users = userRepository.getById(req.getRemoteUser());
 	
 		if(product != null) {
 			Cart item = new Cart();
@@ -81,7 +85,8 @@ public class cart {
 	}
 	@RequestMapping("/deleteCart/{id}")
 	public String remove(@PathVariable("id") Integer id) {
-		cart.remove(id);
+		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
+		cart.remove(2);
 		return "redirect:/cart";
 	}
 	@RequestMapping("/clearCart")
