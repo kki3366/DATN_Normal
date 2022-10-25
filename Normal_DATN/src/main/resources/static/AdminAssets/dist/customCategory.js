@@ -28,10 +28,30 @@ if (convertUrl.pathname = '/admin/category') {
 			},
 			columns: [
 				{ data: 'id' },
-				{ data: 'nameCategory' }
-				
+				{ data: 'nameCategory' }	
 			]
 		});
+		
+		
+		$('#submitCategory').click(function() {
+			var categoryForm = {
+				nameCategory: $('#nameCategory').val()
+			}
+			$.ajax({
+				method: 'POST',
+				dataType: 'json',
+				url: getCategoryUrl,
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify(categoryForm),
+				success: function(datas) {
+					$("#tableCategory1").DataTable().ajax.reload();
+				},
+				error: function(resp){
+					console.log(resp.responseText)
+				}
+			})
+		});
+
 	});
 } else {
 	console.log("not ok")
