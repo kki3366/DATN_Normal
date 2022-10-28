@@ -9,45 +9,54 @@ if (convertUrl.pathname = '/admin/category') {
 	$(document).ready(function() {
 		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories'
 		// Call data from API
-		$.ajax({
-			method: 'GET',
-			dataType: 'json',
-			async: false,
-			url: getCategoryUrl,
-			success: function(data) {
-				$('#tableCategory').DataTable({
-					data: data,
-					pageLength: 5,
-					lengthMenu: [5, 10, 20,25,50],
-					columns: [
-						{ 'data': 'id' },
-						{ 'data': 'nameCategory' }
-					]
-				});
-			}
+		$('#tableCategory').DataTable({
+			"ajax": {
+				"type": "GET",
+				"url": getCategoryUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			"columns": [
+				{ "data": "id" },
+				{ "data": "nameCategory" },
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
 		});
 
+		//submit from form
 		$('#submitCategory').click(function() {
 			var categoryForm = {
 				nameCategory: $('#nameCategory').val()
 			}
 			$.ajax({
 				method: 'POST',
-				dataType: 'json',
 				url: getCategoryUrl,
 				contentType: "application/json; charset=utf-8",
 				data: JSON.stringify(categoryForm),
-				success: function(datas) {
-					
+				success: function(resp, xhr) {
 					$("#tableCategory").DataTable().ajax.reload();
+					$("#message").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã thêm danh mục thành công' + '</div>')
+					$('#nameCategory').val("")
 				},
-				error: function(resp) {
-					console.log(resp.responseText)
+				statusCode: {
+					400: function(error) {
+						$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + String(error.responseJSON.errors) + '</div>')
+						$('#nameCategory').val("")
+					},
+					502: function(error) {
+						$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
+						$('#nameCategory').val("")
+					}
 				}
 			})
 		});
 		
+		//edit 
 		
+
+
 	});
 } else {
 	console.log("not ok")

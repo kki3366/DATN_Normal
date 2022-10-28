@@ -18,5 +18,5 @@ public interface CategoryService {
 	
 	Optional<Category> findByIdCategory(int id);
 	
-	
+	int checkCategoryName(String name);
 }

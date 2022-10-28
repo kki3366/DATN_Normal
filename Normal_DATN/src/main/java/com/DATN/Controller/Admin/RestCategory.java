@@ -5,13 +5,17 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +38,28 @@ public class RestCategory {
 	
 	@PostMapping(value = "/categories", consumes = "application/json")
 	public ResponseEntity<Category> saveCategory(@RequestBody @Valid Category category){
-//		if(categoryService.checkCategoryName(category.getName())> 0) {
-//			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
-//		}else {
-//			return new ResponseEntity<Category>(categoryService.saveCategoryService(category),HttpStatus.CREATED);
-//		}
-		return new ResponseEntity<Category>(categoryService.saveCategoryService(category),HttpStatus.CREATED);
+		if(categoryService.checkCategoryName(category.getNameCategory())> 0) {
+			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+		}else {
+			return new ResponseEntity<Category>(categoryService.saveCategoryService(category),HttpStatus.CREATED);
+		}
+	}
+	
+	
+	@PutMapping(value = "/categories/{id}")
+	public ResponseEntity<Category> updateCategory(@PathVariable("id") int id, @RequestBody Category category){
+			Optional<Category> categoryOption = categoryService.findByIdCategory(id);
+			return (ResponseEntity<Category>) categoryOption.map(c -> {
+				category.setId(c.getId());
+				return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
+			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+	
+	
+	@DeleteMapping("/categories/{idCategory}")
+	public ResponseEntity<HttpStatus> deleteCategoryById(@PathVariable("idCategory") int id){
+		categoryService.deleteCategoryById(id);
+		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
 	}
 	
 }

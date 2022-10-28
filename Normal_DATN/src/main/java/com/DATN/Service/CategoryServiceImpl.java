@@ -33,14 +33,18 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void deleteCategoryById(int id) {
-		// TODO Auto-generated method stub
-		
+		cateRepo.deleteById(id);
 	}
 
 	@Override
 	public Optional<Category> findByIdCategory(int id) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
+	}
+
+	@Override
+	public int checkCategoryName(String name) {
+		return cateRepo.IsExitCategory(name);
 	}
 
 
