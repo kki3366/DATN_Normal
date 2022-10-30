@@ -85,6 +85,10 @@ public class TaiKhoan {
 				kt++;
 				m.addAttribute("ktEmail", "Email đã tồn tại");
 			}
+			if (users.findByPhoneService(acc.getPhone()) != null) {
+				kt++;
+				m.addAttribute("ktPhone", "Phone đã tồn tại");
+			}
 			if (!NLpass.equals(acc.getPassword())) {
 				kt++;
 				m.addAttribute("ktPass", "Mật khẩu không khớp");
@@ -201,26 +205,33 @@ public class TaiKhoan {
 			m.addAttribute("pass",acc.getPassword());
 			m.addAttribute("fullname",acc.getFullname());
 			m.addAttribute("email", acc.getEmail());
+			m.addAttribute("phone", acc.getPhone());
 		}
 		return "taiKhoan/EditProfile";
 	}
 	@PostMapping("/editProfile")
 	public String editProfile(Model m,@RequestParam("password") String pass,@RequestParam("fullname") String fullname,
-			@RequestParam("email") String email) {
+			@RequestParam("email") String email,@RequestParam("phone") String phone) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		m.addAttribute("username",req.getRemoteUser());
 		users acc = u.getById(req.getRemoteUser());
 		if(acc != null) {
 			
-			if(!pass.isEmpty() && !fullname.isEmpty() && !email.isEmpty()) {
-				acc.setPassword(pe.encode(pass));
-				acc.setFullname(fullname);
-				acc.setEmail(email);
-				users.saveAccountService(acc);
-				m.addAttribute("tb","Cập nhật thành công");
-				m.addAttribute("pass",acc.getPassword());
-				m.addAttribute("fullname",acc.getFullname());
-				m.addAttribute("email",acc.getEmail());
+			if(!pass.isEmpty() && !fullname.isEmpty() && !email.isEmpty() && !phone.isEmpty()) {
+				
+				
+					acc.setPassword(pe.encode(pass));
+					acc.setFullname(fullname);
+					acc.setEmail(email);
+					acc.setPhone(phone);
+					users.saveAccountService(acc);
+					m.addAttribute("tb","Cập nhật thành công");
+					m.addAttribute("pass",acc.getPassword());
+					m.addAttribute("fullname",acc.getFullname());
+					m.addAttribute("email",acc.getEmail());
+					m.addAttribute("phone", acc.getPhone());
+				
+				
 			}else {
 				m.addAttribute("tb","Cập nhật thất bại");
 			}
@@ -240,7 +251,7 @@ public class TaiKhoan {
 			protected PasswordAuthentication getPasswordAuthentication() {
 		
 			String username = "trungttpc01815@fpt.edu.vn";
-			String password = "zloucbkhuqdcuwfd";
+			String password = "bneeplngfiaciwmg";
 			return new PasswordAuthentication(username, password);
 			}
 		});

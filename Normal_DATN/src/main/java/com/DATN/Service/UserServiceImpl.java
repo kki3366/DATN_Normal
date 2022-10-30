@@ -107,4 +107,9 @@ public class UserServiceImpl implements UserService {
 		
 		return user.findByEmail(email);
 	}
+	@Override
+	public users findByPhoneService(String phone) {
+		
+		return user.findByPhone(phone);
+	}
 }
