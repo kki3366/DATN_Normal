@@ -3,6 +3,7 @@ package com.DATN.Service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import com.DATN.SessionService;
 import com.DATN.Entity.users;
 import com.DATN.Repository.UserRepository;
 @Service
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository user;
+	@Autowired
+	SessionService session;
 	@Override
 	public List<users> findAllAccountService() {
 		// TODO Auto-generated method stub
@@ -68,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-		users acc = user.getById(username);
+		users acc = user.findId(username);
 		String pass = acc.getPassword();
 		Boolean role = acc.getAdmin();
 		
