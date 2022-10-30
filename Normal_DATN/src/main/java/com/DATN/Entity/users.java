@@ -108,6 +108,14 @@ public class users implements Serializable{
 		this.admin = admin;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 //	public List<Cart> getCarts() {
 //		return carts;
 //	}
