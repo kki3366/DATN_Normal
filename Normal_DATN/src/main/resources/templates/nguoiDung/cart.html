@@ -29,8 +29,9 @@
 
 
                          <!--shopping cart area start -->
+                          <form th:action="@{/updateCart}" th:method="post"  > 
                         <div class="shopping_cart_area">
-                            <form action="/updateCart" method="POST"> 
+                           
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="table_desc">
@@ -52,13 +53,13 @@
                                                 </thead>
                                                 <tbody >
                                                     <tr th:each="HoLy:${item}">
-                                                           <input  type="hidden" id="id" th:value="${HoLy.id}">
+                                                           <input type="hidden" name="idcart" th:value="${HoLy.id}">
                                                        <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
                                                         <td class="product_thumb"><a href="#"><img  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
-                                                        <td class="product-price">[[${HoLy.priceProductCart}]]</td>
-                                                        <td class="product_quantity"><input id="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
-                                                        <td class="product_total">£130.00</td>
+                                                        <td class="product-price">[[${HoLy.priceProductCart}*1]]</td>
+                                                        <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
+                                                        <td class="product_total">[[${HoLy.priceProductCart * HoLy.quanlityProductCart}*1]]</td>
 
 
                                                     </tr>
@@ -68,9 +69,9 @@
                                             </table>   
                                                 </div>  
                                                 <div class="cart_submit">
-                                                  <button><a th:href="@{/clearCart}">Clear cart</a></button>
-                                                    <button formaction="/updateCart">update cart<button>
-                                                     <input type="submit" value="Update cart">
+                                           
+                                                 
+                                              <button>update cart<button>
                                                 </div>   
                                                      
                                              
@@ -96,7 +97,7 @@
                                                     <div class="coupon_inner">
                                                        <div class="cart_subtotal">
                                                            <p>Subtotal</p>
-                                                           <p class="cart_amount">£215.00</p>
+                                                           <p class="cart_amount">[[${tongTien}*1]]</p>
                                                        </div>
                                                        <div class="cart_subtotal ">
                                                            <p>Shipping</p>
@@ -117,8 +118,9 @@
                                         </div>
                                     </div>
                                     <!--coupon code area end-->
-                                </form> 
+                            
                          </div>
+                             </form> 
                          <!--shopping cart area end -->
 
    

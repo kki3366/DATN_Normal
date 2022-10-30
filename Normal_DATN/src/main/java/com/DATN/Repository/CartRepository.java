@@ -13,9 +13,13 @@ public interface CartRepository extends JpaRepository<Cart, Integer>{
 	@Query("SELECT o FROM Cart o WHERE o.product.id=?1 and o.user.id=?2")
     Cart  findByMaSP(Integer id, String user);
 	
+	@Query("SELECT SUM(o.priceProductCart * o.quanlityProductCart) FROM Cart o WHERE o.user.id=?1")
+    Double  tongTien(String user);
+	
 	@Query("SELECT o FROM Cart o WHERE o.user.id=?1")
     List<Cart>  findByIdUser(String user);
 	
-	@Query("SELECT o FROM Cart o WHERE o.id=?1")
+	
+	@Query("DELETE FROM Cart o WHERE o.id=?1")
     Cart  deleteByIdCart(Integer id);
 }

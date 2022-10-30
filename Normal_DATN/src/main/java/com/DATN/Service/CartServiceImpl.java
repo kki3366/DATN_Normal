@@ -20,13 +20,11 @@ public class CartServiceImpl implements  CartService {
 	CartRepository cartRepository;
 	@Override
 	public double getAmount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -45,14 +43,14 @@ public class CartServiceImpl implements  CartService {
 	@Override
 	public Cart update(Integer id, Integer qty) {
 		Cart item =  cartRepository.getById(id);
-		item.setQuanlityProductCart(qty);
+		item.setQuanlityProductCart(8);
 		cartRepository.save(item);
 		return item;
 	}
 
 	@Override
 	public void remove(Integer id) {
-	cartRepository.deleteByIdCart(id);
+	cartRepository.deleteById(id);
 	}
 	@Override
 	public void add(Cart item) {
