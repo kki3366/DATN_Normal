@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<users> findAllAccountService() {
 		// TODO Auto-generated method stub
-		return null;
+		return user.findAll();
 	}
 
 	@Override
