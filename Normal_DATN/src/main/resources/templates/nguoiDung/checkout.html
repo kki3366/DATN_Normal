@@ -70,7 +70,7 @@
                                
                                                     <div class="col-lg-6 mb-30">
                                                         <label>Phone<span>*</span></label>
-                                                        <input name="phone" type="text"> 
+                                                        <input name="phone" type="text" th:value="${acc.phone}" > 
 
                                                     </div> 
                                                      <div class="col-lg-6 mb-30">
@@ -89,7 +89,7 @@
                                                             <textarea id="order_note" name="description" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                                         </div>    
                                                     </div>   
-                                                     <input type="text" name="status"  >    	    	    	    	    	    	    
+                                                     <input type="hidden" name="status" th:value="Ordering">    	    	    	    	    	    	    
                                                 </div>
                                                             <div class="payment_method">
                                                    <div class="panel-default">
