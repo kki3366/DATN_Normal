@@ -10,12 +10,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 @Data
 @Entity
@@ -51,6 +53,7 @@ public class users implements Serializable{
 	Boolean activated;
 	
 	@Column(name = "Admin")
+	@NotNull(message = "Bạn chưa chọn vai trò")
 	Boolean admin;
 	
 
