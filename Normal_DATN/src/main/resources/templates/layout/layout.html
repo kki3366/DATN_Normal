@@ -61,8 +61,13 @@
 												        <ul class="dropdown-menu">
 												          <li><a class="dropdown-item" href="/changePass">ChangePassword</a></li>
 												           <li><a class="dropdown-item" href="/editProfile">Edit profile</a></li>
+<<<<<<< HEAD
 												            <li><a class="dropdown-item" th:href="@{/orderHistory}">Order History</a></li>
                                       	                         <a th:href="@{/admin/accounts}">Administration</a>
+=======
+												          <li th:if="${#request.isUserInRole('true')}">
+                                      	                         <a th:href="@{/admin/user?edit=false}">Administration</a>
+>>>>>>> branch 'master' of https://github.com/kki3366/DATN_Normal.git
                                                                        </li>
                                                                        
 												          <li><hr class="dropdown-divider"></li>

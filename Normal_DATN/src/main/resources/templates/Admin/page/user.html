@@ -18,43 +18,60 @@
               <div class="box-body">
                
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Username</label>
+                  <label for="exampleInputEmail1">Username</label><br>
                    <i style="color:red" th:errors="*{id}"></i>
-                  <i style="color:red" th:text="${user}"></i>
-                  <input th:field="*{id}" type="text" class="form-control" placeholder="Enter Username">
+                  <i style="color:red" th:text="${ktTonTai}"></i>
+                  <div th:if="${edit} == false">
+                       <input th:field="*{id}" type="text" class="form-control" placeholder="Enter Username">
+                  </div>
+                  <div th:if="${edit} == true">
+                       <input th:field="*{id}" type="text" class="form-control" placeholder="Enter Username" readonly>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
+                  <label for="exampleInputPassword1">Password</label><br>
                   <i style="color:red"th:errors="*{password}"></i>
-                  <input th:field="*{password}" type="password" class="form-control" placeholder="Enter Password">
+                  <input th:field="*{password}" type="text" class="form-control" placeholder="Enter Password">
                 </div>
                <div class="form-group">
-                  <label for="exampleInputPassword1">FullName</label>
+                  <label for="exampleInputPassword1">FullName</label><br>
                    <i style="color:red"th:errors="*{fullname}"></i>
                   <input th:field="*{fullname}" type="text" class="form-control" placeholder="Enter FullName">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Phone</label>
+                  <label for="exampleInputPassword1">Phone</label><br>
                    <i style="color:red"th:errors="*{phone}"></i>
+                   <i style="color:red" th:text="${ktPhone}"></i>
                   <input th:field="*{phone}" type="text" class="form-control"  placeholder="Enter Phone">
                 </div>
                  <div class="form-group">
-                  <label for="exampleInputPassword1">Email</label>
-                  <i style="color:red"th:errors="*{Email}"></i>
+                  <label for="exampleInputPassword1">Email</label><br>
+                  <i style="color:red"th:errors="*{email}"></i>
+                  <i style="color:red" th:text="${ktEmail}"></i>
                   <input th:field="*{Email}" type="text" class="form-control"  placeholder="Enter Email">
                 </div>
                  <div >
-                  <label for="exampleInputPassword1">Role</label>
-                  <input th:field="*{admin}" type="radio" name="role"   value="false">User
-                   <input th:field="*{admin}" type="radio"name="role"   value="true">Admin
+                  <label for="exampleInputPassword1">Role</label><br>
+                   <i style="color:red"th:errors="*{admin}"></i><br>
+                  <input th:field="*{admin}" type="radio" name="role" value="false">User&ensp;
+                   <input th:field="*{admin}" type="radio"name="role" value="true">Admin
                 </div> 
               </div>
               <!-- /.box-body -->
                       <i style="color:red" th:text="${tb}"></i>
-                      <i style="color:red" th:errors="*{id}"></i>
-                      <i style="color:red" th:text="${user}"></i>
+                   
               <div class="box-footer">
-                <button class="btn btn-primary">Add</button>
+                <div th:if="${edit} == true">
+                <button class="btn btn-primary" disabled>Add</button>
+                    <button formaction="/admin/user/update" class="btn btn-primary">Update</button>
+                    
+                </div>
+                <div th:unless="${edit} == true">
+                   <button class="btn btn-primary">Add</button>
+                 <button formaction="/admin/user/update" class="btn btn-primary" disabled>Update</button>
+                     
+                </div>
+               
               </div>
             </form>
           </div>
@@ -107,7 +124,7 @@
                   <div th:unless="${Users.admin}==true">
                          <td class="sorting_1">User</td>
                     </div>
-                  <td class="sorting_1"><a href="">Edit</a></td>
+                  <td class="sorting_1"><a th:href="@{|/admin/user/edit?user=${Users.id}&edit=true|}">Edit</a></td>
                   <div th:if="${Users.activated}==true">
                         <td class="sorting_1"><a href="">Ẩn</a></td>
                        
