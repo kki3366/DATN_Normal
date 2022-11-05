@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org" 
+  th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
+
+<head>
+<meta charset="UTF-8">
+<title>History</title>
+</head>
+<body>
+  <!--header end -->
+                         <!--breadcrumbs area start-->
+                        <div class="breadcrumbs_area">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="breadcrumb_content">
+                                        <ul>
+                                            <li><a href="index.html">home</a></li>
+                                            <li><i class="fa fa-angle-right"></i></li>
+                                            <li>Order History</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--breadcrumbs area end-->
+
+
+
+                         <!--shopping cart area start -->
+                        <div class="shopping_cart_area">
+                           
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table_desc">
+                                            
+                                      
+                                            
+                                          
+                                                <div  class="cart_page table-responsive">
+                                                    <table>
+                                                <thead>
+                                                    <tr>
+                                                       
+                                                           <th class="product_thumb">Date</th>
+                                                        <th class="product_name">Telephone</th>
+                                                        <th class="product-name">Address</th>
+                                                        <th class="product_total">Amount</th>
+                                                        <th class="product_remove">View</th>
+                                                        <th class="product_remove">Cancel Order</th>
+                                                       
+                                                       
+                                                       
+                                                       
+                                                     
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+                                                    <tr th:each="HoLy:${item}">
+                                                          <td class="product_thumb"> [[${HoLy.orderDate}]]</td>
+                                                        <td class="product_name"> [[${HoLy.phone}]]</td>
+                                                        <td class="product-name">[[${HoLy.address}]]</td>
+                                                        <td class="product_total">[[${HoLy.amount}*1]]</td>
+                                                        <td class="product_remove"><a ><i class="fa fa-trash-o"></i></a></td>
+                                                        <td class="product_remove"><a th:href="@{|/orderHistoryDetail/${HoLy.id}|}">See Details</a></td>
+                                                    
+                                                     
+
+                                                    </tr>
+                                              
+                                                 
+                                                </tbody>
+                                            </table>   
+                                                </div>  
+                                               
+                                                     
+                                             
+                                            </div>
+                                         </div>
+                                     </div>
+                       
+                            
+                         </div>
+                         
+                         <!--shopping cart area end -->
+
+   
+</body>
+</html>
