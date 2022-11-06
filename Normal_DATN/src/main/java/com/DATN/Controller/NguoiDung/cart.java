@@ -41,7 +41,9 @@ public class cart {
 	public String form(Model model) {
 		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 		Double tongTien = cartRepository.tongTien(req.getRemoteUser());
-		System.err.println(tongTien);		
+		
+		
+		
 		model.addAttribute("item", item);
 		model.addAttribute("tongTien", tongTien);
 
@@ -80,24 +82,28 @@ public class cart {
 	@RequestMapping("/updateCart")
 	public String update( 
 			@RequestParam("idcart") Integer id,
-			@RequestParam("qty") Integer qty,
-			HttpServletRequest req) {
+			@RequestParam("qty") Integer qty
+			) {
 	
 		System.err.println(id);
-//		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
-			cart.update(3,10);
+		System.err.println(qty);
+			cart.update(id,qty);
 		
 		return "redirect:/cart";
 	}
 	@RequestMapping("/deleteCart/{id}")
 	public String remove(@PathVariable("id") Integer id) {
-		System.out.println("Nhu con caccccccccccccccccccccccccccccccccccccccccccccccccc");
 		cart.remove(id);
 		return "redirect:/cart";
 	}
 	@RequestMapping("/clearCart")
 	public String clear() {
-		cart.clear();
+		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
+		if(item !=null) {
+		for(Cart carts:item) {
+		cart.clear(carts.getId());
+		}
+		}
 		return "redirect:/cart";
 	}
 	

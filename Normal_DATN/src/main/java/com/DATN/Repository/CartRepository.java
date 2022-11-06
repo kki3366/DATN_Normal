@@ -20,6 +20,6 @@ public interface CartRepository extends JpaRepository<Cart, Integer>{
     List<Cart>  findByIdUser(String user);
 	
 	
-	@Query("DELETE FROM Cart o WHERE o.id=?1")
-    Cart  deleteByIdCart(Integer id);
+	@Query("DELETE FROM Cart o WHERE o.user.id=?1")
+    Cart  deleteByIdUser(String id);
 }

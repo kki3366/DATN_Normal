@@ -51,8 +51,8 @@ public class Cart implements Serializable{
 	@JoinColumn(name = "idproduct")
 	Product product;
 	
-	@OneToMany
-	List<Product> products;
+//	@OneToMany
+//	List<Product> products;
 
 	public int getId() {
 		return id;
@@ -110,13 +110,13 @@ public class Cart implements Serializable{
 		this.product = product;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+//	public List<Product> getProducts() {
+//		return products;
+//	}
+//
+//	public void setProducts(List<Product> products) {
+//		this.products = products;
+//	}
 	
 	
 }

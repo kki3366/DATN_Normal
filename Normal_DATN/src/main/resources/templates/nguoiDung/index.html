@@ -175,8 +175,9 @@
                                                                <img src="assets\img\cart\span-new.png" alt="">
                                                            </div>
                                                            <div class="product_action">
-                                                               <a th:href="@{|/addCart/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                               <a onclick="alert('Added to cart!')" th:href="@{|/addCart/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
                                                            </div>
+                                                      
                                                         </div>
                                                         <div class="product_content">
                                                             <span class="product_price">[[${HoLy.price}]]</span>

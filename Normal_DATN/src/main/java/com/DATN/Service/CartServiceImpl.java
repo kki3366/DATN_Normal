@@ -35,15 +35,15 @@ public class CartServiceImpl implements  CartService {
 	}
 
 	@Override
-	public void clear() {
-	cartRepository.deleteAll();
+	public void clear(Integer id) {
+	cartRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Cart update(Integer id, Integer qty) {
 		Cart item =  cartRepository.getById(id);
-		item.setQuanlityProductCart(8);
+		item.setQuanlityProductCart(qty);
 		cartRepository.save(item);
 		return item;
 	}

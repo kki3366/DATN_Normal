@@ -21,11 +21,14 @@ import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
 import com.DATN.Repository.ProductRepository;
 import com.DATN.Repository.UserRepository;
+import com.DATN.Service.CartService;
 
 @Controller
 public class checkout {
 	@Autowired
 	CartRepository cartRepository;
+	@Autowired
+	CartService cartService;
 	@Autowired
 	ProductRepository productRepository;
 	@Autowired
@@ -79,10 +82,11 @@ public class checkout {
 				od.setProduct(product);
 				od.setOrder(ord);
 				
-				orderDetailRepository.save(od);
+				orderDetailRepository.save(od); 
+				cartService.clear(cart.getId());
+				
 			}
-			
-			
+
 			
 			
 		} catch (Exception e) {
