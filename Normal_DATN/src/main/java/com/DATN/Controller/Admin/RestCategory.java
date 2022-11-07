@@ -56,6 +56,15 @@ public class RestCategory {
 				return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
 			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
+	@PutMapping(value = "/categories")
+	public ResponseEntity<Category> updateCategory1( @RequestBody Category category){
+		Optional<Category> categoryOption = categoryService.findByIdCategory(category.getId());
+		System.err.println(category.getId());
+		return (ResponseEntity<Category>) categoryOption.map(c -> {
+			category.setId(c.getId());
+			return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
+		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
 
 	
 	@DeleteMapping("/categories/{idCategory}")

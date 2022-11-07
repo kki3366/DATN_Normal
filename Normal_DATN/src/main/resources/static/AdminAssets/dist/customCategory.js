@@ -8,10 +8,10 @@ var editor;
 if (convertUrl.pathname = '/admin/category') {
 	$(document).ready(function() {
 		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories'
+		var putCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories/'
 		// Call data from API
 
-		/*$('#tableCategory').DataTable({
-
+		$('#tableCategory').DataTable({
 			ajax: {
 				"type": "GET",
 				"url": getCategoryUrl,
@@ -25,17 +25,8 @@ if (convertUrl.pathname = '/admin/category') {
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
-			order: [[0, 'asc']],
-			select: {
-				style: 'os',
-				selector: 'td:first-child'
-			},
-			buttons: [
-				{ extend: "create", editor: editor },
-				{ extend: "edit", editor: editor },
-				{ extend: "remove", editor: editor }
-			]
-		});*/
+			order: [[0, 'asc']]
+		})
 
 		//submit from form
 		$('#submitCategory').click(function() {
@@ -65,50 +56,40 @@ if (convertUrl.pathname = '/admin/category') {
 			})
 		});
 		//edit
+		
 		editor = new $.fn.dataTable.Editor({
 			ajax: {
-				"type": "GET",
-				"url": getCategoryUrl,
-				"dataSrc": function(resp) {
-					return resp;
+				edit: {
+					type: 'PUT',
+					url: getCategoryUrl,
+					contentType: "application/json",
+					data: function(d, action) {
+						/*console.log(JSON.stringify(d.data[Object.keys(d.data)[0]]))
+						console.log(d)*/
+						//return JSON.stringify(d);
+						if(action = 'edit'){
+							console.log(JSON.stringify(d.data))
+							console.log(typeof(d))
+							return JSON.stringify(d.data[Object.keys(d.data)[0]])
+						}
+					}
 				}
 			},
 			table: "#tableCategory",
 			idSrc: 'id',
-			fields: [{
-				label: "Name Category:",
-				name: "nameCategory"
-			}
+			rowId: 'id',
+			fields: [
+				{
+	
+					label: "Doing Edit",
+					name: "nameCategory"
+				}
 			]
 		});
 		$('#tableCategory').on('click', 'tbody td:not(:first-child)', function(e) {
 			editor.inline(this);
 		});
-$('#tableCategory').DataTable({
-	ajax: {
-				"type": "GET",
-				"url": getCategoryUrl,
-				"dataSrc": function(resp) {
-					return resp;
-				}
-			},
-			columns: [
-				{ "data": "id" },
-				{ "data": "nameCategory" }
-			],
-			pageLength: 5,
-			lengthMenu: [5, 10, 20, 25, 50],
-			order: [[0, 'asc']],
-			select: {
-				style: 'os',
-				selector: 'td:first-child'
-			},
-			buttons: [
-				{ extend: "create", editor: editor },
-				{ extend: "edit", editor: editor },
-				{ extend: "remove", editor: editor }
-			]
-})
+
 	});
 } else {
 	console.log("not ok")
