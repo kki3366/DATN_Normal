@@ -4,26 +4,38 @@ var protocol = window.location.protocol
 baseUrl = protocol + '//' + hostname + ':' + port
 currentUrl = window.location.href;
 var convertUrl = new URL(currentUrl)
-
+var editor;
 if (convertUrl.pathname = '/admin/category') {
 	$(document).ready(function() {
 		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories'
 		// Call data from API
-		$('#tableCategory').DataTable({
-			"ajax": {
+
+		/*$('#tableCategory').DataTable({
+
+			ajax: {
 				"type": "GET",
 				"url": getCategoryUrl,
 				"dataSrc": function(resp) {
 					return resp;
 				}
 			},
-			"columns": [
+			columns: [
 				{ "data": "id" },
-				{ "data": "nameCategory" },
+				{ "data": "nameCategory" }
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
-		});
+			order: [[0, 'asc']],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			},
+			buttons: [
+				{ extend: "create", editor: editor },
+				{ extend: "edit", editor: editor },
+				{ extend: "remove", editor: editor }
+			]
+		});*/
 
 		//submit from form
 		$('#submitCategory').click(function() {
@@ -52,11 +64,51 @@ if (convertUrl.pathname = '/admin/category') {
 				}
 			})
 		});
-		
-		//edit 
-		
-
-
+		//edit
+		editor = new $.fn.dataTable.Editor({
+			ajax: {
+				"type": "GET",
+				"url": getCategoryUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			table: "#tableCategory",
+			idSrc: 'id',
+			fields: [{
+				label: "Name Category:",
+				name: "nameCategory"
+			}
+			]
+		});
+		$('#tableCategory').on('click', 'tbody td:not(:first-child)', function(e) {
+			editor.inline(this);
+		});
+$('#tableCategory').DataTable({
+	ajax: {
+				"type": "GET",
+				"url": getCategoryUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "id" },
+				{ "data": "nameCategory" }
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [[0, 'asc']],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			},
+			buttons: [
+				{ extend: "create", editor: editor },
+				{ extend: "edit", editor: editor },
+				{ extend: "remove", editor: editor }
+			]
+})
 	});
 } else {
 	console.log("not ok")

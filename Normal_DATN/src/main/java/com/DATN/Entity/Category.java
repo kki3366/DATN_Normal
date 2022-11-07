@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,12 +34,12 @@ public class Category implements Serializable{
 	@Column(name = "Categoryid")
 	int id;
 	
-	@NotEmpty(message = "Không được để trống tên category")
+	@NotEmpty(message = "Không được để trống tên danh mục")
 	@Column(name = "Name")
 	String nameCategory;
 	
 	@JsonBackReference
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
 	List<Product> products;
 
 
