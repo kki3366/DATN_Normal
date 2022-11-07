@@ -15,4 +15,3 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 }
-

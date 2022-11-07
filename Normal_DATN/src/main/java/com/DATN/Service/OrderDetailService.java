@@ -7,4 +7,3 @@ public interface OrderDetailService {
 
 	OrderDetail save (OrderDetail orderdetail);
 }
-
