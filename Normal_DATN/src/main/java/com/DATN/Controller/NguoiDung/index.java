@@ -12,10 +12,6 @@ import com.DATN.Entity.Product;
 import com.DATN.Repository.ProductRepository;
 
 
-
-
-
-
 @Controller
 public class index {
 	@Autowired

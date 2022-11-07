@@ -28,15 +28,15 @@ public class Orders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
-	int Id;
+	@Column(name = "Orderid")
+	int id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Date")
 	Date orderDate = new Date();
 	
 	@Column(name = "Telephone")
-	int telePhone;
+	String phone;
 	
 	@Column(name = "Address")
 	String address;
@@ -48,18 +48,18 @@ public class Orders {
 	String description;
 	
 	@Column(name = "Status")
-	int status;
+	String status;
 	
 	@ManyToOne
 	@JoinColumn(name = "Userid")
 	users user;
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Date getOrderDate() {
@@ -70,12 +70,12 @@ public class Orders {
 		this.orderDate = orderDate;
 	}
 
-	public int getTelePhone() {
-		return telePhone;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setTelePhone(int telePhone) {
-		this.telePhone = telePhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getAddress() {
@@ -102,11 +102,11 @@ public class Orders {
 		this.description = description;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

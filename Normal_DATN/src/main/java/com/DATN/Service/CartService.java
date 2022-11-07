@@ -13,7 +13,7 @@ public interface CartService {
 
 	Collection<Cart> getAll();
 
-	void clear();
+	void clear(Integer id);
 
 	Cart update(Integer id, Integer qty);
 

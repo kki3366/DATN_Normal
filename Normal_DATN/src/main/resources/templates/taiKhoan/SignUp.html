@@ -35,6 +35,9 @@
 						<input type="password"name="NLpassword" placeholder="Nhập lại Password"/>
 						<i style="color:red"th:errors="*{fullname}"></i>
 						<input th:field="*{fullname}"type="text"name="fullname" placeholder="Nhập FullName"/>
+						<i style="color:red"th:errors="*{phone}"></i>
+						<i style="color:red"th:text="${ktPhone}"></i>
+						<input th:field="*{Phone}"type="text"name="email" placeholder="Nhập Phone"/>
 						<i style="color:red"th:errors="*{email}"></i>
 						<i style="color:red"th:text="${ktEmail}"></i>
 						<input th:field="*{Email}"type="text"name="email" placeholder="Nhập Email"/>

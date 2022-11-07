@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org" 
+  th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
+
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
+</head>
+    <body>
+
+                        <!--header end -->
+                         <!--breadcrumbs area start-->
+                        <div class="breadcrumbs_area">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="breadcrumb_content">
+                                        <ul>
+                                            <li><a href="index.html">home</a></li>
+                                            <li><i class="fa fa-angle-right"></i></li>
+                                            <li>checkout</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--breadcrumbs area end-->
+
+
+                        <!--Checkout page section-->
+                        <div class="Checkout_section">
+                            <div class="row">
+                                   <div class="col-12">
+                    
+                                   </div>
+                                </div>
+                            <div class="checkout_form">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6">
+                                            <form th:action="@{/addOrder}" mehtod="post" >
+                                                <h3>Billing Details</h3>
+                                                <div class="row">
+                                                <input type="hidden" name="amount"  th:value="${tongTien}" >  
+                                                    <div class="col-12 mb-30">
+                                                        <label>User Name <span>*</span></label>
+                                                        <input type="text" name="user" th:value="${acc.id}" readonly>    
+                                                    </div>
+                                           <!--        <div class="col-lg-6 mb-30">
+                                                        <label>Last Name  <span>*</span></label>
+                                                        <input type="text"> 
+                                                    </div> -->   
+                                                  
+                                                  <!--  <div class="col-12 mb-30">
+                                                        <label for="country">country <span>*</span></label>
+                                                        <select name="cuntry" id="country"> 
+                                                            <option value="2">bangladesh</option>      
+                                                            <option value="3">Algeria</option> 
+                                                            <option value="4">Afghanistan</option>    
+                                                            <option value="5">Ghana</option>    
+                                                            <option value="6">Albania</option>    
+                                                            <option value="7">Bahrain</option>    
+                                                            <option value="8">Colombia</option>    
+                                                            <option value="9">Dominican Republic</option>   
+
+                                                        </select> 
+                                                    </div>   -->
+
+                                              
+                                 
+                               
+                                                    <div class="col-lg-6 mb-30">
+                                                        <label>Phone<span>*</span></label>
+                                                        <input name="phone" type="text" th:value="${acc.phone}" > 
+
+                                                    </div> 
+                                                     <div class="col-lg-6 mb-30">
+                                                        <label> Email <span>*</span></label>
+                                                          <input type="text" name="email" th:value="${acc.email}" readonly> 
+
+                                                    </div> 
+                                                          <div class="col-12 mb-30">
+                                                        <label>Address  <span>*</span></label>
+                                                        <input placeholder="House number and street name" name="address" type="text">     
+                                                    </div>
+     
+                                                    <div class="col-12">
+                                                        <div class="order-notes">
+                                                             <label for="order_note">Order Notes</label>
+                                                            <textarea id="order_note" name="description" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                                        </div>    
+                                                    </div>   
+                                                     <input type="hidden" name="status" th:value="Ordering">    	    	    	    	    	    	    
+                                                </div>
+                                                            <div class="payment_method">
+                                                   <div class="panel-default">
+                                                        <input id="payment" name="check_method" type="radio" data-target="createp_account">
+                                                        <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Thanh toán bằng tiền mặt</label>
+
+                                                        <div id="method" class="collapse one" data-parent="#accordion">
+                                                            <div class="card-body1">
+                                                               <p>Thanh toán khi nhận được hàng</p>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                   <div class="panel-default">
+                                                        <input id="payment_defult" name="check_method" type="radio" data-target="createp_account">
+                                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">Ví điện tử <img src="assets\img\visha\papyel.png" alt=""></label>
+
+                                                        <div id="collapsedefult" class="collapse one" data-parent="#accordion">
+                                                            <div class="card-body1">
+                                                               <p>Thanh toán qua ví điện tử</p> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="order_button">
+                                                        <button type="submit">Tiến hành đặt hành</button> 
+                                                    </div>    
+                                                </div> 
+                                            </form>    
+                                        </div>
+                                        <div class="col-lg-8 col-md-6">
+                                            <form action="#">    
+                                                <h3>Your order</h3> 
+                                                <div class="order_table table-responsive mb-30">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                 <th>Image</th>
+                                                                <th>Product</th>
+                                                                <th>Price</th>
+                                                                <th>Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           <tr th:each="HoLy:${item}">
+                                                                <td><a href="#"><img style="width:60px;"  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
+                                                                <td> [[${HoLy.nameProductCart}]]<strong> x [[${HoLy.quanlityProductCart}]]</strong></td>
+                                                                <td>[[${HoLy.priceProductCart}*1]]</td>
+                                                                <td>[[${HoLy.priceProductCart * HoLy.quanlityProductCart}*1]]</td>
+                                                            </tr>
+                                                        
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Cart Subtotal</th>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>[[${tongTien}*1]]</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Shipping</th>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td><strong>30000</strong></td>
+                                                            </tr>
+                                                            <tr class="order_total">
+                                                                <th>Order Total</th>
+                                                                <td></td>
+                                                                <td></td> 
+                                                                <td><strong>[[${tongTien + 30000}*1]]</strong></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>     
+                                                </div>
+                                    
+                                            </form>         
+                                        </div>
+                                    </div> 
+                                </div>        
+                        </div>
+                        <!--Checkout page section end-->
+
+                    </div>
+                    <!--pos page inner end-->
+                </div>
+            </div>
+            <!--pos page end-->
+            
+            <!--footer area start-->
+        
+    </body>
+</html>

@@ -61,31 +61,37 @@
 												        <ul class="dropdown-menu">
 												          <li><a class="dropdown-item" href="/changePass">ChangePassword</a></li>
 												           <li><a class="dropdown-item" href="/editProfile">Edit profile</a></li>
-												          <li th:if="${#request.isUserInRole('ADMIN')}">
-                                      	                         <a th:href="@{/admin/accounts}">Administration</a>
+
+												           <li><a class="dropdown-item" th:href="@{/orderHistory}">Order History</a></li>
+
+												          <li th:if="${#request.isUserInRole('true')}">
+                                      	                         <a th:href="@{/admin/user?edit=false}">Administration</a>
+
                                                                        </li>
+                                                                       
 												          <li><hr class="dropdown-divider"></li>
 												          <li><a class="dropdown-item" th:href="@{/security/logout}">Logout</a></li>
+												       
 												        </ul>
 												      </li>
-                                                         </div>
+                                                         
                                                          
                                                           <div th:unless="${#request.remoteUser}">
                                                            <li> <a class="nav-link dropdown" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
 												                   My Account
 												        </a>
 												        <ul class="dropdown-menu">
-												          <li><a href="/login" title="Login">Login</a></li>
-												           <li><a class="dropdown-item" href="dk">Register</a></li>
+												          <li><a th:href="@{/login}" title="Login">Login</a></li>
+												           <li><a class="dropdown-item" th:href="@{/dk}">Register</a></li>
 												           <li><a class="dropdown-item" href="/fogetPass">Forgot password</a></li>
 												          <li th:if="${#request.isUserInRole('ADMIN')}">
                                       	                         <a th:href="@{/admin/accounts}">Administration</a>
                                                                        </li>
-												          <li><hr class="dropdown-divider"></li>
-												          <li><a class="dropdown-item" th:href="@{/security/logout}">Logout</a></li>
+												      
+					
 												        </ul>
 												      </li>
-                                                         
+                                                         </div>
                                                      </div>
                                                 </ul>
                                             </div>   
@@ -100,7 +106,7 @@
                                        <!--logo start-->
                                         <div class="col-lg-3 col-md-3">
                                             <div class="logo">
-                                                <a href="index.html"><img src="assets\img\logo\logo.jpg.png" alt=""></a>
+                                                <a th:href="@{/index}"><img src="assets\img\logo\logo.jpg.png" alt=""></a>
                                             </div>
                                         </div>
                                         <!--logo end-->
@@ -112,10 +118,11 @@
                                                         <button type="submit"><i class="fa fa-search"></i></button>
                                                     </form>
                                                 </div>
-                                                <div class="shopping_cart">
-                                                    <a th:href="@{/cart}"><i class="fa fa-shopping-cart"></i> 2Items - $209.44 <i class="fa fa-angle-down"></i></a>
-->
-                                                </div>
+                                            <div class="shopping_cart">
+                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> 2Items - $209.44 <i class="fa fa-angle-down"></i></a>
+
+                                              
+                                            </div>
 
                                             </div>
                                         </div>
@@ -129,14 +136,9 @@
                                                 <div class="main_menu d-none d-lg-block">
                                                     <nav>
                                                         <ul>
-                                                            <li class="active"><a href="index.html">Home</a>
+                                                            <li class="active"><a th:href="@{/index}">Home</a>
                                                                 <div class="mega_menu jewelry">
-                                                                    <div class="mega_items jewelry">
-                                                                        <ul>
-                                                                            <li><a href="index.html">Home 1</a></li>
-                                                                            <li><a href="index-2.html">Home 2</a></li>
-                                                                        </ul>
-                                                                    </div>
+                                                         
                                                                 </div> 
                                                             </li>
                                                             <li><a href="shop.html">shop</a>
