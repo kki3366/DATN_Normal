@@ -1,3 +1,4 @@
+
 package com.DATN.Repository;
 
 import java.util.List;
@@ -11,3 +12,4 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
 	@Query("SELECT o FROM OrderDetail o WHERE o.order.id=?1")
     List<OrderDetail>  findByIdOrder(Integer user);
 }
+

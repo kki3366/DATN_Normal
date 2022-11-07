@@ -1,3 +1,4 @@
+
 package com.DATN.Entity;
 
 import javax.persistence.Column;
@@ -104,3 +105,4 @@ public class OrderDetail {
 	
 	
 }
+
