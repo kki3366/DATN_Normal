@@ -21,11 +21,18 @@ if (convertUrl.pathname = '/admin/category') {
 			},
 			columns: [
 				{ "data": "id" },
-				{ "data": "nameCategory" }
+				{ "data": "nameCategory" },
+				{
+					
+					"render": (data,type,row)=>{
+						return '<button type="button" class="btn btn-info" id="edit">Info</button>  <button type="button" class="btn btn-danger" id="delete">Danger</button>';
+				}}
+				
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
-			order: [[0, 'asc']]
+			order: [[0, 'asc']],
+			
 		})
 
 		//submit from form
@@ -56,39 +63,11 @@ if (convertUrl.pathname = '/admin/category') {
 			})
 		});
 		//edit
-		
-		editor = new $.fn.dataTable.Editor({
-			ajax: {
-				edit: {
-					type: 'PUT',
-					url: getCategoryUrl,
-					contentType: "application/json",
-					data: function(d, action) {
-						/*console.log(JSON.stringify(d.data[Object.keys(d.data)[0]]))
-						console.log(d)*/
-						//return JSON.stringify(d);
-						if(action = 'edit'){
-							console.log(JSON.stringify(d.data))
-							console.log(typeof(d))
-							return JSON.stringify(d.data[Object.keys(d.data)[0]])
-						}
-					}
-				}
-			},
-			table: "#tableCategory",
-			idSrc: 'id',
-			rowId: 'id',
-			fields: [
-				{
-	
-					label: "Doing Edit",
-					name: "nameCategory"
-				}
-			]
-		});
-		$('#tableCategory').on('click', 'tbody td:not(:first-child)', function(e) {
-			editor.inline(this);
-		});
+		$('#tableCategory tbody').on('click', '#edit', function () {
+		console.log("edit work")
+ 			
+});
+
 
 	});
 } else {
