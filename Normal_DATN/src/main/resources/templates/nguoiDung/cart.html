@@ -43,12 +43,13 @@
                                                     <table>
                                                 <thead>
                                                     <tr>
-                                                        <th class="product_remove">Delete</th>
+                                                        <th class="productremove">Delete</th>
                                                         <th class="product_thumb">Image</th>
                                                         <th class="product_name">Product</th>
                                                         <th class="product-price">Price</th>
                                                         <th class="product_quantity">Quantity</th>
                                                         <th class="product_total">Total</th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody >
@@ -57,12 +58,12 @@
                                                        <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
                                                         <td class="product_thumb"><a href="#"><img  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
-                                                        <td class="product-price">[[${HoLy.priceProductCart}*1]]</td>
+                                                        <td class="product-price">[[${HoLy.priceProductCart}]]</td>
                                                         <form th:action="@{/updateCart}" th:method="post"  > 
                                                         <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
-                                                        <td class="product_total">[[${HoLy.priceProductCart * HoLy.quanlityProductCart}*1]]</td>
+                                                        <td class="product_total">[[${HoLy.priceProductCart * HoLy.quanlityProductCart}]]</td>
     <div class="cart_submit">   
- <td> <button type="submit" th:formaction="@{|/updateCart?idcart=${HoLy.id}|}">update cart</button> </td>
+ <td> <button type="submit" th:formaction="@{|/updateCart?idcart=${HoLy.id}|}">Update Cart</button> </td>
  </div>
                                                       </form>  </tr>
                                               
@@ -71,8 +72,8 @@
                                             </table>   
                                                 </div>  
                                                    <div class="cart_submit">                                              
-                                                    <button><a th:href="@{/clearCart}" >Clear cart</a></button>   
-                                                     <a th:href="@{/clearCart}" ><input type="button" onclick="alert('Đã clear')" value="Clear cart"></a>                                          
+                                                    <button  ><a  th:href="@{/clearCart}" onclick="alert('Đã clear')" m>Clear cart</a></button>   
+                                                                                        
                                                   
                                                 </div>   
                                                 </div>   
@@ -101,7 +102,7 @@
                                                        <div class="cart_subtotal">
                                                            <p>Subtotal</p>
                                                            
-                                                           <p class="cart_amount">[[${tongTien}*1]]</p>
+                                                           <p class="cart_amount">[[${tongTien}]]</p>
                                                        </div>
                                                        <div class="cart_subtotal ">
                                                            <p>Shipping</p>
@@ -111,7 +112,7 @@
 
                                                        <div class="cart_subtotal">
                                                            <p>Total</p>
-                                                           <p class="cart_amount">[[${tongTien}*1]]</p>
+                                                           <p class="cart_amount">[[${tongTien}]]</p>
                                                        </div>
                                                        <div class="checkout_btn">
                                                            <a th:href="@{/checkout}">Proceed to Checkout</a>

@@ -15,6 +15,8 @@ import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
 import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
+import com.DATN.Service.OrderService;
+
 
 @Controller
 public class orderHistory {
@@ -36,5 +38,12 @@ public class orderHistory {
 		List<OrderDetail> item = orderDetailRepository.findByIdOrder(id);
 		model.addAttribute("item", item);
 		return "nguoiDung/orderHistoryDetail";
+	}
+	@RequestMapping("/orderHistory/{id}")
+	public String status(Model model, @PathVariable("id") Integer id) {
+		Orders order = orderRepository.getById(id);
+		order.setStatus("Cancelled");
+		orderRepository.save(order);
+		return "redirect:/orderHistory";
 	}
 }
