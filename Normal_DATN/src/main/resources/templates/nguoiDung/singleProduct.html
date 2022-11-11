@@ -6,10 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-            <!-- Add your site or application content here -->
-            
-     
                         <!--header end -->
                          <!--breadcrumbs area start-->
                         <div class="breadcrumbs_area">
@@ -66,9 +62,13 @@
                                                 <span>[[${product.price}]]</span>
                         
                                             </div>
-                                            <div class="box_quantity mb-20">                                           
-                                                <button type="submit"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                            
+                                            <div class="box_quantity mb-20">      
+                                             <form th:action="@{|/addCartI/${product.id}|}" method="post">
+                                                    <label>Quantity</label>
+                                                    <input name="qty" min="1" max="100" value="1" type="number">
+                                                                                
+                                                <button type="submit" onclick="alert('Added to cart!')"> <i class="fa fa-shopping-cart"></i>  Add to cart</button>
+                                              </form>    
                                             </div>
                                   
 

@@ -59,7 +59,7 @@ public class CartServiceImpl implements  CartService {
 		if(item2 == null) {
 			cartRepository.save(item);
 		}else {
-			item2.setQuanlityProductCart(item2.getQuanlityProductCart()+1);
+			item2.setQuanlityProductCart(item2.getQuanlityProductCart()+item.getQuanlityProductCart());
 			cartRepository.save(item2);
 		}
 	

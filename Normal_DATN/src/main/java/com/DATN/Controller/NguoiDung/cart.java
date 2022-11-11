@@ -50,8 +50,8 @@ public class cart {
 		return "nguoiDung/cart";
 	}
 	
-	@RequestMapping("/addCart/{id}")
-	public String add(@PathVariable("id") Integer id
+	@RequestMapping("/addCartO/{id}")
+	public String addCartOutside(@PathVariable("id") Integer id
 //			, @RequestParam("NLpassword") String user
 			) {
 		Product product = productRepository.getById(id);
@@ -69,6 +69,33 @@ public class cart {
 		
 //			if(qty == 0) {
 			item.setQuanlityProductCart(1);
+//			}
+//			item.setQty(qty);
+			cart.add(item);
+			
+		}
+	
+		return "redirect:/cart";
+	}
+	@RequestMapping("/addCartI/{id}")
+	public String addCartIn(@PathVariable("id") Integer id
+			, @RequestParam("qty") Integer qty
+			) {
+		Product product = productRepository.getById(id);
+		users users = userRepository.getById(req.getRemoteUser());
+	
+		if(product != null) {
+			Cart item = new Cart();
+			
+			item.setProduct(product);
+			item.setNameProductCart(product.getName());
+			item.setPriceProductCart(product.getPrice());
+			item.setImgProductCart(product.getImage());
+			item.setUser(users);
+			
+		
+//			if(qty == 0) {
+			item.setQuanlityProductCart(qty);
 //			}
 //			item.setQty(qty);
 			cart.add(item);
