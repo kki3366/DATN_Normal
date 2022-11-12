@@ -13,96 +13,27 @@
                             <div class="row pos_home">
                                 <div class="col-lg-3 col-md-8 col-12">
                                    <!--sidebar banner-->
-                                    <div class="sidebar_widget banner mb-35">
+                      <!--             <div class="sidebar_widget banner mb-35">
                                         <div class="banner_img mb-35">
                                             <a href="#"><img src="assets\img\banner\banner5.jpg" alt=""></a>
                                         </div>
                                         <div class="banner_img">
                                             <a href="#"><img src="assets\img\banner\banner6.jpg" alt=""></a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!--sidebar banner end-->
 
                                     <!--categorie menu start-->
                                     <div class="sidebar_widget catrgorie mb-35">
                                         <h3>Categories</h3>
                                         <ul>
-                                            <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> women</a>
-                                                <ul class="categorie_sub">
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                                        <ul class="categorie_sub">
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                        </ul> 
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                </ul>     
-                                            </li>
-                                            <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Men</a>
-                                                <ul class="categorie_sub">
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                                        <ul class="categorie_sub">
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                        </ul> 
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                </ul> 
-                                            </li>
-                                            <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Footwear</a>
-                                                <ul class="categorie_sub">
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                                        <ul class="categorie_sub">
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                        </ul> 
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                </ul> 
+                               
+                                            <li th:each="HoLy:${category}" class="has-sub"><a href="#"> [[${HoLy.nameCategory}]]</a>
+                                      
 
                                             </li>
-                                            <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Jewelry</a>
-                                                <ul class="categorie_sub">
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                                        <ul class="categorie_sub">
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                        </ul> 
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                </ul> 
-                                            </li>
-                                            <li class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> Lady</a>
-                                                <ul class="categorie_sub">
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a>
-                                                        <ul class="categorie_sub">
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Accessories</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                            <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                        </ul> 
-                                                    </li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Dresses</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> Tops</a></li>
-                                                    <li><a href="#"><i class="fa fa-caret-right"></i> HandBags</a></li>
-                                                </ul> 
-                                            </li>
+                                 
+                              
 
                                         </ul>
                                     </div>
@@ -128,16 +59,16 @@
                                     <!--banner slider start-->
                                     <div class="banner_slider slider_1">
                                         <div class="slider_active owl-carousel">
-                                            <div class="single_slider" style="background-image: url(assets/img/slider/slide_1.png)">
+                                            <div class="single_slider" style="background-image: url(assets/img/slider/sl1.png)">
                                                 <div class="slider_content">
                                                     <div class="slider_content_inner">  
-                                                        <h1>Women's Fashion</h1>
+                                                        <h1>Men's Watch</h1>
                                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
                                                         <a href="#">shop now</a>
                                                     </div>     
                                                 </div>    
                                             </div>
-                                            <div class="single_slider" style="background-image: url(assets/img/slider/slider_2.png)">
+                                            <div class="single_slider" style="background-image: url(assets/img/slider/sl2.png)">
                                                 <div class="slider_content">
                                                     <div class="slider_content_inner">  
                                                         <h1>New Collection</h1>
