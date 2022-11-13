@@ -149,4 +149,13 @@ public class UserController {
 		m.addAttribute("users",list);
 		return "Admin/page/user";
 	}
+	
+	@RequestMapping("/admin/user/status")
+	public String status(Model m,@RequestParam("status") boolean status) {
+		System.err.println(status);
+		m.addAttribute("acc",new users());
+		List<users> list = user.findAllAccountService();
+		m.addAttribute("users",list);
+		return "Admin/page/user";
+	}
 }

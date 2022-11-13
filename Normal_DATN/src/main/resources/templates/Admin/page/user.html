@@ -125,12 +125,12 @@
                          <td class="sorting_1">User</td>
                     </div>
                   <td class="sorting_1"><a th:href="@{|/admin/user/edit?user=${Users.id}&edit=true|}">Edit</a></td>
+                   
                   <div th:if="${Users.activated}==true">
-                        <td class="sorting_1"><a href="">Ẩn</a></td>
-                       
+                        <td class="sorting_1"><a th:href="@{|/admin/user/status?user=${Users.id}&status=false|}">Ẩn</a></td>
                   </div>
                   <div th:unless="${Users.activated}==true">
-                        <td class="sorting_1"><a href="">Hiện</a></td>
+                        <td class="sorting_1"><a @{|/admin/user/status?user=${Users.id}&status=true|}>Hiện</a></td>
                   </div>
                 </tr>
                </tbody>
