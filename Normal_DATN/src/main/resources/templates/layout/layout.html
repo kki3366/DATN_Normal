@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="..\assets\css\style.css">
         <link rel="stylesheet" href="..\assets\css\responsive.css">
         <script src="..\assets\js\vendor\modernizr-2.8.3.min.js"></script>
+        
+      
 </head>
 <body>
 
@@ -65,7 +67,7 @@
 												           <li><a class="dropdown-item" th:href="@{/orderHistory}">Order History</a></li>
 
 												          <li th:if="${#request.isUserInRole('true')}">
-                                      	                         <a th:href="@{/admin/user?edit=false}">Administration</a>
+                                      	                         <a th:href="@{/admin/user}">Administration</a>
 
                                                                        </li>
                                                                        

@@ -36,7 +36,15 @@ public class UserController {
 	@Autowired
 	HttpServletRequest req;
 	@GetMapping("/admin/user")
-	public String u(Model m,@RequestParam("edit") Boolean edit) {
+	public String u(Model m) {
+		List<users> list = user.findAllAccountService();
+		m.addAttribute("users",list);
+		m.addAttribute("edit",false);
+		m.addAttribute("acc",new users());
+		return "Admin/page/user";
+	}
+	@RequestMapping("/admin/user/new")
+	public String New(Model m,@RequestParam("edit") Boolean edit) {
 		List<users> list = user.findAllAccountService();
 		m.addAttribute("users",list);
 		m.addAttribute("edit",edit);
@@ -130,7 +138,7 @@ public class UserController {
 			}
 			if(acc.getId().equals(req.getRemoteUser())) {
 				kt++;
-				m.addAttribute("ktPhone", "Bạn không thể cập nhật chính bạn");
+				m.addAttribute("ktItMe", "Bạn không thể cập nhật chính bạn");
 				System.err.println("Bạn không thể cập nhật chính bạn");
 			}
 			if(kt==0) {
@@ -150,12 +158,19 @@ public class UserController {
 		return "Admin/page/user";
 	}
 	
-	@RequestMapping("/admin/user/status")
-	public String status(Model m,@RequestParam("status") boolean status) {
-		System.err.println(status);
-		m.addAttribute("acc",new users());
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
-		return "Admin/page/user";
-	}
+//	@RequestMapping("/admin/user/status")
+//	public String status(Model m,@RequestParam("user") String User,@RequestParam("status") boolean status) {
+//		users account = u.findId(User);
+//		if(status == false) {
+//			account.setActivated(true);
+//			u.save(account);
+//		}else {
+//			account.setActivated(false);
+//			u.save(account);
+//		}
+//		m.addAttribute("acc",account);
+//		List<users> list = user.findAllAccountService();
+//		m.addAttribute("users",list);
+//		return "Admin/page/user";
+//	}
 }

@@ -10,5 +10,8 @@ public class ProductController {
 	public String p() {
 		return "Admin/page/product";
 	}
-	
+	@GetMapping("/admin/productt")
+	public String pr() {
+		return "Admin/page/test";
+	}
 }
