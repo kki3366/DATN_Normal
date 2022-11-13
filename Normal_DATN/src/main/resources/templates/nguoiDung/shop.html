@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org"
+  th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Shop</title>
+</head>
+    <body>
+                        <!--breadcrumbs area start-->
+                        <div class="breadcrumbs_area">
+                            <div class="row">
+                                    <div class="col-12">
+                                        <div class="breadcrumb_content">
+                                            <ul>
+                                                <li><a href="index.html">home</a></li>
+                                                <li><i class="fa fa-angle-right"></i></li>
+                                                <li>shop</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--breadcrumbs area end-->
+
+                        <!--pos home section-->
+                        <div class=" pos_home_section">
+                            <div class="row pos_home">
+                                    <div class="col-lg-3 col-md-12">
+                                      <div class="sidebar_widget catrgorie mb-35">
+                                        <h3>Categories</h3>
+                                        <ul>
+                                      
+
+                                            </li>   
+                                             <li th:each="HoLy:${category}"  class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
+                                                <ul class="categorie_sub">
+                                        
+                                                    <li><a th:href="@{|/shop/${HoLy.id}|}">Men</a></li>
+                                                    <li><a href="#">Women</a></li>
+                                                </ul>     
+                                            </li>          
+
+                                        </ul>
+                                    </div>
+
+                                    </div>
+                                    <center><h3>[[${message}]]</h3></center>
+                                    <div class="col-lg-9 col-md-12">
+                                        <!--banner slider start-->
+                                        <div class="banner_slider mb-35">
+                                            <img src="/assets/img/banner/bannner10.jpg" alt="">
+                                        </div> 
+                                        <!--banner slider start-->
+
+                                        <!--shop toolbar start-->
+                        
+                                        <!--shop toolbar end-->
+
+                                        <!--shop tab product-->
+                                        <div class="shop_tab_product">   
+                                     
+                                               
+                                                    <div class="row">
+                                                        <div th:each="HoLy:${page.content}"  class="col-lg-4 col-md-6">
+                                                            <div class="single_product">
+                                                                <div class="product_thumb">
+                                                                   <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/assets/img/product/${HoLy.image}|}" alt=""></a> 
+                                                                   <div class="img_icone">
+                                                                       <img src="assets\img\cart\span-new.png" alt="">
+                                                                   </div>
+                                                                   <div class="product_action">
+                                                                   <a onclick="alert('Added to cart!')" th:href="@{|/addCartO/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                                   </div>
+                                                                </div>
+                                                                <div class="product_content">
+                                                              <span class="product_price">[[${HoLy.price}]]</span>
+                                                            <h3 class="product_title"><a href="#">[[${HoLy.name}]]</a></h3>
+                                                                </div>
+                                                 
+                                                            </div>
+                                                        </div>
+                                                       
+                                                      
+                                                       
+                                                      
+                                                
+
+                                            </div>
+
+                                        <!--shop tab product end-->
+                      <div class="pro-pagination">
+                 
+                                               <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center">
+                  
+                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=0|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z"/>
+</svg></a></li>
+                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.number-1 < 0 ? 0:page.number-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+</svg></a></li>
+                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+</svg></a></li>
+                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.totalPages-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
+</svg></a></li>
+
+
+
+                </ul>
+              </nav>   
+                                        
+                                    <div class="product-pagination">
+                                        <span class="grid-item-list">Trang  [[${page.number+1}]]/[[${page.totalPages}]]([[${page.totalElements}]] Sản phẩm)</span>
+                                    </div>
+                                </div>
+                                        <!--pagination style start--> 
+                                     
+                                        <!--pagination style end--> 
+                                   
+                                </div>  
+                        </div>
+                        <!--pos home section end-->
+                    </div>
+                    <!--pos page inner end-->
+                </div>    
+            </div>
+            <!--pos page end-->
+            
+         
+    </body>
+</html>
