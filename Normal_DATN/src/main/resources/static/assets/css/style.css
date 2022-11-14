@@ -3826,7 +3826,9 @@
 }
 /*modal css end*/
 
-
+tr.odd.selected{
+	background-color: red;
+}
 
 
 

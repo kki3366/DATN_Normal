@@ -11,7 +11,7 @@ if (convertUrl.pathname = '/admin/category') {
 		var putCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories/'
 		// Call data from API
 
-		$('#tableCategory').DataTable({
+		var table = $('#tableCategory').DataTable({
 			ajax: {
 				"type": "GET",
 				"url": getCategoryUrl,
@@ -22,17 +22,19 @@ if (convertUrl.pathname = '/admin/category') {
 			columns: [
 				{ "data": "id" },
 				{ "data": "nameCategory" },
-				{
-					
-					"render": (data,type,row)=>{
-						return '<button type="button" class="btn btn-info" id="edit">Info</button>  <button type="button" class="btn btn-danger" id="delete">Danger</button>';
-				}}
-				
+
+
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
-			order: [[0, 'asc']],
-			
+			order: [],
+			processing: true,
+			select: {
+				info: false,
+				style: 'single'
+
+			}
+
 		})
 
 		//submit from form
@@ -63,10 +65,27 @@ if (convertUrl.pathname = '/admin/category') {
 			})
 		});
 		//edit
-		$('#tableCategory tbody').on('click', '#edit', function () {
-		console.log("edit work")
- 			
-});
+		// get value edit
+		table.on('select', function(e, dt, type, indexes) {
+			var rowData = table.rows(indexes).data().toArray()[0];
+			$('#submitCategory').attr('id','updateModeButton'); 
+			console.log(rowData)
+		})
+		//get style edit
+		$
+		$('#tableCategory tbody').on('click', 'tr', function() {
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+			} else {
+				table.$('tr.selected').removeClass('selected');
+				$(this).addClass('selected');
+			}
+		});
+
+		$('#button').click(function() {
+			table.row('.selected').remove().draw(false);
+		});
+
 
 
 	});
