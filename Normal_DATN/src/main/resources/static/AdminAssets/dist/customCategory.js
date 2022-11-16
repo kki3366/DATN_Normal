@@ -72,21 +72,81 @@ if (convertUrl.pathname = '/admin/category') {
 			var rowData = table.rows(indexes).data().toArray()[0];
 			$('#updateModeButton').remove();
 			$('#cancelModeButton').remove();
+			$('#deleteModeButton').remove();
 			$('#submitCategoryButton').remove();
+			$('#nameCategory').val(rowData.nameCategory)
 			$('.box-footer').append("<button type='button' class='btn btn-primary' id='updateModeButton'>Update</button> ")
+			$('.box-footer').append("<button type='button' class='btn btn-primary' id='deleteModeButton'>Delete</button> ")
 			$('.box-footer').append("<button type='button' class='btn btn-primary' id='cancelModeButton'>Cancel</button>")
 			//doing edit
 			$('#updateModeButton').click(function() {
-				console.log("will do update")
+				var newValue = $('#nameCategory').val()
+				rowData.nameCategory = newValue
+				console.log(rowData)
+				$.ajax({
+					method: 'PUT',
+					url: getCategoryUrl,
+					contentType: "application/json; charset=utf-8",
+					data: JSON.stringify(rowData),
+					success: function(resp, xhr) {
+						$("#tableCategory").DataTable().ajax.reload();
+						$("#message").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã cập nhật danh mục thành công' + '</div>')
+						$('#nameCategory').val("")
+						$('#updateModeButton').remove();
+						$('#cancelModeButton').remove();
+						$('#deleteModeButton').remove();
+						$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitCategoryButton">Submit</button>')
+						
+					},
+					statusCode: {
+						500: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Không được để trống tên danh mục trong khi cập nhật</div>')
+							$('#nameCategory').val("")
+						},
+						406: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
+							$('#nameCategory').val("")
+							$('#nameCategory').focus()
+						}
+					}
+				})
+			})
+			$('#deleteModeButton').click(function(e){
+				console.log("delete on working")
+				$.ajax({
+					method: 'DELETE',
+					url: getCategoryUrl + '/' + rowData.id,
+					success: function(resp, xhr) {
+						$("#message").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã xóa danh mục thành công' + '</div>')
+						$('#nameCategory').val("")
+						$('#updateModeButton').remove();
+						$('#cancelModeButton').remove();
+						$('#deleteModeButton').remove();
+						$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitCategoryButton">Submit</button>')
+						$("#tableCategory").DataTable().ajax.reload();
+					},
+					statusCode: {
+						500: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Không được để trống tên danh mục trong khi cập nhật</div>')
+							$('#nameCategory').val("")
+						},
+						406: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
+							$('#nameCategory').val("")
+							$('#nameCategory').focus()
+						}
+					}
+				})
 			})
 			$('#cancelModeButton').click(function(e) {
 				$('#updateModeButton').remove();
 				$('#cancelModeButton').remove();
+				$('#deleteModeButton').remove();
 				$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitCategoryButton">Submit</button>')
 				$('tr').removeClass('selected');
 				$('#nameCategory').val("")
 			})
-			console.log(rowData)
+
 		})
 		//get style edit
 		$('#tableCategory tbody').on('click', 'tr', function() {
@@ -94,6 +154,7 @@ if (convertUrl.pathname = '/admin/category') {
 				$(this).removeClass('selected');
 				$('#updateModeButton').remove();
 				$('#cancelModeButton').remove();
+				$('#deleteModeButton').remove();
 				$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitCategoryButton">Submit</button>')
 				$('#nameCategory').val("")
 			} else {
