@@ -43,26 +43,39 @@ public class checkout {
 	@RequestMapping("/checkout")
 	public String form(Model model) {
 		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
+	
 		Double tongTien = cartRepository.tongTien(req.getRemoteUser());
 		users acc = userRepository.getById(req.getRemoteUser());
 		
-		System.err.println(tongTien);		
+		
 		model.addAttribute("item", item);
 		model.addAttribute("tongTien", tongTien);
 		model.addAttribute("acc", acc);
 		model.addAttribute("order", new Orders());
 
 		return "nguoiDung/checkout";
+		
 	}
 	@RequestMapping("/addOrder")
-	public String add(Orders order 
+	public String add(Orders order ,Model model
 //			,@RequestParam("user") String user, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("address") String address, 
 //			@RequestParam("description") String description, @RequestParam("amount") float amount, @RequestParam("status") String status
-			) {
-		try {
-//			users acc = userRepository.getById(user);
-//			order.setUser(acc);
-//			order.setPhone(phone);
+			, @RequestParam("address") String address 	) {
+
+		if(address.isEmpty()) {
+			List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
+			
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			users acc = userRepository.getById(req.getRemoteUser());
+			
+		
+			model.addAttribute("item", item);
+			model.addAttribute("tongTien", tongTien);
+			model.addAttribute("acc", acc);
+			model.addAttribute("order", new Orders());
+			model.addAttribute("address", "Vui lòng nhập địa chỉ");
+			return "nguoiDung/checkout";
+		}else {
 			
 			ordersRepository.save(order);
 			int id = order.getId();
@@ -74,8 +87,7 @@ public class checkout {
 				OrderDetail od = new OrderDetail();
 				Product product = productRepository.getById(cart.getProduct().getId());
 				Orders ord = ordersRepository.getById(id);
-			
-				
+		
 				od.setImage(cart.getImgProductCart());
 				od.setName(cart.getNameProductCart());
 				od.setPrice(cart.getPriceProductCart());
@@ -87,14 +99,9 @@ public class checkout {
 				cartService.clear(cart.getId());
 				
 			}
-
 			
-			
-		} catch (Exception e) {
-			System.err.println("Eross"+e);
-		}
-		
 		
 		return "nguoiDung/index";
+		}
 	}
 }

@@ -54,26 +54,28 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody >
+                                                       
                                                     <tr th:each="HoLy:${item}">
-                                                        
+                                                      
                                                        <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
                                                         <td class="product_thumb"><a href="#"><img  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
                                                         <td class="product-price">[[${HoLy.priceProductCart}]]</td>
-                                                        <form th:action="@{/updateCart}" th:method="post"  > 
-                                                        <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" ></td>
+                                                 <form th:action="@{/updateCart}" th:method="post"  > 
+                                                   <input type="hidden" name="idcart" th:value="${HoLy.id}">
+                                                        <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" th:onblur="this.form.submit()"></td>
                                                         <td class="product_total">[[${HoLy.priceProductCart * HoLy.quanlityProductCart}]]</td>
-    <div class="cart_submit">   
+   <!-- <div class="cart_submit">   
  <td> <button type="submit" th:formaction="@{|/updateCart?idcart=${HoLy.id}|}">Update Cart</button> </td>
- </div>
-                                                      </form>  </tr>
+ </div> --> 
+                                                    </form>    </tr>
                                               
                                                  
                                                 </tbody>
                                             </table>   
                                                 </div>  
                                                    <div class="cart_submit">                                              
-                                                    <button  ><a  th:href="@{/clearCart}" onclick="alert('Đã clear')" m>Clear cart</a></button>   
+                                                    <button  ><a  th:href="@{/clearCart}" onclick="alert('Đã clear')">Clear cart</a></button>   
                                                                                         
                                                   
                                                 </div>   
@@ -84,17 +86,17 @@
                                          </div>
                                      </div>
                                      <!--coupon code area start-->
-                                    <div class="coupon_area">
+                               <div class="coupon_area">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
-                                                <div class="coupon_code">
+                                         <!--         <div class="coupon_code">
                                                     <h3>Coupon</h3>
                                                     <div class="coupon_inner">   
                                                         <p>Enter your coupon code if you have one.</p>                                
                                                         <input placeholder="Coupon code" type="text">
                                                         <button type="submit">Apply coupon</button>
                                                     </div>    
-                                                </div>
+                                                </div>  -->   
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="coupon_code">
@@ -107,13 +109,13 @@
                                                        </div>
                                                        <div class="cart_subtotal ">
                                                            <p>Shipping</p>
-                                                           <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
+                                                           <p class="cart_amount"><span>Flat Rate:</span> 30000</p>
                                                        </div>
                                                        <a href="#">Calculate shipping</a>
 
                                                        <div class="cart_subtotal">
                                                            <p>Total</p>
-                                                           <p class="cart_amount">[[${tongTien}]]</p>
+                                                           <p class="cart_amount">[[${tongTien}+30000]]</p>
                                                        </div>
                                                        <div class="checkout_btn">
                                                            <a th:href="@{/checkout}">Proceed to Checkout</a>
