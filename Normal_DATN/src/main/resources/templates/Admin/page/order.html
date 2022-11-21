@@ -15,13 +15,13 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form action="/admin/user/add" method="POST" th:object="${order}">
+            <form action="#" method="POST" th:object="${order}">
               <div class="box-body">
                
                 <div class="form-group">
                   <label for="exampleInputEmail1">Order Id</label><br>
      
-                       <input th:field="*{id}" type="text" class="form-control" placeholder="Enter Order Id" readonly>
+                       <input name="id" th:field="*{id}" type="text" class="form-control" placeholder="Enter Order Id" readonly>
 
                 </div>
                 <div class="form-group">
@@ -80,7 +80,7 @@
                      <button formaction="/admin/user/new?edit=false" class="btn btn-primary" >Reset</button>
                      
                 </div> -->
-               
+               <button th:formaction="@{|/admin/orderDetail/${order.id}|}"  class="btn btn-primary">Order Detail</button>
               </div>
             </form>
            
@@ -125,7 +125,7 @@
                 <tbody>
                 
                 
-                <tr th:each="HoLy:${orderList}" role="row" class="odd">
+                <tr th:each="HoLy:${page}" role="row" class="odd">
                   <td class="sorting_1">[[${HoLy.id}]]</td>
                  
                   <td class="sorting_1">[[${HoLy.user.id}]]</td>
@@ -142,7 +142,28 @@
                 </tr>
                </tbody>
                
-              </table></div></div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div></div>
+              </table>
+              </div>
+              </div>
+                    <div class="row">
+              <div class="col-sm-5">
+              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] orders</div>
+              </div>
+              <div class="col-sm-7">
+               <div>
+                  <nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=0|}">First</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.totalPages-1}|}">Last</a></li>
+			  </ul>
+			</nav>
+			</div>
+              </div>
+              
+              </div>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>
