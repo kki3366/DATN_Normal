@@ -1,5 +1,10 @@
 package com.DATN.Controller.Admin;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.DATN.SessionService;
+import com.DATN.Entity.Orders;
 import com.DATN.Entity.users;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.UserServiceImpl;
@@ -34,13 +42,35 @@ public class UserController {
 	@Autowired
 	UserRepository u;
 	@Autowired
+	SessionService session;	
+	@Autowired
 	HttpServletRequest req;
-	@GetMapping("/admin/user")
-	public String u(Model m) {
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
+	int vtPage;
+	@RequestMapping("/admin/user")
+	public String u(Model m,@RequestParam("p") Optional<Integer> p) {
+//		List<users> list = user.findAllAccountService();
+		Pageable page = PageRequest.of(p.orElse(0), 5);
+		Page<users> pageList = u.findAll(page);
+		System.err.println(pageList.getTotalElements());
+		m.addAttribute("page",pageList);
 		m.addAttribute("edit",false);
 		m.addAttribute("acc",new users());
+		
+		return "Admin/page/user";
+	}
+	@RequestMapping("/admin/user/find")
+	public String find(Model m,
+			@RequestParam("keywords") Optional<String> kw,
+			@RequestParam("p") Optional<Integer> p) {
+		m.addAttribute("acc",new users());
+		
+		String kwords = kw.orElse(session.getAttribute("keywords"));
+		session.setAttribute("keywords", kwords);
+		m.addAttribute("keywords", kwords);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<users> page = u.findByKeywords("%"+kwords+"%", pageable);
+		m.addAttribute("page", page);
+//		return "redirect:/admin/user";
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/new")
@@ -145,8 +175,8 @@ public class UserController {
 				BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
 				
 				acc.setPassword(pe.encode(acc.getPassword()));
-				acc.setActivated(true);
-				acc.setAdmin(false);
+				acc.setActivated(acc.getActivated());
+				acc.setAdmin(acc.getAdmin());
 				user.saveAccountService(acc);
 //				m.addAttribute("acc",acc);
 				m.addAttribute("tb","Sửa tài khoản thành công");
