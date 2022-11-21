@@ -73,7 +73,6 @@ public class TaiKhoan {
 		}else {
 			Integer kt = 0;
 			Optional<users> account = users.findByUsernameService(acc.getId());
-			System.err.println(account);
 //			if(acc.getId().isEmpty()) {
 //				kt++;
 //				m.addAttribute("ktTonTai", "User đã tồn tại.");

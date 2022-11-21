@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{Admin/components/header}">
+<body>
+<div layout:fragment ="contentChanges">
+	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Order</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            
+            <form action="/admin/user/add" method="POST" th:object="${order}">
+              <div class="box-body">
+               
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Order Id</label><br>
+     
+                       <input th:field="*{id}" type="text" class="form-control" placeholder="Enter Order Id" readonly>
+
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">User Id</label><br>
+          
+                  <input readonly th:field="*{user}" type="text" class="form-control" placeholder="Enter User Id">
+                </div>
+               <div class="form-group">
+                  <label for="exampleInputPassword1">Date</label><br>
+       
+                  <input readonly th:field="*{orderDate}" type="text" class="form-control" placeholder="Enter Order Date">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Phone</label><br>
+    
+                   <i style="color:red" th:text="${ktPhone}"></i>
+                  <input readonly th:field="*{phone}" type="text" class="form-control"  placeholder="Enter Phone">
+                </div>
+                 <div class="form-group">
+                  <label for="exampleInputPassword1">Address</label><br>
+       
+                  <input readonly th:field="*{address}" type="text" class="form-control"  placeholder="Enter Address">
+                </div>
+                    <div class="form-group">
+                  <label for="exampleInputPassword1">Description</label><br>
+                  <Input readonly th:field="*{description}" type="text" class="form-control"  placeholder="Enter Description">
+                </div>
+         <div class="form-group">
+                  <label for="exampleInputPassword1">Amount</label><br>
+                  <input readonly th:field="*{amount}" type="text" class="form-control"  placeholder="Enter Amount">
+                </div>
+                 <div >
+                  <label for="exampleInputPassword1">Status</label><br>
+
+                  <input th:field="*{status}" type="radio" name="status" value="Ordering">Ordering&ensp;&ensp;
+                   <input readonly th:field="*{status}" type="radio"name="status" value="Cancelled">Cancelled&ensp;&ensp;
+                      <input readonly th:field="*{status}" type="radio"name="status" value="DaGiao">DaGiao
+                </div>
+              </div>
+              <!-- /.box-body -->
+                      <i style="color:red" th:text="${tb}"></i>
+        
+              <div class="box-footer">
+              
+                <!-- <div th:if="${edit} == true">
+                
+            
+                <button class="btn btn-primary" disabled>Add</button>
+                    <button formaction="/admin/user/update" class="btn btn-primary">Update</button>
+                        <button formaction="/admin/user/new?edit=false" class="btn btn-primary" >Reset</button>
+                </div>
+                <div th:unless="${edit} == true">
+               
+                   <button class="btn btn-primary">Add</button>
+                 <button formaction="/admin/user/update" class="btn btn-primary" disabled>Update</button>
+                     <button formaction="/admin/user/new?edit=false" class="btn btn-primary" >Reset</button>
+                     
+                </div> -->
+               
+              </div>
+            </form>
+           
+          </div>
+  		<div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Hover Data Table</h3>
+               <h3 style="float:right;" class="box-title">
+               <form th:action="@{/admin/order/find}" method="post">
+					<input name="keywords" th:value="${keywords}">
+					<button>Search</button>
+					</form>
+
+              </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+              <div class="row"><div class="col-sm-6">
+              </div><div class="col-sm-6">
+              </div></div>
+              <div class="row"><div class="col-sm-12">
+      
+              <table id="example" class="table table-bordered table-hover dataTable" width="100%" data-page-length="25" data-order="[[ 1, &quot;asc&quot; ]]">
+                <thead>
+                 <tr role="row">
+                 <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Order Id</th>
+                
+            
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">User Id</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Order Date</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Telephone</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Address</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Description</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Amount</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending"></th>
+                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending"></th>
+                 </tr>
+                
+                </thead>
+                <tbody>
+                
+                
+                <tr th:each="HoLy:${orderList}" role="row" class="odd">
+                  <td class="sorting_1">[[${HoLy.id}]]</td>
+                 
+                  <td class="sorting_1">[[${HoLy.user.id}]]</td>
+                   <td class="sorting_1">[[${HoLy.orderDate}]]</td>
+                  <td class="sorting_1">[[${HoLy.phone}]]</td>
+                  <td class="sorting_1">[[${HoLy.address}]]</td>
+                 <td class="sorting_1">[[${HoLy.description}]]</td>
+                 <td class="sorting_1">[[${HoLy.amount}]]</td>
+                 <td class="sorting_1">[[${HoLy.status}]]</td>
+           
+                  <td class="sorting_1"><a th:href="@{|/admin/order/edit?order=${HoLy.id}&edit=true|}">View</a></td>
+                   
+                  
+                </tr>
+               </tbody>
+               
+              </table></div></div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li><li class="paginate_button next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+		</div>
+	</section>
+</div>
+</body>
+</html>

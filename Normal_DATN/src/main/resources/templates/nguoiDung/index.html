@@ -27,21 +27,20 @@
                                     <div class="sidebar_widget catrgorie mb-35">
                                         <h3>Categories</h3>
                                         <ul>
-                               
-                                            <li th:each="HoLy:${category}" class="has-sub"><a href="#"> [[${HoLy.nameCategory}]]</a>
                                       
 
-                                            </li>
-                                 
-                              
+                                            </li>   
+                                             <li th:each="HoLy:${category}"  class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
+                                                <ul class="categorie_sub">
+                                        
+                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=1|}">Men</a></li>
+                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=2|}">Women</a></li>
+                                                </ul>     
+                                            </li>          
 
                                         </ul>
                                     </div>
                                     <!--categorie menu end-->
-
-                                    
-                                   
-
                                    
 
                                     <!--sidebar banner-->

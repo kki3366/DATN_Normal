@@ -41,7 +41,7 @@
                                             <form th:action="@{/addOrder}" mehtod="post" >
                                                 <h3>Billing Details</h3>
                                                 <div class="row">
-                                                <input type="hidden" name="amount"  th:value="${tongTien}" >  
+                                                <input type="hidden" name="amount"  th:value="${tongTien}+30000" >  
                                                     <div class="col-12 mb-30">
                                                         <label>User Name <span>*</span></label>
                                                         <input type="text" name="user" th:value="${acc.id}" readonly>    
@@ -81,7 +81,8 @@
                                                     </div> 
                                                           <div class="col-12 mb-30">
                                                         <label>Address  <span>*</span></label>
-                                                        <input placeholder="House number and street name" name="address" type="text">     
+                                                        <input placeholder="House number and street name" name="address" type="text">   
+                                                        	<i style="color:red" >[[${address}]]</i>  
                                                     </div>
      
                                                     <div class="col-12">

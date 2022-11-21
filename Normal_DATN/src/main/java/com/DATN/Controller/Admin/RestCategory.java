@@ -48,22 +48,26 @@ public class RestCategory {
 	}
 	
 	
-	@PutMapping(value = "/categories/{id}")
-	public ResponseEntity<Category> updateCategory(@PathVariable("id") int id, @RequestBody Category category){
-		Optional<Category> categoryOption = categoryService.findByIdCategory(id);
+//	@PutMapping(value = "/categories/{id}")
+//	public ResponseEntity<Category> updateCategory(@PathVariable("id") int id, @RequestBody Category category){
+//		Optional<Category> categoryOption = categoryService.findByIdCategory(id);
+//			return (ResponseEntity<Category>) categoryOption.map(c -> {
+//				category.setId(c.getId());
+//				return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
+//			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
+	@PutMapping(value = "/categories")
+	public ResponseEntity<Category> updateCategory1(@RequestBody Category category){
+		if(categoryService.checkCategoryName(category.getNameCategory()) > 0) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}else {
+			Optional<Category> categoryOption = categoryService.findByIdCategory(category.getId());
+			System.err.println(category.getId());
 			return (ResponseEntity<Category>) categoryOption.map(c -> {
 				category.setId(c.getId());
 				return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
 			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
-	@PutMapping(value = "/categories")
-	public ResponseEntity<Category> updateCategory1( @RequestBody Category category){
-		Optional<Category> categoryOption = categoryService.findByIdCategory(category.getId());
-		System.err.println(category.getId());
-		return (ResponseEntity<Category>) categoryOption.map(c -> {
-			category.setId(c.getId());
-			return new ResponseEntity<>(categoryService.saveCategoryService(category),HttpStatus.OK);
-		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+		}
 	}
 
 	

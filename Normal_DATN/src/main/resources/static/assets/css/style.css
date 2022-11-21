@@ -1517,7 +1517,7 @@
 	border-top: 1px solid #dbdbdb;
 	border-bottom: 1px solid #dbdbdb;
 	font-size: 16px;
-	line-height: ;
+	
 }
 .list_title {
 	margin-bottom: 5px;
@@ -3826,7 +3826,9 @@
 }
 /*modal css end*/
 
-
+tr.odd.selected{
+	background-color: red;
+}
 
 
 
