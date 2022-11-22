@@ -74,9 +74,10 @@ public class UserController {
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/new")
-	public String New(Model m,@RequestParam("edit") Boolean edit) {
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
+	public String New(Model m,@RequestParam("edit") Boolean edit,@RequestParam("p") Optional<Integer> p) {
+		Pageable page = PageRequest.of(p.orElse(0), 5);
+		Page<users> pageList = u.findAll(page);
+		m.addAttribute("page",pageList);
 		m.addAttribute("edit",edit);
 		m.addAttribute("acc",new users());
 		return "Admin/page/user";
@@ -90,7 +91,7 @@ public class UserController {
 		return "taiKhoan/SignUp";
 	}
 	@PostMapping("/admin/user/add")
-	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors) {
+	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Thêm tài khoản thất bại");
 			System.err.println("VT:"+acc.getAdmin());
@@ -122,8 +123,10 @@ public class UserController {
 				m.addAttribute("tb","Thêm tài khoản thành công");
 		}
 		}
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
+		Pageable page = PageRequest.of(p.orElse(0), 5);
+		Page<users> pageList = u.findAll(page);
+		m.addAttribute("page",pageList);
+		m.addAttribute("edit",false);
 		return "Admin/page/user";
 	}
    
@@ -134,11 +137,11 @@ public class UserController {
 		m.addAttribute("edit",edit);
 		System.err.println("edit:"+edit);
 		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
+		m.addAttribute("page",list);
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/update")
-	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors) {
+	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
 //		users account = u.findId(User);
 //		m.addAttribute("acc",account);
 		m.addAttribute("edit",true);
@@ -183,8 +186,9 @@ public class UserController {
 				
 		}
 		}
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("users",list);
+		Pageable page = PageRequest.of(p.orElse(0), 5);
+		Page<users> pageList = u.findAll(page);
+		m.addAttribute("page",pageList);
 		return "Admin/page/user";
 	}
 	

@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -53,7 +54,7 @@ public class users implements Serializable{
 	Boolean activated;
 	
 	@Column(name = "Admin")
-	@NotNull(message = "Bạn chưa chọn vai trò")
+//	@NotEmpty(message = "Bạn chưa chọn vai trò")
 	Boolean admin;
 	
 
@@ -63,61 +64,61 @@ public class users implements Serializable{
 //	@OneToMany
 //	List<Orders> orders;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Boolean getActivated() {
-		return activated;
-	}
-
-	public void setActivated(Boolean activated) {
-		this.activated = activated;
-	}
-
-	public Boolean getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
+//
+//	public String getPassword() {
+//		return password;
+//	}
+//
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
+//
+//	public String getFullname() {
+//		return fullname;
+//	}
+//
+//	public void setFullname(String fullname) {
+//		this.fullname = fullname;
+//	}
+//
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//
+//	public Boolean getActivated() {
+//		return activated;
+//	}
+//
+//	public void setActivated(Boolean activated) {
+//		this.activated = activated;
+//	}
+//
+//	public Boolean getAdmin() {
+//		return admin;
+//	}
+//
+//	public void setAdmin(Boolean admin) {
+//		this.admin = admin;
+//	}
+//
+//	public String getPhone() {
+//		return phone;
+//	}
+//
+//	public void setPhone(String phone) {
+//		this.phone = phone;
+//	}
 
 //	public List<Cart> getCarts() {
 //		return carts;

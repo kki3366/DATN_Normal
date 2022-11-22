@@ -68,9 +68,13 @@ public class TaiKhoan {
 	@PostMapping("/dk")
 	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,
 			@RequestParam("NLpassword") String NLpass) {
+		acc.setActivated(true);
+		acc.setAdmin(false);
 		if(errors.hasErrors()) {
-//			m.addAttribute("tb", "Vui lòng sửa các lỗi sau:");
+			System.err.println(errors.getAllErrors());
+			m.addAttribute("tb", "Đăng ký thất bại");
 		}else {
+			
 			Integer kt = 0;
 			Optional<users> account = users.findByUsernameService(acc.getId());
 //			if(acc.getId().isEmpty()) {
@@ -97,8 +101,8 @@ public class TaiKhoan {
 				BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
 				
 				acc.setPassword(pe.encode(acc.getPassword()));
-				acc.setActivated(true);
-				acc.setAdmin(false);
+				
+				System.err.println("Vai Tro: "+acc.getAdmin());
 				users.saveAccountService(acc);
 				
 				m.addAttribute("tb","Đăng ký thành công");

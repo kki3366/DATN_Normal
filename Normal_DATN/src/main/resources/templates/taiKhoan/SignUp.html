@@ -41,7 +41,8 @@
 						<i style="color:red"th:errors="*{email}"></i>
 						<i style="color:red"th:text="${ktEmail}"></i>
 						<input th:field="*{Email}"type="text"name="email" placeholder="Nhập Email"/>
-	   
+	                        
+	                        <input th:field="*{admin}" type="hidden" value="false" />
 					 	<div class="remember">
 			         
 						 <div class="forgot">
