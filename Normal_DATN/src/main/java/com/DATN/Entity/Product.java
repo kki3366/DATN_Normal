@@ -15,6 +15,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -77,7 +81,7 @@ public class Product implements Serializable{
 	@JoinColumn(name = "Categoryid")
 	Category category;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = SubCategory.class)
 	@JoinColumn(name = "Subcategoryid")
 	SubCategory subcategory;
 

@@ -40,6 +40,7 @@ public class RestCategory {
 	
 	@PostMapping(value = "/categories", consumes = "application/json")
 	public ResponseEntity<Category> saveCategory(@RequestBody @Valid Category category){
+		System.err.println(category.getNameCategory());
 		if(categoryService.checkCategoryName(category.getNameCategory())> 0) {
 			return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
 		}else {
