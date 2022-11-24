@@ -41,7 +41,7 @@ public class ContactUs {
 		}else {
 			
 //			if(check == true) {
-				contact.setStatus("Chờ phản hồi");
+				contact.setStatus(false);
 				users acc = users.getById(req.getRemoteUser());
 				System.err.println(acc.getId());
 				contact.setUser(acc);
