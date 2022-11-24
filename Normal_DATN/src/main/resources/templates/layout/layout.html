@@ -38,8 +38,8 @@
                                         <div class="col-lg-6 col-md-6">
                                            <div class="switcher">
                                                 <ul>
-                                                   <li><a href="?lang=en" ><img th:src="@{/assets/img/icon/2.png}" alt=""> English</a></li>
-                                                    <li><a href="?lang=vi" ><img th:src="@{/assets/img/icon/1.png}" alt="">Việt Nam</a></li>
+                                                   <li><a href="?lang=en" ><img th:src="@{/assets/img/icon/1.png}" alt=""> English</a></li>
+                                                    <li><a href="?lang=vi" ><img th:src="@{/assets/img/icon/2.png}" alt="">Việt Nam</a></li>
                                                  <!--   <li class="languages"><a href="#"><span th:text="#{lo.mn.language }"></span><i class="fa fa-angle-down"></i></a>
                                                         <ul class="dropdown_languages">
                                                             <li><a href="?lang=en"><img th:src="@{/assets/img/logo/lgo.png}" alt=""> English</a></li>
@@ -53,8 +53,8 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="header_links">
                                                 <ul>
-                                                    <li><a href="#" title="Contact">Contact</a></li>
-                                                   <li><a th:href="@{/cart}" title="My cart">My cart</a></li>
+                                                    <li><a href="#" title="Contact"><span th:text="#{lo.mn.contact }"></span></a></li>
+                                                   <li><a th:href="@{/cart}" title="My cart"><span th:text="#{lo.mn.cart }"></span></a></li>
                                                   
                                                     
                                                        
@@ -63,10 +63,10 @@
 												          
 												        </a>
 												        <ul class="dropdown-menu">
-												          <li><a class="dropdown-item" href="/changePass">ChangePassword</a></li>
-												           <li><a class="dropdown-item" href="/editProfile">Edit profile</a></li>
+												          <li><a class="dropdown-item" href="/changePass"><span th:text="#{lo.mn.changepass }"></span></a></li>
+												           <li><a class="dropdown-item" href="/editProfile"><span th:text="#{lo.mn.updateacc}"></span></a></li>
 
-												           <li><a class="dropdown-item" th:href="@{/orderHistory}">Order History</a></li>
+												           <li><a class="dropdown-item" th:href="@{/orderHistory}"><span th:text="#{lo.mn.history }"></span></a></li>
 
 												          <li th:if="${#request.isUserInRole('true')}">
                                       	                         <a th:href="@{/admin/user}">Administration</a>
@@ -74,7 +74,7 @@
                                                                        </li>
                                                                        
 												          <li><hr class="dropdown-divider"></li>
-												          <li><a class="dropdown-item" th:href="@{/security/logout}">Logout</a></li>
+												          <li><a class="dropdown-item" th:href="@{/security/logout}"><span th:text="#{lo.mn.logout }"></span></a></li>
 												       
 												        </ul>
 												      </li>
@@ -82,12 +82,12 @@
                                                          
                                                           <div th:unless="${#request.remoteUser}">
                                                            <li> <a class="nav-link dropdown" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-												                   My Account
+												                  <span th:text="#{lo.mn.myaccount }"></span>
 												        </a>
 												        <ul class="dropdown-menu">
-												          <li><a th:href="@{/login}" title="Login">Login</a></li>
-												           <li><a class="dropdown-item" th:href="@{/dk}">Register</a></li>
-												           <li><a class="dropdown-item" href="/fogetPass">Forgot password</a></li>
+												          <li><a th:href="@{/login}" title="Login"><span th:text="#{lo.mn.login }"></span></a></li>
+												           <li><a class="dropdown-item" th:href="@{/dk}"><span th:text="#{lo.mn.register }"></span></a></li>
+												           <li><a class="dropdown-item" href="/fogetPass"><span th:text="#{lo.mn.forgot }"></span></a></li>
 												          <li th:if="${#request.isUserInRole('ADMIN')}">
                                       	                         <a th:href="@{/admin/accounts}">Administration</a>
                                                                        </li>
@@ -123,7 +123,7 @@
                                                     </form>
                                                 </div>
                                             <div class="shopping_cart">
-                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> 2Items - $209.44 <i class="fa fa-angle-down"></i></a>
+                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> 2 Items - 500000 <i class="fa fa-angle-down"></i></a>
 
                                               
                                             </div>
@@ -140,30 +140,14 @@
                                                 <div class="main_menu d-none d-lg-block">
                                                     <nav>
                                                         <ul>
-                                                            <li class="active"><a th:href="@{/index}">Home</a>
+                                                            <li class="active"><a th:href="@{/index}"><span th:text="#{lo.mn.home }"></span></a>
                                                                 <div class="mega_menu jewelry">
                                                          
                                                                 </div> 
                                                             </li>
-                                                            <li><a href="#">shop</a>
-                                                                <div class="mega_menu jewelry">
-                                                                    <div class="mega_items jewelry">
-                                                                 <!--      <ul>
-                                                                            <li><a href="shop-list.html">shop list</a></li>
-                                                                            <li><a href="shop-fullwidth.html">shop Full Width Grid</a></li>
-                                                                            <li><a href="shop-fullwidth-list.html">shop Full Width list</a></li>
-                                                                            <li><a href="shop-sidebar.html">shop Right Sidebar</a></li>
-                                                                            <li><a href="shop-sidebar-list.html">shop list Right Sidebar</a></li>
-                                                                            <li><a href="single-product.html">Product Details</a></li>
-                                                                            <li><a href="single-product-sidebar.html">Product sidebar</a></li>
-                                                                            <li><a href="single-product-video.html">Product Details video</a></li>
-                                                                            <li><a href="single-product-gallery.html">Product Details Gallery</a></li>
-                                                                        </ul>  -->  
-                                                                    </div>
-                                                                </div>  
-                                                            </li>
-                                                            <li><a href="#">women</a>
-                                                                <div class="mega_menu">
+                                                    
+                                                            <li><a href="#"><span th:text="#{lo.mn.men }"></span></a>
+                                                              <!--   <div class="mega_menu">
                                                                     <div class="mega_top fix">
                                                                         <div class="mega_items">
                                                                         <!--    <h3><a href="#">Accessories</a></h3>
@@ -174,7 +158,7 @@
                                                                                 <li><a href="#">Sundresses</a></li>
                                                                                 <li><a href="#">Belts</a></li>
                                                                                 <li><a href="#">Sweets</a></li>
-                                                                            </ul>-->  
+                                                                            </ul>
                                                                         </div>
                                                                         <div class="mega_items">
                                                                       <!--    <h3><a href="#">HandBags</a></h3>
@@ -185,7 +169,7 @@
                                                                                 <li><a href="#">Bras</a></li>
                                                                                 <li><a href="#">Scarves</a></li>
                                                                                 <li><a href="#">Small Leathers</a></li>
-                                                                            </ul>   -->  
+                                                                            </ul>   
                                                                         </div>
                                                                         <div class="mega_items">
                                                                             <h3><a href="#">Tops</a></h3>
@@ -208,9 +192,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                            <li><a href="#">men</a>
-                                                                <div class="mega_menu">
+                                                            </li>--> 
+                                                            <li><a href="#"><span th:text="#{lo.mn.women }"></span></a>
+                                                              <!--   <div class="mega_menu">
                                                                     <div class="mega_top fix">
                                                                         <div class="mega_items">
                                                                             <h3><a href="#">Rings</a></h3>
@@ -238,9 +222,9 @@
                                                                     </div>
 
                                                                 </div>
-                                                            </li>
-                                                            <li><a href="#">pages</a>
-                                                                <div class="mega_menu">
+                                                            </li>-->
+                                                            <li><a href="#"><span th:text="#{lo.mn.page}"></span></a>
+                                                                <!--  <div class="mega_menu">
                                                                     <div class="mega_top fix">
                                                                         <div class="mega_items">
                                                                             <h3><a href="#">Column1</a></h3>
@@ -288,8 +272,8 @@
                                                                         </ul>
                                                                     </div>
                                                                 </div>  
-                                                            </li>
-                                                            <li><a href="contact.html">contact us</a></li>
+                                                            </li> -->
+                                                            <li><a href="contact.html"><span th:text="#{lo.mn.contact}"></span></a></li>
 
                                                         </ul>
                                                     </nav>
