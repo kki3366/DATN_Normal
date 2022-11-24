@@ -20,4 +20,6 @@ public interface ProductService {
 	Product findById(Integer id);
 	
 	Optional<Product> findByIdProducts(int id);
+	
+	int checkProductExit(String name);
 }

@@ -8,11 +8,13 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ import com.DATN.Unit.FileUploadUtil;
 
 @RestController
 @RequestMapping("api")
+@Validated
 public class RestProduct {
 	
 	@Autowired
@@ -49,46 +52,54 @@ public class RestProduct {
 	public ResponseEntity<Product> saveProduct(
 			@RequestPart(value = "fileProduct", required = false) MultipartFile file, @RequestPart @Valid Product products,
 			BindingResult result) throws IllegalStateException, IOException{
-		System.err.println(products.getQuantity());
-		System.err.println(products.getName());
-		System.err.println(products.getPrice());
 		if(result.hasErrors()) {
-			System.err.println("ok");
-			return new ResponseEntity<Product>(productService.saveProductsService(products),HttpStatus.CREATED);
+			return null;
 		}else {
 			FileUploadUtil fileUtil = new FileUploadUtil();
 			fileUtil.saveFile(file, app);
 			products.setImgage(fileUtil.getGetFileNameForEntity());
 			products.setAvailable(true);
-//			products.setComments(null);
 			return new ResponseEntity<Product>(productService.saveProductsService(products),HttpStatus.CREATED);
 		}
 
 	}
 	
 	
-	@PutMapping(value = "/products/{id}", consumes = "application/json")
-	public ResponseEntity<Product> updateProducts(@PathVariable("id") int id,@RequestBody Product products){
-		Optional<Product> productsOption = productService.findByIdProducts(id);
+//	@PutMapping(value = "/products/{id}", consumes = "application/json")
+//	public ResponseEntity<Product> updateProducts(@PathVariable("id") int id,@RequestBody Product products){
+//		Optional<Product> productsOption = productService.findByIdProducts(id);
+//		System.err.println(productsOption.get().getName());
+//		return (ResponseEntity<Product>) productsOption.map(p -> {
+//			products.setId(p.getId());
+//			products.setName(p.getName());
+//			products.setPrice(p.getPrice());
+//			products.setImgage(p.getImage());
+//			products.setDate(p.getDate());
+//			products.setAvailable(p.isAvailable());
+//			products.setCategory(p.getCategory());
+//			products.setQuantity(p.getQuantity());
+//			products.setDescription(p.getDescription());
+//			products.setDiscount(p.getDiscount());
+//			products.setViewCount(p.getViewCount());
+//			products.setSpecial(p.isSpecial());
+//			return new ResponseEntity<>(productService.saveProductsService(products),HttpStatus.OK);
+//		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
+
+	@PutMapping(value = "/products", consumes = "application/json")
+	public ResponseEntity<Product> updateProducts(@RequestBody Product products){
+		Optional<Product> productsOption = productService.findByIdProducts(products.getId());
+		System.err.println(productsOption.get().getName());
 		return (ResponseEntity<Product>) productsOption.map(p -> {
 			products.setId(p.getId());
-//			products.setName(p.getName());
-//			products.setUnitPrice(p.getUnitPrice());
-			products.setImgage(p.getImage());
-			products.setDate(p.getDate());
-			products.setAvailable(p.isAvailable());
-			products.setCategory(p.getCategory());
-			products.setQuantity(p.getQuantity());
-			products.setDescription(p.getDescription());
-			products.setDiscount(p.getDiscount());
-			products.setViewCount(p.getViewCount());
-			products.setSpecial(p.isSpecial());
 			return new ResponseEntity<>(productService.saveProductsService(products),HttpStatus.OK);
 		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
-	@DeleteMapping("/products/{idProducts}")
-	public ResponseEntity<HttpStatus> deleteProductsById(@PathVariable("idProducts") String id){
+	@DeleteMapping("/products/{idProducts}/{image}")
+	public ResponseEntity<HttpStatus> deleteProductsById(@PathVariable("idProducts") String id, @PathVariable("image") String image) throws IOException{
+		FileUploadUtil fileUtil = new FileUploadUtil();
+		fileUtil.deleteFileByName(image, app);
 		productService.deleteProductsById(Integer.parseInt(id));
 		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
 	}

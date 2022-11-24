@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,7 +35,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Data
 public class Product implements Serializable{
 	
 	@Id
@@ -40,9 +43,11 @@ public class Product implements Serializable{
 	@Column(name = "Productid")
 	int id;
 	
+	@NotEmpty(message = "Không được để trống tên sản phẩm")
 	@Column(name = "Name")
 	String name;
 	
+	@NotNull(message = "Không được để trống giá sản phẩm")
 	@Column(name = "Price")
 	Double price;
 	
@@ -58,10 +63,12 @@ public class Product implements Serializable{
 	@Column(name = "Available")
 	boolean available;
 	
+	@NotNull(message = "Không được để trống số lượng")
+	@Min(value = 1, message = "Không được để trống số lượng")
 	@Column(name = "Quantity")
 	int quantity;
 	
-	
+	@NotEmpty(message = "Không được để mô tả sản phẩm")
 	@Column(name = "Description")
 	String description;
 	

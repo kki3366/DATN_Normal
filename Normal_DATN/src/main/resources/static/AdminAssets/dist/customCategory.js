@@ -221,55 +221,193 @@ if (convertUrl.pathname = '/admin/product') {
 			}
 		})
 
-		$('.box-footer').on('click', '#submitProductButton', function() {
+		function clearForm() {
+			$('#nameProduct').val("")
+			$('#priceProduct').val("")
+			$('#quanlityProduct').val("")
+			$('#descriptionProduct').val("")
+			$('#selectedCategory').val(1)
+		}
+		//Created Product
+		$('.productFooter').on('click', '#submitProductButton', function(e) {
+			e.preventDefault();
+			var productForm = {
+				name: $('#nameProduct').val(),
+				price: $('#priceProduct').val(),
+				quantity: $('#quanlityProduct').val(),
+				description: $('#descriptionProduct').val(),
+				category: {
+					id: $('#selectedCategory option:selected').val()
+				},
+				subcategory: {
+					id: $('#selectedSubcategory option:selected').val()
+				}
+			}
 
-			$('#formProduct').on('submit', function() {
-				var productForm = {
-					name: $('#nameProduct').val(),
-					price: $('#priceProduct').val(),
-					quantity: $('#quanlityProduct').val(),
-					description: $('#descriptionProduct').val(),
-					category: {
-						id: $('#selectedCategory option:selected').val()
+
+			var formData = new FormData();
+			formData.append("fileProduct", $('#fileProduct').prop('files')[0])
+			formData.append("products", new Blob([JSON.stringify(productForm)], { type: "application/json" }))
+
+			$.ajax({
+				method: 'POST',
+				enctype: 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				url: getProductUrl,
+				data: formData,
+				success: function(resp, xhr) {
+					$("#tableProduct").DataTable().ajax.reload();
+					$("#messageProduct").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã thêm sản phẩm thành công' + '</div>')
+					clearForm();
+				},
+				statusCode: {
+					400: function(error) {
+						console.log(error.responseJSON.errors)
+						$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + String(error.responseJSON.errors) + '</div>')
+						if (String(error.responseJSON.errors).includes('tên sản phẩm')) {
+							$('#nameProduct').focus();
+						}
+						if (String(error.responseJSON.errors).includes('giá sản phẩm')) {
+							$('#priceProduct').focus();
+						}
+						if (String(error.responseJSON.errors).includes('trống số lượng')) {
+							$('#quanlityProduct').focus();
+						}
+						if (String(error.responseJSON.errors).includes('mô tả sản phẩm')) {
+							$('#descriptionProduct').focus();
+						}
 					},
-					subcategory: {
-						id: 1
+					502: function(error) {
+						$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
 					}
 				}
-				var formData = new FormData();
-				formData.append("fileProduct", $('#fileProduct').prop('files')[0])
-				formData.append("products", new Blob([JSON.stringify(productForm)],{ type: "application/json" }))
-	
-				$.ajax({
-					method: 'POST',
-					enctype : 'multipart/form-data',
-					 processData : false,
-					 contentType: false,
-					url: getProductUrl,
-					data: formData,
-					success: function(resp, xhr) {
-						$("#tableProduct").DataTable().ajax.reload();
-						$("#message").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã thêm danh mục thành công' + '</div>')
-						alert("thanh cong")
-					},
-					statusCode: {
-						415: function(error) {
-							console.log(error)
-							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + String(error.responseJSON.errors) + '</div>')
-							
-							alert("loi")
-						},
-						502: function(error) {
-							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
-							$('#nameCategory').val("")
-						}
-					}
-				})
-				
-				
 			})
 		});
 
+		//Update and Delete
+		tableProduct.on('select', function(e, dt, type, indexes) {
+			var rowData = tableProduct.rows(indexes).data().toArray()[0];
+			$('#updateModeButtonProduct').remove();
+			$('#cancelModeButtonProduct').remove();
+			$('#deleteModeButtonProduct').remove();
+			$('#submitProductButton').remove();
+			//Give row data to form
+			console.log(rowData)
+			console.log(rowData.category.nameCategory)
+			$('#nameProduct').val(rowData.name)
+			$('#priceProduct').val(rowData.price)
+			$('#quanlityProduct').val(rowData.quantity)
+			$('#descriptionProduct').val(rowData.description)
+			$("#selectedCategory").val(rowData.category.id).prop('selected', true);
+			$("#selectedSubcategory").val(rowData.subcategory.id).prop('selected', true);
+			$('.help-block').text('Hình ảnh: ' + rowData.image + '.png')
+			$('.box-footer').append("<button type='button' class='btn btn-primary' id='updateModeButtonProduct'>Update</button> ")
+			$('.box-footer').append("<button type='button' class='btn btn-primary' id='deleteModeButtonProduct'>Delete</button> ")
+			$('.box-footer').append("<button type='button' class='btn btn-primary' id='cancelModeButtonProduct'>Cancel</button>")
+
+			//Do Update		
+			$('#updateModeButtonProduct').click(function() {
+				var newNameProduct = $('#nameProduct').val();
+				var newPriceProduct = $('#priceProduct').val()
+				var newQuantityProduct = $('#quanlityProduct').val()
+				var newDescriptionProduct = $('#descriptionProduct').val()
+				var newidCategory = $('#selectedCategory option:selected').val()
+				var newSubCategory = $('#selectedSubcategory option:selected').val()
+				var file = $('#fileProduct').prop('files')[0]
+				console.log(file)
+				if (file == undefined) {
+					rowData.name = newNameProduct
+					rowData.price = newPriceProduct
+					rowData.quantity = newQuantityProduct
+					rowData.description = newDescriptionProduct
+					rowData.category.id = newidCategory
+					rowData.subcategory.id = newSubCategory
+					$.ajax({
+						method: 'PUT',
+						url: getProductUrl,
+						contentType: "application/json; charset=utf-8",
+						data: JSON.stringify(rowData),
+						success: function(resp, xhr) {
+							clearForm();
+							$("#tableProduct").DataTable().ajax.reload();
+							$("#messageProduct").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã cập nhật sản phẩm thành công' + '</div>')
+							$('#updateModeButtonProduct').remove();
+							$('#cancelModeButtonProduct').remove();
+							$('#deleteModeButtonProduct').remove();
+							$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>')
+							clearForm();
+							
+						},
+						statusCode: {
+							500: function(error) {
+								$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Không được để trống tên danh mục trong khi cập nhật</div>')
+								$('#nameCategory').val("")
+							},
+							406: function(error) {
+								$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
+								$('#nameCategory').val("")
+								$('#nameCategory').focus()
+							}
+						}
+					})
+				}
+
+			})
+			//Do delete
+			$('#deleteModeButtonProduct').click(function() {
+				console.log("delete on working product")
+				$.ajax({
+					method: 'DELETE',
+					url: getProductUrl + '/' + rowData.id + '/' + rowData.image,
+					success: function(resp, xhr) {
+						$("#messageProduct").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã xóa sản phẩm thành công' + '</div>')
+						clearForm();
+						$('#updateModeButtonProduct').remove();
+						$('#cancelModeButtonProduct').remove();
+						$('#deleteModeButtonProduct').remove();
+						$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>')
+						$('.help-block').text('Chỉ thêm được 1 hình')
+						$("#tableProduct").DataTable().ajax.reload();
+					},
+					statusCode: {
+						400: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
+						}
+					}
+				})
+			})
+
+			//Do cancel
+			$('#cancelModeButtonProduct').click(function() {
+				$('#updateModeButtonProduct').remove();
+				$('#cancelModeButtonProduct').remove();
+				$('#deleteModeButtonProduct').remove();
+				$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>');
+				$('.help-block').text('Chỉ thêm được 1 hình')
+				$('tr').removeClass('selected');
+				clearForm();
+			})
+
+		})
+
+		$('#tableProduct tbody').on('click', 'tr', function() {
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+				$('#updateModeButtonProduct').remove();
+				$('#cancelModeButtonProduct').remove();
+				$('#deleteModeButtonProduct').remove();
+				$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>');
+				$('.help-block').text('Chỉ thêm được 1 hình')
+				clearForm();
+			} else {
+				tableProduct.$('tr.selected').removeClass('selected');
+				$(this).addClass('selected');
+			}
+		});
+		$('#button').click(function() {
+			table.row('.selected').remove().draw(false);
+		});
 
 
 	})

@@ -20,7 +20,7 @@ public class FileUploadUtil {
 	
 	private static String generateRandomName(int len) {
 		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-          +"lmnopqrstuvwxyz!@#$%&";
+          +"lmnopqrstuvwxyz!@$%&";
 		Random rnd = new Random();
 		StringBuilder sb = new StringBuilder(len);
 		for (int i = 0; i < len; i++)
@@ -61,6 +61,13 @@ public class FileUploadUtil {
 			Files.copy(ips, filePath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
 			throw new IOException("lỗi",e);
+		}
+	}
+	
+	public void deleteFileByName(String filename,ServletContext app) throws IOException {
+		File getFiletoDelete = new File(app.getRealPath("/imgProducts/" + filename + ".png"));
+		if(getFiletoDelete.exists()) {
+			FileUtils.delete(getFiletoDelete);
 		}
 	}
 	

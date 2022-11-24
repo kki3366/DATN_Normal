@@ -44,8 +44,12 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Optional<Product> findByIdProducts(int id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return productRepo.findById(id);
+	}
+
+	@Override
+	public int checkProductExit(String name) {
+		 return productRepo.checkProductisExit(name);
 	}
 
 }
