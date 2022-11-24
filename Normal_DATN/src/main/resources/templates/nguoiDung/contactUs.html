@@ -32,25 +32,28 @@
                                    <div class="col-lg-6 col-md-12">
                                        <div class="contact_message">
                                             <h3>Tell us your project</h3>   
-                                            <form id="contact-form" method="POST" action="assets/mail.php">
+                                            <form  action="/ContactUs" method="POST" th:object="${contact}">
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                        <input name="name" placeholder="Name *" type="text">    
+                                                     <i style="color:red" th:errors="*{name}"></i>
+                                                        <input  th:field="*{name}"  placeholder="Name *" type="text">    
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <input name="email" placeholder="Email *" type="email">    
+                                                     <i style="color:red" th:errors="*{email}"></i>
+                                                        <input  th:field="*{email}"  placeholder="Email *" type="email">    
                                                     </div>
-                                                    <div class="col-lg-6">
-                                                        <input name="subject" placeholder="Subject *" type="text">   
+                                                    <div class="col-12">
+                                                     <i style="color:red" th:errors="*{subject}"></i>
+                                                        <input  th:field="*{subject}" placeholder="Subject *" type="text">   
                                                     </div>
-                                                     <div class="col-lg-6">
-                                                        <input name="phone" placeholder="Phone *" type="text">   
-                                                    </div>
+                                                    
 
                                                     <div class="col-12">
                                                         <div class="contact_textarea">
-                                                            <textarea placeholder="Message *" name="message" class="form-control2"></textarea>     
+                                                         <i style="color:red" th:errors="*{Contents}"></i>
+                                                            <textarea  th:field="*{Contents}" placeholder="Message *"  class="form-control2"></textarea>     
                                                         </div>   
+                                                         <i style="color:red" th:text="${tb}"></i>
                                                         <button type="submit"> Send Message </button>  
                                                     </div> 
                                                     <div class="col-12">
@@ -66,9 +69,9 @@
                                             <h3>contact us</h3>    
                                              <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
                                             <ul>
-                                                <li><i class="fa fa-fax"></i>  Address : No 40 Baria Sreet 133/2 NewYork City</li>
-                                                <li><i class="fa fa-phone"></i> <a href="#">Infor@roadthemes.com</a></li>
-                                                <li><i class="fa fa-envelope-o"></i> 0(1234) 567 890</li>
+                                                <li><i class="fa fa-fax"></i>  Address : 288 Nguyễn Văn Linh,Phường Hưng Lợi,Quận Ninh Kiều,TP Cần Thơ</li>
+                                                <li><i class="fa fa-phone"></i> <a href="#">trungttpc01815@fpt.edu.vn</a></li>
+                                                <li><i class="fa fa-envelope-o"></i>0817680523</li>
                                             </ul>        
                                             <h3><strong>Working hours</strong></h3>
                                             <p><strong>Monday – Saturday</strong>:  08AM – 22PM</p>       
@@ -83,7 +86,8 @@
                         <div class="contact_map">
                             <div class="row">
                                 <div class="col-12">
-                                    <iframe src="https://www.google.com/maps/embed?pb" width="500" height="450" style="border:0" allowfullscreen=""></iframe>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.8712318041294!2d105.75541541458216!3d10.027483392832314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a088476bafffdf%3A0x4da67960eb05332d!2zVHLGsOG7nW5nIENhbyDEkOG6s25nIFRo4buxYyBIw6BuaCBGUFQgUG9seXRlY2huaWMgQ-G6p24gVGjGoQ!5e0!3m2!1svi!2s!4v1669208295944!5m2!1svi!2s" width="500" height="450" style="border:0" allowfullscreen=""></iframe>
+                              
                                 </div>
                             </div>
                         </div>

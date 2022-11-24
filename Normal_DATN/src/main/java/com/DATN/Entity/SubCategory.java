@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +36,8 @@ public class SubCategory implements Serializable{
 	@Column(name = "Name")
 	String nameSubCategory;
 	
-	@OneToMany
-	List<Category> categories;
-	
+
+	@JsonBackReference
 	@OneToMany
 	List<Product> products;
 
@@ -55,13 +57,6 @@ public class SubCategory implements Serializable{
 		this.nameSubCategory = nameSubCategory;
 	}
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
 
 	public List<Product> getProducts() {
 		return products;

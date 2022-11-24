@@ -94,10 +94,11 @@ public class UserServiceImpl implements UserService {
 		String email = oauth2.getPrincipal().getAttribute("email");
 		if(findByEmailService(email) == null) {
 			users acc = new users();
-			acc.setId(System.currentTimeMillis()+"");
+			acc.setId(name);
 			acc.setActivated(true);
 			acc.setAdmin(role);
 			acc.setFullname(name);
+			acc.setPhone("NULL");
 			acc.setPassword(pass);
 			acc.setEmail(email);
 			saveAccountService(acc);
