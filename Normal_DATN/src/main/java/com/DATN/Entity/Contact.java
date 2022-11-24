@@ -49,7 +49,7 @@ public class Contact {
 	Date date = new Date();
 	
 	@Column(name = "Status")
-	String status;
+	Boolean status;
 	
 	@Column(name = "Subject")
 	@NotBlank(message = "Bạn chưa nhập tiêu đề")
@@ -99,11 +99,11 @@ public class Contact {
 		this.date = date;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
