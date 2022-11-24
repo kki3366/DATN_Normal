@@ -31,6 +31,8 @@ public class shop {
 	public String form(Model model, @PathVariable("id") Integer id,@RequestParam("subcategory") Integer subcategory,
 			@RequestParam("p") Optional<Integer> p) {
 		List<Category> item = categoryRepository.findAll();
+		
+		model.addAttribute("category", item);
 		model.addAttribute("item", item);
 		
 		Pageable pageable = PageRequest.of(p.orElse(0), 9);
