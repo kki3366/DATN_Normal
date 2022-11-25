@@ -12,11 +12,12 @@ public interface CategoryService {
 	
 	List<Category> findAllCategoryService();
 	
-    List<Category> findCategoryByNameService(String categoryName);
 	
 	void deleteCategoryById(int id);
 	
 	Optional<Category> findByIdCategory(int id);
 	
 	int checkCategoryName(String name);
+	
+	int checkProductExitInCategory(int id);
 }

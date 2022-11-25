@@ -30,11 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
 		return list;
 	}
 
-	@Override
-	public List<Category> findCategoryByNameService(String categoryName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void deleteCategoryById(int id) {
@@ -50,6 +45,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public int checkCategoryName(String name) {
 		return cateRepo.IsExitCategory(name);
+	}
+
+	@Override
+	public int checkProductExitInCategory(int id) {
+		return cateRepo.checkProductExitInCategory(id);
 	}
 
 

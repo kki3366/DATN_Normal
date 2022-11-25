@@ -74,8 +74,12 @@ public class RestCategory {
 	
 	@DeleteMapping("/categories/{idCategory}")
 	public ResponseEntity<HttpStatus> deleteCategoryById(@PathVariable("idCategory") int id){
-		categoryService.deleteCategoryById(id);
-		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+		if(categoryService.checkProductExitInCategory(id) > 0) {
+			return new ResponseEntity<HttpStatus>(HttpStatus.CONFLICT);
+		}else {
+			categoryService.deleteCategoryById(id);
+			return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+		}
 	}
 	
 }

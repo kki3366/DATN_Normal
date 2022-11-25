@@ -135,6 +135,9 @@ if (convertUrl.pathname = '/admin/category') {
 							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
 							$('#nameCategory').val("")
 							$('#nameCategory').focus()
+						},
+						409: function(error) {
+							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đang tồn tại sản phẩm </div>')
 						}
 					}
 				})
@@ -209,7 +212,8 @@ if (convertUrl.pathname = '/admin/product') {
 		})
 
 		//Load category to select
-		$.ajax({
+		function loadCategory(){
+			$.ajax({
 			type: "GET",
 			dataType: "json",
 			url: getCategoryUrl,
@@ -217,10 +221,13 @@ if (convertUrl.pathname = '/admin/product') {
 				//console.log(resp)
 				for (i in resp) {
 					$("#selectedCategory").append("<option value='" + resp[i].id + "'>" + resp[i].nameCategory + "</option>");
-				}
+				}	
 			}
 		})
-
+		}
+		
+		loadCategory()
+		
 		function clearForm() {
 			$('#nameProduct').val("")
 			$('#priceProduct').val("")
@@ -280,6 +287,9 @@ if (convertUrl.pathname = '/admin/product') {
 					},
 					502: function(error) {
 						$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
+					},
+					500: function(error){
+						$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
 					}
 				}
 			})
@@ -293,8 +303,8 @@ if (convertUrl.pathname = '/admin/product') {
 			$('#deleteModeButtonProduct').remove();
 			$('#submitProductButton').remove();
 			//Give row data to form
-			console.log(rowData)
-			console.log(rowData.category.nameCategory)
+			//console.log(rowData)
+			//console.log(rowData.category.nameCategory)
 			$('#nameProduct').val(rowData.name)
 			$('#priceProduct').val(rowData.price)
 			$('#quanlityProduct').val(rowData.quantity)
@@ -336,8 +346,9 @@ if (convertUrl.pathname = '/admin/product') {
 							$('#cancelModeButtonProduct').remove();
 							$('#deleteModeButtonProduct').remove();
 							$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>')
+							$('.help-block').text('Chỉ thêm được 1 hình')
 							clearForm();
-							
+
 						},
 						statusCode: {
 							500: function(error) {
@@ -351,28 +362,33 @@ if (convertUrl.pathname = '/admin/product') {
 							}
 						}
 					})
+				}else{
+					console.log("có file mới")
 				}
+			
 
 			})
 			//Do delete
 			$('#deleteModeButtonProduct').click(function() {
+
 				console.log("delete on working product")
 				$.ajax({
 					method: 'DELETE',
 					url: getProductUrl + '/' + rowData.id + '/' + rowData.image,
 					success: function(resp, xhr) {
 						$("#messageProduct").html('<div class="alert alert-success alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-check"></i> Thông báo!</h4>' + 'Bạn đã xóa sản phẩm thành công' + '</div>')
-						clearForm();
 						$('#updateModeButtonProduct').remove();
 						$('#cancelModeButtonProduct').remove();
 						$('#deleteModeButtonProduct').remove();
 						$('.box-footer').append('<button type="button" class="btn btn-primary" id="submitProductButton">Submit</button>')
 						$('.help-block').text('Chỉ thêm được 1 hình')
 						$("#tableProduct").DataTable().ajax.reload();
+						clearForm();
 					},
 					statusCode: {
 						400: function(error) {
 							$("#message").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4> Danh mục đã tồn tại. Vui lòng nhập lại </div>')
+							console.log(error)
 						}
 					}
 				})
