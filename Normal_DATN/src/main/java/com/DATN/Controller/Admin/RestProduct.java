@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.DATN.Entity.Product;
+import com.DATN.Service.CartService;
 import com.DATN.Service.ProductService;
 import com.DATN.Unit.FileUploadUtil;
 
@@ -37,6 +38,9 @@ public class RestProduct {
 
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	CartService cartService;
 
 	@Autowired
 	ServletContext app;
@@ -63,50 +67,40 @@ public class RestProduct {
 
 	}
 
-//	@PutMapping(value = "/products/{id}", consumes = "application/json")
-//	public ResponseEntity<Product> updateProducts(@PathVariable("id") int id,@RequestBody Product products){
-//		Optional<Product> productsOption = productService.findByIdProducts(id);
-//		System.err.println(productsOption.get().getName());
-//		return (ResponseEntity<Product>) productsOption.map(p -> {
-//			products.setId(p.getId());
-//			products.setName(p.getName());
-//			products.setPrice(p.getPrice());
-//			products.setImgage(p.getImage());
-//			products.setDate(p.getDate());
-//			products.setAvailable(p.isAvailable());
-//			products.setCategory(p.getCategory());
-//			products.setQuantity(p.getQuantity());
-//			products.setDescription(p.getDescription());
-//			products.setDiscount(p.getDiscount());
-//			products.setViewCount(p.getViewCount());
-//			products.setSpecial(p.isSpecial());
-//			return new ResponseEntity<>(productService.saveProductsService(products),HttpStatus.OK);
-//		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
-
-	@PutMapping(value = "/products", consumes = "application/json")
-	public ResponseEntity<Product> updateProducts(@RequestPart(value = "fileProduct", required = false) MultipartFile file,@RequestBody Product products) {
-//		if(file == null) {
-//			Optional<Product> productsOption = productService.findByIdProducts(products.getId());
-//			return (ResponseEntity<Product>) productsOption.map(p -> {
-//				products.setId(p.getId());
-//				return new ResponseEntity<>(productService.saveProductsService(products), HttpStatus.OK);
-//			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//		}
-		Optional<Product> productsOption = productService.findByIdProducts(products.getId());
-		return (ResponseEntity<Product>) productsOption.map(p -> {
-			products.setId(p.getId());
-			return new ResponseEntity<>(productService.saveProductsService(products), HttpStatus.OK);
-		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-		
+	
+	@PutMapping(value = "/products", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	public ResponseEntity<Product> updateProducts(@RequestPart(value = "fileUpdate", required = false) MultipartFile file,
+			@RequestPart @Valid Product productsUpdate, BindingResult result) throws IllegalStateException, IOException{
+		if(result.hasErrors()) {
+			return null;
+		}
+		if(file == null) {
+			Optional<Product> productsOption = productService.findByIdProducts(productsUpdate.getId());
+			return (ResponseEntity<Product>) productsOption.map(p -> {
+				productsUpdate.setId(p.getId());
+				return new ResponseEntity<>(productService.saveProductsService(productsUpdate), HttpStatus.OK);
+			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//			System.err.println(productsUpdate.getId());
+		}else {
+			FileUploadUtil fileUtil = new FileUploadUtil();
+			fileUtil.deleteFileByName(productsUpdate.getImage(), app);
+			fileUtil.saveFile(file, app);
+			Optional<Product> productsOption = productService.findByIdProducts(productsUpdate.getId());
+			return (ResponseEntity<Product>) productsOption.map(p -> {
+				productsUpdate.setId(p.getId());
+				productsUpdate.setImgage(fileUtil.getGetFileNameForEntity());
+				return new ResponseEntity<>(productService.saveProductsService(productsUpdate), HttpStatus.OK);
+			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));	
+		}
 	}
 
 	@DeleteMapping("/products/{idProducts}/{getImg}")
 	public ResponseEntity<HttpStatus> deleteProductsById(@PathVariable("idProducts") int id,
 			@PathVariable("getImg") String image) throws IOException {
-		System.err.println(image);
+		//System.err.println(image);
 		FileUploadUtil fileUtil = new FileUploadUtil();
 		fileUtil.deleteFileByName(image, app);
+		cartService.deleleCartByProductId(id);
 		productService.deleteProductsById(id);
 		return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
 	}

@@ -69,6 +69,8 @@ public class FileUploadUtil {
 		if(getFiletoDelete.exists()) {
 			System.err.println("ok");
 			FileUtils.delete(getFiletoDelete);
+		}else {
+			System.err.println("ko tìm thấy");
 		}
 	}
 	

@@ -20,4 +20,6 @@ public interface CartService {
 	void remove(Integer id);
 
 	void add(Cart cart);
+	
+	void deleleCartByProductId(int id);
 }
