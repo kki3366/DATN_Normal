@@ -181,7 +181,7 @@ public class UserController {
 				acc.setActivated(acc.getActivated());
 				acc.setAdmin(acc.getAdmin());
 				user.saveAccountService(acc);
-//				m.addAttribute("acc",acc);
+
 				m.addAttribute("tb","Sửa tài khoản thành công");
 				
 		}
