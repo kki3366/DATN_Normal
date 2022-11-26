@@ -53,7 +53,7 @@
                  
               </div>
               <!-- /.box-body -->
-                      <i style="color:red" th:text="${tb}"></i>
+                      <i style="color:red" th:text="${tb}"></i><br>
                  
               <div class="box-footer">
               <div th:if="${send} == false">
@@ -61,7 +61,7 @@
               </div>
               
              <div th:unless="${send} == false">
-                  <button formaction="/admin/contact/writefeedback?edit=true" class="btn btn-primary">Phản hồi</button>
+                  <button formaction="/admin/contact/read?edit=true" class="btn btn-primary">Phản hồi</button>
               </div>
                
             </form>
@@ -79,7 +79,8 @@
                   <input type="text" name="content" class="form-control">
                 </div>
                 <div class="box-footer">
-                    <button class="btn btn-primary" >Phản hồi</button>
+                <i style="color:red" th:text="${tbContact}"></i><br>
+                    <button formaction="/admin/contact/feedback?edit=true" class="btn btn-primary" >Phản hồi</button>
                 </div>
               </form>
            </div>
@@ -90,7 +91,7 @@
             <div class="box-header">
               <h3 class="box-title">Hover Data Table</h3>
                <h3 style="float:right;" class="box-title">
-               <form th:action="@{/admin/user/find}" method="post">
+               <form th:action="@{/admin/contact/find}" method="post">
                   <input name="keywords" th:value="${keywords}" >
                   <button>Search</button>
                </form>
@@ -141,16 +142,16 @@
               </div>
               <div class="row">
               <div class="col-sm-5">
-              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] users</div>
+              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] contacts</div>
               </div>
               <div class="col-sm-7">
                <div>
                   <nav aria-label="Page navigation example">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p =0|}">First</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p =0|}">First</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.totalPages-1}|}">Last</a></li>
 			  </ul>
 			</nav>
 			</div>
