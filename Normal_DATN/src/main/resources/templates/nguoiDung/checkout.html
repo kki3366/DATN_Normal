@@ -16,9 +16,9 @@
                                 <div class="col-12">
                                     <div class="breadcrumb_content">
                                         <ul>
-                                            <li><a href="index.html">home</a></li>
+                                            <li><a href="/index">Trang chủ</a></li>
                                             <li><i class="fa fa-angle-right"></i></li>
-                                            <li>checkout</li>
+                                            <li>Thanh toán</li>
                                         </ul>
 
                                     </div>
@@ -39,11 +39,11 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6">
                                             <form th:action="@{/addOrder}" mehtod="post" >
-                                                <h3>Billing Details</h3>
+                                                <h3>Chi tiết thanh toán</h3>
                                                 <div class="row">
                                                 <input type="hidden" name="amount"  th:value="${tongTien}+30000" >  
                                                     <div class="col-12 mb-30">
-                                                        <label>User Name <span>*</span></label>
+                                                        <label>Tên <span>*</span></label>
                                                         <input type="text" name="user" th:value="${acc.id}" readonly>    
                                                     </div>
                                            <!--        <div class="col-lg-6 mb-30">
@@ -70,7 +70,7 @@
                                  
                                
                                                     <div class="col-lg-6 mb-30">
-                                                        <label>Phone<span>*</span></label>
+                                                        <label>Số điện thoại<span>*</span></label>
                                                         <input name="phone" type="text" th:value="${acc.phone}" > 
 
                                                     </div> 
@@ -80,18 +80,18 @@
 
                                                     </div> 
                                                           <div class="col-12 mb-30">
-                                                        <label>Address  <span>*</span></label>
+                                                        <label>Địa chỉ  <span>*</span></label>
                                                         <input placeholder="House number and street name" name="address" type="text">   
                                                         	<i style="color:red" >[[${address}]]</i>  
                                                     </div>
      
                                                     <div class="col-12">
                                                      <div class="order-notes">
-                                                             <label for="order_note">Order Notes</label>
+                                                             <label for="order_note">Ghi chú</label>
                                                             <textarea id="order_note" name="description" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                                         </div>    
                                                     </div>   
-                                                     <input type="hidden" name="status" th:value="Ordering">    	    	    	    	    	    	    
+                                                  	    	    	    	    	    
                                                 </div>
                                                             <div class="payment_method">
                                                    <div class="panel-default">
@@ -127,10 +127,10 @@
                                                     <table>
                                                         <thead>
                                                             <tr>
-                                                                 <th>Image</th>
-                                                                <th>Product</th>
-                                                                <th>Price</th>
-                                                                <th>Total</th>
+                                                                 <th>Hình</th>
+                                                                <th>Sản phẩm</th>
+                                                                <th>Giá</th>
+                                                                <th>Thành tiền</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -144,19 +144,19 @@
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <th>Cart Subtotal</th>
+                                                                <th>Tổng giỏ hàng</th>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td><strong>[[${tongTien}*1]]</strong></td>
                                                             </tr>
                                                             <tr>
-                                                                <th>Shipping</th>
+                                                                <th>Phí vận chuyển</th>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td><strong>30000</strong></td>
                                                             </tr>
                                                             <tr class="order_total">
-                                                                <th>Order Total</th>
+                                                                <th>Thành tiền</th>
                                                                 <td></td>
                                                                 <td></td> 
                                                                 <td><strong>[[${tongTien + 30000}*1]]</strong></td>

@@ -29,7 +29,7 @@ return ms;
 @Bean("localeResolver")
 public LocaleResolver getLocaleResolver() {
 	CookieLocaleResolver resolver = new CookieLocaleResolver();
-	resolver.setDefaultLocale(new Locale("en"));
+	resolver.setDefaultLocale(new Locale("vi"));
 	resolver.setCookiePath("/");
 	resolver.setCookieMaxAge(60 * 60); // 60 minutes
 	return resolver;

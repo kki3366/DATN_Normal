@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+
 import com.DATN.Entity.Product;
 
 
@@ -16,4 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	@Query(value = "select count(Productid) from Products where Name LIKE :name", nativeQuery = true)
 	int checkProductisExit(@Param("name") String nameProduct);
+	
+	@Query("SELECT o FROM Product o WHERE o.name LIKE ?1")
+	Page<Product> findByKeywords(String keywords, Pageable pgeable);
 }

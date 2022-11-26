@@ -51,12 +51,18 @@ public class OrderController {
 		m.addAttribute("order",new Orders());
 		return "Admin/page/order";
 	}
-	@RequestMapping("/admin/order/add")
-	public String add(Model m,@Validated @ModelAttribute("order") Orders order, Errors errors) {
-		if(errors.hasErrors()) {
-			
-		}
-		return "redirect:/admin/order";
+	@RequestMapping("/admin/order/update")
+	public String add(Model m,@Validated @ModelAttribute("order") Orders order
+			,	@RequestParam("p") Optional<Integer> p ){
+	
+	
+	order.setStatus(order.getStatus());
+	ordersRepository.save(order);
+	Pageable pageable = PageRequest.of(p.orElse(0), 5);
+	Page<Orders> page = ordersRepository.findAll(pageable);
+	m.addAttribute("page",page);
+	m.addAttribute("tb","Sửa đơn hàng thành công");
+	return "Admin/page/order";
 		}
 	
 	@RequestMapping("/admin/order/edit")

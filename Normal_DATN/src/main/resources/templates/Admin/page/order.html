@@ -15,7 +15,7 @@
             <!-- /.box-header -->
             <!-- form start -->
             
-            <form action="#" method="POST" th:object="${order}">
+            <form action="/admin/order/update" method="POST" th:object="${order}">
               <div class="box-body">
                
                 <div class="form-group">
@@ -28,11 +28,6 @@
                   <label for="exampleInputPassword1">User Id</label><br>
           
                   <input readonly th:field="*{user}" type="text" class="form-control" placeholder="Enter User Id">
-                </div>
-               <div class="form-group">
-                  <label for="exampleInputPassword1">Date</label><br>
-       
-                  <input readonly th:field="*{orderDate}" type="text" class="form-control" placeholder="Enter Order Date">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Phone</label><br>
@@ -56,9 +51,9 @@
                  <div >
                   <label for="exampleInputPassword1">Status</label><br>
 
-                  <input th:field="*{status}" type="radio" name="status" value="Ordering">Ordering&ensp;&ensp;
-                   <input readonly th:field="*{status}" type="radio"name="status" value="Cancelled">Cancelled&ensp;&ensp;
-                      <input readonly th:field="*{status}" type="radio"name="status" value="DaGiao">DaGiao
+                  <input th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;
+                   <input  th:field="*{status}" type="radio"name="status" value="Đã hủy">Đã hủy&ensp;&ensp;
+                      <input  th:field="*{status}" type="radio"name="status" value="Đã giao">Đã giao
                 </div>
               </div>
               <!-- /.box-body -->
@@ -66,21 +61,18 @@
         
               <div class="box-footer">
               
-                <!-- <div th:if="${edit} == true">
+                 <div th:if="${edit} == true">
                 
-            
-                <button class="btn btn-primary" disabled>Add</button>
-                    <button formaction="/admin/user/update" class="btn btn-primary">Update</button>
-                        <button formaction="/admin/user/new?edit=false" class="btn btn-primary" >Reset</button>
+             <button class="btn btn-primary">Cập nhật</button>
+               <button th:formaction="@{|/admin/orderDetail/${order.id}|}"  class="btn btn-primary">Xem chi tiết hóa đơn</button>
+              
                 </div>
                 <div th:unless="${edit} == true">
-               
-                   <button class="btn btn-primary">Add</button>
-                 <button formaction="/admin/user/update" class="btn btn-primary" disabled>Update</button>
-                     <button formaction="/admin/user/new?edit=false" class="btn btn-primary" >Reset</button>
                      
-                </div> -->
-               <button th:formaction="@{|/admin/orderDetail/${order.id}|}"  class="btn btn-primary">Order Detail</button>
+              
+                     
+                </div> 
+                   
               </div>
             </form>
            

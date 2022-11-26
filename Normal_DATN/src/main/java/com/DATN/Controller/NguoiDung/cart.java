@@ -1,5 +1,9 @@
 package com.DATN.Controller.NguoiDung;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +62,13 @@ public class cart {
 	@RequestMapping("/addCartO/{id}")
 	public String addCartOutside(@PathVariable("id") Integer id
 //			, @RequestParam("NLpassword") String user
-			) {
+			) throws MalformedURLException, URISyntaxException {
+//		 URL url = new URL(req.getRequestURL().toString());
+//		 System.err.println(url);
+//		 String host  = url.getHost();
+//		
+//		   String userInfo = url.getUserInfo();
+//		    URI uri = new URI(host,userInfo,null);
 		Product product = productRepository.getById(id);
 		users users = userRepository.getById(req.getRemoteUser());
 	

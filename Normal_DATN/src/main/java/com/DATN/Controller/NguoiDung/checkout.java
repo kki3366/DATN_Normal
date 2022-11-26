@@ -76,7 +76,7 @@ public class checkout {
 			model.addAttribute("address", "Vui lòng nhập địa chỉ");
 			return "nguoiDung/checkout";
 		}else {
-			
+			order.setStatus("Đã đặt");
 			ordersRepository.save(order);
 			int id = order.getId();
 			List<Cart> gio = cartRepository.findByIdUser(req.getRemoteUser());

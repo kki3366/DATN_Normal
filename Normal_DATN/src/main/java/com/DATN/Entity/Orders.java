@@ -31,7 +31,7 @@ public class Orders {
 	@Column(name = "Orderid")
 	int id;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Date")
 	Date orderDate = new Date();
 	

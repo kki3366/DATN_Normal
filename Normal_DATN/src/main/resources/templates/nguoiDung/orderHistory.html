@@ -15,9 +15,9 @@
                                 <div class="col-12">
                                     <div class="breadcrumb_content">
                                         <ul>
-                                            <li><a href="index.html">home</a></li>
+                                            <li><a href="/index">Trang chủ</a></li>
                                             <li><i class="fa fa-angle-right"></i></li>
-                                            <li>Order History</li>
+                                            <li>Lịch sử đặt hàng</li>
                                         </ul>
 
                                     </div>
@@ -43,13 +43,13 @@
                                                 <thead>
                                                     <tr>
                                                        
-                                                           <th class="productthumb">Date</th>
-                                                           <th class="product-name">Phone</th>
-                                                        <th class="product_name">Address</th>
+                                                           <th class="productthumb">Ngày</th>
+                                                           <th class="product-name">Số điện thoại</th>
+                                                        <th class="product_name">Địa chỉ</th>
                                                         
-                                                        <th class="product_total">Amount</th>
-                                                          <th class="product_total">Status</th>
-                                                          <th class="product_remove">Cancel Order</th>
+                                                        <th class="product_total">Tông tiền</th>
+                                                          <th class="product_total">Trạng thái</th>
+                                                          <th class="product_remove">Hủy đơn hàng</th>
                                                         <th class="product_total"></th>
                                                       
                                                        
@@ -67,7 +67,7 @@
                                                         <td class="product_total">[[${HoLy.amount}*1]]</td>
                                                              <td class="product_total">[[${HoLy.status}]]</td>
                                                         <td class="product_remove"><a th:href="@{|/orderHistory/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
-                                                        <td class="product_remove"><a th:href="@{|/orderHistoryDetail/${HoLy.id}|}">View</a></td>
+                                                        <td class="product_remove"><a th:href="@{|/orderHistoryDetail/${HoLy.id}|}">Xem</a></td>
                                                     
                                                      
 

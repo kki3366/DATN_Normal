@@ -13,9 +13,9 @@
                                 <div class="col-12">
                                     <div class="breadcrumb_content">
                                         <ul>
-                                            <li><a href="index.html">home</a></li>
+                                            <li><a href="/index">Trang chủ</a></li>
                                             <li><i class="fa fa-angle-right"></i></li>
-                                            <li>single product</li>
+                                            <li>Sản phẩm</li>
                                         </ul>
 
                                     </div>
@@ -64,10 +64,10 @@
                                             </div>
                                             <div class="box_quantity mb-20">      
                                              <form th:action="@{|/addCartI/${product.id}|}" method="post">
-                                                    <label>Quantity</label>
+                                                    <label>Số lượng</label>
                                                     <input name="qty" min="1" max="100" value="1" type="number">
                                                                                 
-                                                <button type="submit" onclick="alert('Added to cart!')"> <i class="fa fa-shopping-cart"></i>  Add to cart</button>
+                                                <button type="submit" onclick="alert('Đã thêm vào giỏ hàng!')"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
                                               </form>    
                                             </div>
                                   
@@ -75,8 +75,8 @@
                                                 
 
                                             <div class="product_stock mb-20">
-                                               <p>299 items</p>
-                                                <span> In stock </span>
+                                               <p>299 sản phẩm</p>
+                                                <span> Trong kho </span>
                                             </div>
   
                                         </div>
