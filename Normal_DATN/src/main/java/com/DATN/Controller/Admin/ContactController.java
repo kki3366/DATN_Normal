@@ -2,6 +2,21 @@ package com.DATN.Controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.DATN.SessionService;
 import com.DATN.Entity.Contact;
 import com.DATN.Entity.users;
 import com.DATN.Repository.contactRepository;
@@ -23,6 +39,12 @@ public class ContactController {
 
 	@Autowired
 	contactRepository contact;
+	@Autowired
+	HttpServletRequest req;
+	@Autowired
+	SessionService session;	
+	// biến lưu id contact de tim email
+	int id;
 	@RequestMapping("/admin/contact")
 	public String contact(Model m,@RequestParam("p") Optional<Integer> p) {
 		Pageable page = PageRequest.of(p.orElse(0), 5);
@@ -33,20 +55,41 @@ public class ContactController {
 		m.addAttribute("send",false);
 		return "Admin/page/ContactAd";
 	}
-	
+	@RequestMapping("/admin/contact/find")
+	public String find(Model m,
+			@RequestParam("keywords") Optional<String> kw,
+			@RequestParam("p") Optional<Integer> p) {
+		m.addAttribute("contact",new Contact());
+		
+		String kwords = kw.orElse(session.getAttribute("keywords"));
+		session.setAttribute("keywords", kwords);
+		m.addAttribute("keywords", kwords);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<Contact> page = contact.findByKeywords("%"+kwords+"%", pageable);
+		m.addAttribute("page", page);
+//		return "redirect:/admin/user";
+		return "Admin/page/ContactAd";
+	}
 	@RequestMapping("/admin/contact/edit")
 	public String edit(Model m,@RequestParam("id") int idContact,@RequestParam("p") Optional<Integer> p) {
 		Contact Contact = contact.getById(idContact);
-		
+		id = idContact;
+		System.err.println("----------"+idContact);
 		m.addAttribute("contact",Contact);
 		Pageable page = PageRequest.of(p.orElse(0), 5);
 		Page<Contact> pageList = contact.findAll(page);
 		m.addAttribute("page",pageList);
 		m.addAttribute("edit",false);
-		m.addAttribute("send",true);
+		if(Contact.getStatus() == false) {
+			m.addAttribute("send",true);
+		}else {
+			m.addAttribute("send",false);
+		}
+		
+		
 		return "Admin/page/ContactAd";
 	}
-	@RequestMapping("/admin/contact/writefeedback")
+	@RequestMapping("/admin/contact/read")
 	public String phanhoi(Model m,@RequestParam("p") Optional<Integer> p) {
 		
 		m.addAttribute("contact",new Contact());
@@ -59,6 +102,8 @@ public class ContactController {
 	@RequestMapping("/admin/contact/feedback")
 	public String phanhoi(Model m,@RequestParam("subject") String subject,@RequestParam("content") String content,@RequestParam("p") Optional<Integer> p) {
 		Boolean check = true;
+		System.err.println("----------"+id);
+		Contact Contact = contact.getById(id);
 		if(subject.isEmpty()) {
 			m.addAttribute("subject","Bạn chưa nhập tiêu đề");
 			check = false;
@@ -68,8 +113,60 @@ public class ContactController {
 			check = false;
 		}
 		if(check == true) {
+			Properties props = new Properties(); 
+			props.setProperty("mail.smtp.auth", "true");
+			props.setProperty("mail.smtp.starttls.enable", "true"); 
+			props.setProperty("mail.smtp.host", "smtp.gmail.com"); 
+			props.setProperty("mail.smtp.ssl.trust","smtp.gmail.com");
+			props.setProperty("mail.smtp.ssl.protocols","TLSv1.2");
+			props.setProperty("mail.smtp.port", "587");
 			
+			Session session = Session.getInstance(props, new Authenticator() { 
+				protected PasswordAuthentication getPasswordAuthentication() {
+			
+				String username = "trungttpc01815@fpt.edu.vn";
+				String password = "bneeplngfiaciwmg";
+				return new PasswordAuthentication(username, password);
+				}
+			});
+			
+			MimeMessage mime = new MimeMessage(session);
+			
+			try {
+				Multipart mailmultipart = new MimeMultipart();
+				
+				MimeBodyPart bodytext = new MimeBodyPart();
+				
+				
+				bodytext.setText(content,"utf-8");
+				
+				
+				mailmultipart.addBodyPart(bodytext);
+		
+				mime.setFrom(new InternetAddress("trungttpc01815@fpt.edu.vn"));
+				mime.setRecipients(Message.RecipientType.TO,Contact.getEmail());
+				mime.setSubject(subject,"utf-8");
+				mime.setReplyTo(mime.getFrom());
+				mime.setContent(mailmultipart);
+				
+				Transport.send(mime);
+				
+				Contact.setStatus(true);
+				contact.save(Contact);
+				m.addAttribute("tbContact", "Đã gửi phản hồi!");
+			} catch (AddressException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				m.addAttribute("tbContact", "Gửi Phản hồi thất bại");
+				
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				m.addAttribute("tbContact", "Gửi Phản hồi  thất bại");
+				
+			}	
 		}
+		
 		m.addAttribute("contact",new Contact());
 		Pageable page = PageRequest.of(p.orElse(0), 5);
 		Page<Contact> pageList = contact.findAll(page);
