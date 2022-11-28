@@ -32,7 +32,7 @@ public class Category implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Categoryid")
-	int id;
+	Integer id;
 	
 	@NotEmpty(message = "Không được để trống tên danh mục")
 	@Column(name = "Name")
@@ -42,35 +42,31 @@ public class Category implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
 	List<Product> products;
 
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getNameCategory() {
 		return nameCategory;
 	}
 
-
 	public void setNameCategory(String nameCategory) {
 		this.nameCategory = nameCategory;
 	}
-
 
 	public List<Product> getProducts() {
 		return products;
 	}
 
-
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
+
+	
 	
 
 }

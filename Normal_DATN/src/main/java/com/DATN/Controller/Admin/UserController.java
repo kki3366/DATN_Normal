@@ -218,7 +218,7 @@ public class UserController {
 		Pageable page = PageRequest.of(p.orElse(0), 5);
 		Page<users> pageList = u.findAll(page);
 		m.addAttribute("page",pageList);
-		return "Admin/page/user";
+		return "redirect:/admin/user";
 	}
 	
 //	@RequestMapping("/admin/user/status")

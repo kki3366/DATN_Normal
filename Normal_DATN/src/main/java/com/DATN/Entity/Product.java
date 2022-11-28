@@ -84,7 +84,7 @@ public class Product implements Serializable{
 	@Column(name = "Special")
 	boolean special;
 	
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
 	@JoinColumn(name = "Categoryid")
 	Category category;

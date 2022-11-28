@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.DATN.Entity.Category;
 import com.DATN.Entity.Product;
 import com.DATN.Service.CartService;
 import com.DATN.Service.ProductService;
@@ -58,11 +59,16 @@ public class RestProduct {
 		if (result.hasErrors()) {
 			return null;
 		} else {
-			FileUploadUtil fileUtil = new FileUploadUtil();
-			fileUtil.saveFile(file, app);
-			products.setImgage(fileUtil.getGetFileNameForEntity());
-			products.setAvailable(true);
-			return new ResponseEntity<Product>(productService.saveProductsService(products), HttpStatus.CREATED);
+				if(products.getCategory().getId() == null) {
+					System.err.println("dang null");
+					return new ResponseEntity<>(HttpStatus.CONFLICT); 
+				}else {
+					FileUploadUtil fileUtil = new FileUploadUtil();
+					fileUtil.saveFile(file, app);
+					products.setImgage(fileUtil.getGetFileNameForEntity());
+					products.setAvailable(true);
+					return new ResponseEntity<Product>(productService.saveProductsService(products), HttpStatus.CREATED);
+				}
 		}
 
 	}

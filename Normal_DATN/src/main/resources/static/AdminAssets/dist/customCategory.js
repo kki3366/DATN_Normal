@@ -243,9 +243,13 @@ if (convertUrl.pathname = '/admin/product') {
 				dataType: "json",
 				url: getCategoryUrl,
 				success: function(resp) {
-					//console.log(resp)
+					console.log(resp)
 					for (i in resp) {
 						$("#selectedCategory").append("<option value='" + resp[i].id + "'>" + resp[i].nameCategory + "</option>");
+					}
+					if(resp.length <= 0){
+						console.log("ok")
+						$("#selectedCategory").html("<option value=''> Dang mục trống</option>");
 					}
 				}
 			})
@@ -318,7 +322,7 @@ if (convertUrl.pathname = '/admin/product') {
 						502: function(error) {
 							$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
 						},
-						500: function(error) {
+						409: function(error) {
 							$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
 						}
 					}
@@ -367,7 +371,7 @@ if (convertUrl.pathname = '/admin/product') {
 							502: function(error) {
 								$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
 							},
-							500: function(error) {
+							409: function(error) {
 								$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
 							}
 						}
@@ -478,7 +482,7 @@ if (convertUrl.pathname = '/admin/product') {
 							502: function(error) {
 								$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
 							},
-							500: function(error) {
+							409: function(error) {
 								$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
 							}
 						}
@@ -534,7 +538,7 @@ if (convertUrl.pathname = '/admin/product') {
 								502: function(error) {
 									$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Tên danh mục đã tồn tại' + '</div>')
 								},
-								500: function(error) {
+								409: function(error) {
 									$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
 								}
 							}
