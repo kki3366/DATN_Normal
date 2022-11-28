@@ -49,7 +49,12 @@ public class checkout {
 		
 		
 		model.addAttribute("item", item);
-		model.addAttribute("tongTien", tongTien);
+		if(tongTien == null) {
+			tongTien = (double) 0;
+			model.addAttribute("tongTien", tongTien);
+		}else {
+			model.addAttribute("tongTien", tongTien);
+		}
 		model.addAttribute("acc", acc);
 		model.addAttribute("order", new Orders());
 
@@ -62,7 +67,7 @@ public class checkout {
 //			@RequestParam("description") String description, @RequestParam("amount") float amount, @RequestParam("status") String status
 			, @RequestParam("address") String address 	) {
 
-		if(address.isEmpty()) {
+		if(order.getAddress().isEmpty()) {
 			List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 			
 			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
@@ -70,10 +75,18 @@ public class checkout {
 			
 		
 			model.addAttribute("item", item);
-			model.addAttribute("tongTien", tongTien);
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
 			model.addAttribute("acc", acc);
 			model.addAttribute("order", new Orders());
 			model.addAttribute("address", "Vui lòng nhập địa chỉ");
+			if(order.getPhone().isEmpty()) {
+				model.addAttribute("phone", "Vui lòng nhập số điện thoại");
+			}
 			return "nguoiDung/checkout";
 		}else {
 			order.setStatus("Đã đặt");

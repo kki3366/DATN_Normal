@@ -15,6 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	@Query("SELECT o FROM Product o WHERE o.category.id = ?1 and o.subcategory.id = ?2")
 	Page<Product> findByShop(Integer category, Integer subcategory, Pageable pageable);
 	
+	@Query("SELECT o FROM Product o WHERE o.subcategory.id = ?1")
+	Page<Product> findByShopNN(Integer subcategory, Pageable pageable);
+	
 	@Query(value = "select count(Productid) from Products where Name LIKE :name", nativeQuery = true)
 	int checkProductisExit(@Param("name") String nameProduct);
 	

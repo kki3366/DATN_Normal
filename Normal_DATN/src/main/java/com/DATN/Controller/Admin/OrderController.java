@@ -51,7 +51,7 @@ public class OrderController {
 		m.addAttribute("order",new Orders());
 		return "Admin/page/order";
 	}
-	@RequestMapping("/admin/order/update")
+	@PostMapping("/admin/order/update")
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
 			,	@RequestParam("p") Optional<Integer> p ){
 	

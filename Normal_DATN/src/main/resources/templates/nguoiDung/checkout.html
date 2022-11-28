@@ -72,7 +72,7 @@
                                                     <div class="col-lg-6 mb-30">
                                                         <label>Số điện thoại<span>*</span></label>
                                                         <input name="phone" type="text" th:value="${acc.phone}" > 
-
+                                                        <i style="color:red" >[[${phone}]]</i>  
                                                     </div> 
                                                      <div class="col-lg-6 mb-30">
                                                         <label> Email <span>*</span></label>
@@ -114,9 +114,19 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="order_button">
+                                                    
+                                                          <div th:if="${tongTien} != null">
+                                                               <div class="order_button">
                                                         <button type="submit">Tiến hành đặt hành</button> 
                                                     </div>    
+													                </div>
+													                <div th:if="${tongTien} == null">
+													                 
+												                                 <div class="checkout_btn">
+												             <a  onclick="alert('Vui lòng thêm sản phẩm cần mua vào giỏ hàng!')" href="#">Tiến hành thanh toán</a>
+												               </div>
+           																		     </div> 
+                                               
                                                 </div> 
                                             </form>    
                                         </div>

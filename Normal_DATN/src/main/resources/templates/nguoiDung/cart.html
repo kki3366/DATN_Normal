@@ -117,9 +117,20 @@
                                                            <p>Thành tiền</p>
                                                            <p class="cart_amount">[[${tongTien}+30000]]</p>
                                                        </div>
-                                                       <div class="checkout_btn">
-                                                           <a th:href="@{/checkout}">Tiến hành thanh toán</a>
-                                                       </div>
+                                                      
+                                                                     <div th:if="${tongTien} != 0">
+                                                                <div class="checkout_btn">
+												                           <a th:href="@{/checkout}">Tiến hành thanh toán</a>
+												                            </div>
+													                </div>
+													                <div th:if="${tongTien} == 0">
+													                 
+												                                 <div class="checkout_btn">
+												             <a  onclick="alert('Vui lòng thêm sản phẩm cần mua vào giỏ hàng!')" href="#">Tiến hành thanh toán</a>
+												               </div>
+           																		     </div> 
+                                                     
+                                                      
                                                     </div>
                                                 </div>
                                             </div>

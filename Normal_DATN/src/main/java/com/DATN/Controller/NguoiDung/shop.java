@@ -67,5 +67,25 @@ public class shop {
 		model.addAttribute("keywords", kwords);
 		return "nguoiDung/shopFind";
 	}
+	@RequestMapping("/shop")
+	public String form2(Model model, @RequestParam("subcategory") Integer subcategory,
+			@RequestParam("p") Optional<Integer> p) {
+		List<Category> item = categoryRepository.findAll();
+		
+		model.addAttribute("category", item);
+		model.addAttribute("item", item);
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 9);
+		Page<Product> page = productRepository.findByShopNN(subcategory,pageable);
+		model.addAttribute("page", page);
+		model.addAttribute("subcategory", subcategory);
+		if(page == null) {
+			model.addAttribute("message", "Hiện không có sản phẩm");
+		}
+
+		
+		return "nguoiDung/shopN";
+	
+	}
 }
 
