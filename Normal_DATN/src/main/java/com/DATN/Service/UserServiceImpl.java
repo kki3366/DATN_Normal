@@ -75,7 +75,10 @@ public class UserServiceImpl implements UserService {
 		users acc = user.findId(username);
 		String pass = acc.getPassword();
 		Boolean role = acc.getAdmin();
-		
+		if(acc.getActivated()== false) {
+			pass = null;
+			
+		}
 		UserDetails user = User.withUsername(acc.getId()).password(pass).roles(role+"").build();
 	return user;
 	}

@@ -48,13 +48,39 @@ public class UserController {
 	int vtPage;
 	@RequestMapping("/admin/user")
 	public String u(Model m,@RequestParam("p") Optional<Integer> p) {
-//		List<users> list = user.findAllAccountService();
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<users> pageList = u.findAll(page);
-		System.err.println(pageList.getTotalElements());
-		m.addAttribute("page",pageList);
-		m.addAttribute("edit",false);
-		m.addAttribute("acc",new users());
+		List<users> list = user.findAllAccountService();
+		int sizeUsers = list.size();
+		int size = 5;
+		int trang = (int)Math.ceil(sizeUsers/(double) size);
+		int sotrang = Integer.parseInt(p.orElse(0)+"");
+		System.err.println(sotrang);
+		if(sotrang > trang-1) {
+			p = Optional.of(0);
+			System.err.println("If "+p);
+		}else if(sotrang <-1) {
+			p = Optional.of(0);
+		}
+		try {
+			Pageable page = PageRequest.of(p.orElse(0), 5);
+			Page<users> pageList = u.findAll(page);
+			m.addAttribute("page",pageList);
+			m.addAttribute("edit",false);
+			m.addAttribute("acc",new users());
+		}catch (java.lang.IllegalArgumentException e) {
+			p = Optional.of(0);
+			Pageable page = PageRequest.of(p.orElse(0), 5);
+			Page<users> pageList = u.findAll(page);
+			m.addAttribute("page",pageList);
+			m.addAttribute("edit",false);
+			m.addAttribute("acc",new users());
+		}
+		
+//		Pageable page = PageRequest.of(p.orElse(0), 5);
+//		Page<users> pageList = u.findAll(page);
+//		m.addAttribute("page",pageList);
+//		m.addAttribute("edit",false);
+//		m.addAttribute("acc",new users());
+		
 		
 		return "Admin/page/user";
 	}
@@ -70,6 +96,7 @@ public class UserController {
 		Pageable pageable = PageRequest.of(p.orElse(0), 5);
 		Page<users> page = u.findByKeywords("%"+kwords+"%", pageable);
 		m.addAttribute("page", page);
+		
 //		return "redirect:/admin/user";
 		return "Admin/page/user";
 	}
@@ -94,13 +121,13 @@ public class UserController {
 	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Thêm tài khoản thất bại");
-			System.err.println("VT:"+acc.getAdmin());
+			
 		}else {
 			Integer kt = 0;
 			users account = u.findId(acc.getId());
 			if (account != null) {
 				kt++;
-				System.err.println("User ton tai");
+				
 				m.addAttribute("ktTonTai", "User đã tồn tại.");
 			}
 			if (user.findByEmailService(acc.getEmail()) != null) {
@@ -131,23 +158,25 @@ public class UserController {
 	}
    
 	@RequestMapping("/admin/user/edit")
-	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("user") String User) {
+	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("user") String User,@RequestParam("p") Optional<Integer> p) {
 		users account = u.findId(User);
 		m.addAttribute("acc",account);
 		m.addAttribute("edit",edit);
-		System.err.println("edit:"+edit);
-		List<users> list = user.findAllAccountService();
-		m.addAttribute("page",list);
+	    System.err.println(account.getPassword());
+	   
+		Pageable page = PageRequest.of(p.orElse(0), 5);
+		Page<users> pageList = u.findAll(page);
+		m.addAttribute("page",pageList);
 		return "Admin/page/user";
 	}
-	@RequestMapping("/admin/user/update")
+	@PostMapping("/admin/user/update")
 	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
 //		users account = u.findId(User);
 //		m.addAttribute("acc",account);
 		m.addAttribute("edit",true);
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Sửa tài khoản thất bại");
-			System.err.println("VT:"+acc.getAdmin());
+			
 		}else {
 			Integer kt = 0;
 			users account = u.findId(acc.getId());
@@ -172,7 +201,7 @@ public class UserController {
 			if(acc.getId().equals(req.getRemoteUser())) {
 				kt++;
 				m.addAttribute("ktItMe", "Bạn không thể cập nhật chính bạn");
-				System.err.println("Bạn không thể cập nhật chính bạn");
+				
 			}
 			if(kt==0) {
 				BCryptPasswordEncoder pe =new BCryptPasswordEncoder();

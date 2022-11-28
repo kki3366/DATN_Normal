@@ -35,7 +35,7 @@ public class SecurityController {
 	}
 	@RequestMapping("/security/error")
 	public String loginError(Model m) {
-		m.addAttribute("tb","Sai thông tin đăng nhập!!");
+		m.addAttribute("tb","Sai thông tin đăng nhập hoặc tài khoản ngừng hoạt động!!");
 		return "taiKhoan/login";
 	}
 	@RequestMapping("/security/unauthoried")
