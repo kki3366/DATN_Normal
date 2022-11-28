@@ -47,12 +47,36 @@ public class ContactController {
 	int id;
 	@RequestMapping("/admin/contact")
 	public String contact(Model m,@RequestParam("p") Optional<Integer> p) {
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<Contact> pageList = contact.findAll(page);
-		m.addAttribute("page",pageList);
-		m.addAttribute("contact",new Contact());
-		m.addAttribute("edit",false);
-		m.addAttribute("send",false);
+		List<Contact> list = contact.findAll();
+		int sizeUsers = list.size();
+		int size = 5;
+		int trang = (int)Math.ceil(sizeUsers/(double) size);
+		int sotrang = Integer.parseInt(p.orElse(0)+"");
+		
+		if(sotrang > trang-1) {
+			p = Optional.of(0);
+			System.err.println("If "+p);
+		}else if(sotrang <-1) {
+			p = Optional.of(0);
+		}
+		try {
+			Pageable page = PageRequest.of(p.orElse(0), 5);
+			Page<Contact> pageList = contact.findAll(page);
+			m.addAttribute("page",pageList);
+			m.addAttribute("contact",new Contact());
+			m.addAttribute("edit",false);
+			m.addAttribute("send",false);
+		}catch (java.lang.IllegalArgumentException e) {
+			p = Optional.of(0);
+			Pageable page = PageRequest.of(p.orElse(0), 5);
+			Page<Contact> pageList = contact.findAll(page);
+			m.addAttribute("page",pageList);
+			m.addAttribute("contact",new Contact());
+			m.addAttribute("edit",false);
+			m.addAttribute("send",false);
+		}
+		
+		
 		return "Admin/page/ContactAd";
 	}
 	@RequestMapping("/admin/contact/find")

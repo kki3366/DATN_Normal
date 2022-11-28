@@ -51,10 +51,11 @@ public class users implements Serializable{
 	String email;
 	
 	@Column(name = "Activated")
+	@NotNull(message = "Bạn chưa chọn trạng thái")
 	Boolean activated;
 	
 	@Column(name = "Admin")
-//	@NotEmpty(message = "Bạn chưa chọn vai trò")
+	@NotNull(message = "Bạn chưa chọn vai trò")
 	Boolean admin;
 	
 
