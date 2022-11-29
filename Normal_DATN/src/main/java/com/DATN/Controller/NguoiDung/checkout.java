@@ -111,7 +111,7 @@ public class checkout {
 				od.setQuanlity(cart.getQuanlityProductCart());
 				od.setProduct(product);
 				od.setOrder(ord);
-				
+				//
 				orderDetailRepository.save(od); 
 				
 				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
