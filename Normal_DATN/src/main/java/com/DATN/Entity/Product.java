@@ -69,7 +69,7 @@ public class Product implements Serializable{
 	@Column(name = "Quantity")
 	int quantity;
 	
-	@NotEmpty(message = "Không được để mô tả sản phẩm")
+	@NotEmpty(message = "Không được để trống mô tả sản phẩm")
 	@Column(name = "Description")
 	String description;
 	

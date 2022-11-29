@@ -48,7 +48,7 @@ public class orderHistory {
 	@RequestMapping("/orderHistory/{id}")
 	public String status(Model model, @PathVariable("id") Integer id) {
 		Orders order = orderRepository.getById(id);
-		order.setStatus("Cancelled");
+		order.setStatus("Đã hủy");
 		orderRepository.save(order);
 		return "redirect:/orderHistory";
 	}

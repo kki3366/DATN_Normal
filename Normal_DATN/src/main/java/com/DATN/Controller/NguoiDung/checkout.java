@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,12 +65,9 @@ public class checkout {
 		
 	}
 	@RequestMapping("/addOrder")
-	public String add(Orders order ,Model model
-//			,@RequestParam("user") String user, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("address") String address, 
-//			@RequestParam("description") String description, @RequestParam("amount") float amount, @RequestParam("status") String status
-			, @RequestParam("address") String address 	) {
+	public String add( Orders order ,Model model) {
+		if(order.getPhone().isEmpty() || order.getAddress().isEmpty() || order.getPhone().length()>11 || order.getPhone().length()<9  ) {
 
-		if(order.getAddress().isEmpty()) {
 			List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 			
 			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
@@ -83,11 +83,17 @@ public class checkout {
 			}
 			model.addAttribute("acc", acc);
 			model.addAttribute("order", new Orders());
-			model.addAttribute("address", "Vui lòng nhập địa chỉ");
-			if(order.getPhone().isEmpty()) {
-				model.addAttribute("phone", "Vui lòng nhập số điện thoại");
+			model.addAttribute("loiphone", "Vui lòng nhập số điện thoại");
+			if(order.getPhone().length()>11 || order.getPhone().length()<9  ) {
+				model.addAttribute("loiphone", "Vui lòng nhập đúng số điện thoại");
 			}
+		
+			if(order.getAddress().isEmpty()) {	
+				model.addAttribute("loiaddress", "Vui lòng nhập địa chỉ");
+			}
+			
 			return "nguoiDung/checkout";
+//			return "redirect:/checkout";
 		}else {
 			order.setStatus("Đã đặt");
 			ordersRepository.save(order);
@@ -95,8 +101,6 @@ public class checkout {
 			List<Cart> gio = cartRepository.findByIdUser(req.getRemoteUser());
 			
 			for(Cart cart:gio) {
-				System.err.println("Name la"+cart.getId());
-				System.err.println("Id la"+id);
 				OrderDetail od = new OrderDetail();
 				Product product = productRepository.getById(cart.getProduct().getId());
 				Orders ord = ordersRepository.getById(id);
@@ -109,12 +113,20 @@ public class checkout {
 				od.setOrder(ord);
 				
 				orderDetailRepository.save(od); 
+				
+				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
+				if(product.getQuantity()==0) {
+					product.setAvailable(false);
+					productRepository.save(product);					
+				}
+				productRepository.save(product);	
 				cartService.clear(cart.getId());
 				
-			}
 			
+			}
 		
-		return "nguoiDung/index";
+	return "redirect:/index";
+	
 		}
 	}
 }
