@@ -100,12 +100,9 @@ public class checkout {
 				OrderDetail od = new OrderDetail();
 				Product product = productRepository.getById(cart.getProduct().getId());
 				Orders ord = ordersRepository.getById(id);
-		
-				od.setImage(cart.getImgProductCart());
 				od.setName(cart.getNameProductCart());
 				od.setPrice(cart.getPriceProductCart());
 				od.setQuanlity(cart.getQuanlityProductCart());
-				od.setProduct(product);
 				od.setOrder(ord);
 				
 				orderDetailRepository.save(od); 
@@ -116,5 +113,5 @@ public class checkout {
 		
 		return "nguoiDung/index";
 		}
-	}
+	}	
 }

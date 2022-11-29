@@ -28,8 +28,6 @@ public class OrderDetail {
 	@Column(name = "Orderdetailid")
 	int id;
 	
-	@Column(name = "Image")
-	String image;
 	
 	@Column(name = "Name")
 	String name;
@@ -43,10 +41,6 @@ public class OrderDetail {
 	@ManyToOne
 	@JoinColumn(name = "Orderid")
 	Orders order;
-	
-	@ManyToOne
-	@JoinColumn(name = "Productid")
-	Product product;
 
 	public int getId() {
 		return id;
@@ -54,14 +48,6 @@ public class OrderDetail {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public String getName() {
@@ -95,14 +81,8 @@ public class OrderDetail {
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}	
+	
+	
 	
 }
 

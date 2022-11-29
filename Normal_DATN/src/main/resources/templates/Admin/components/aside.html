@@ -9,20 +9,39 @@
     <section class="sidebar" style="height: auto;">
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu tree" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">Bảng điều khiển</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Forms</span>
+            <i class="fa fa-edit"></i> <span>Quản lý</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a th:href="@{/admin/user}"><i class="fa fa-circle-o"></i>User Manager</a></li>
-            <li><a th:href="@{/admin/product}"><i class="fa fa-circle-o"></i>Product Manager</a></li>
-            <li><a th:href="@{/admin/category}"><i class="fa fa-circle-o"></i>Category Manager</a></li>
-            <li><a th:href="@{/admin/order}"><i class="fa fa-circle-o"></i>Order Manager</a></li>
-            <li><a th:href="@{/admin/contact}"><i class="fa fa-circle-o"></i>Contact Manager</a></li>
+            <li><a th:href="@{/admin/user}"><i class="fa fa-circle-o"></i>Quản lý người dùng</a></li>
+            <li><a th:href="@{/admin/product}"><i class="fa fa-circle-o"></i>Quản lý sản phẩm</a></li>
+            <li><a th:href="@{/admin/category}"><i class="fa fa-circle-o"></i>Quản lý danh mục</a></li>
+            <li><a th:href="@{/admin/order}"><i class="fa fa-circle-o"></i>Quản lý hóa đơn</a></li>
+            <li><a th:href="@{/admin/contact}"><i class="fa fa-circle-o"></i>Quản lý liên hệ</a></li>
+          </ul>
+          
+          
+        </li>
+        
+        <li class="treeview menu-open" style="height: auto;">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Báo cáo</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="display: block;">
+            <li><a th:href="@{/admin/report/inventory}"><i class="fa fa-circle-o"></i>Tồn kho theo loại</a></li>
+            <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
+            <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
+            <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
+            <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
           </ul>
         </li>
         
