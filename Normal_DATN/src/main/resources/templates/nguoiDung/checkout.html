@@ -38,7 +38,7 @@
                             <div class="checkout_form">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6">
-                                            <form th:action="@{/addOrder}" mehtod="post" >
+                                            <form th:action="@{/addOrder}" mehtod="post"  >
                                                 <h3>Chi tiết thanh toán</h3>
                                                 <div class="row">
                                                 <input type="hidden" name="amount"  th:value="${tongTien}+30000" >  
@@ -46,33 +46,11 @@
                                                         <label>Tên <span>*</span></label>
                                                         <input type="text" name="user" th:value="${acc.id}" readonly>    
                                                     </div>
-                                           <!--        <div class="col-lg-6 mb-30">
-                                                        <label>Last Name  <span>*</span></label>
-                                                        <input type="text"> 
-                                                    </div> -->   
-                                                  
-                                                  <!--  <div class="col-12 mb-30">
-                                                        <label for="country">country <span>*</span></label>
-                                                        <select name="cuntry" id="country"> 
-                                                            <option value="2">bangladesh</option>      
-                                                            <option value="3">Algeria</option> 
-                                                            <option value="4">Afghanistan</option>    
-                                                            <option value="5">Ghana</option>    
-                                                            <option value="6">Albania</option>    
-                                                            <option value="7">Bahrain</option>    
-                                                            <option value="8">Colombia</option>    
-                                                            <option value="9">Dominican Republic</option>   
-
-                                                        </select> 
-                                                    </div>   -->
-
-                                              
-                                 
                                
                                                     <div class="col-lg-6 mb-30">
                                                         <label>Số điện thoại<span>*</span></label>
-                                                        <input name="phone" type="text" th:value="${acc.phone}" > 
-                                                        <i style="color:red" >[[${phone}]]</i>  
+                                                        <input name="phone" type="number" th:value="${acc.phone}" > 
+                                                     <i style="color:red" >[[${loiphone}]]</i>
                                                     </div> 
                                                      <div class="col-lg-6 mb-30">
                                                         <label> Email <span>*</span></label>
@@ -82,7 +60,7 @@
                                                           <div class="col-12 mb-30">
                                                         <label>Địa chỉ  <span>*</span></label>
                                                         <input placeholder="House number and street name" name="address" type="text">   
-                                                        	<i style="color:red" >[[${address}]]</i>  
+                                                          <i style="color:red">[[${loiaddress}]]</i>
                                                     </div>
      
                                                     <div class="col-12">

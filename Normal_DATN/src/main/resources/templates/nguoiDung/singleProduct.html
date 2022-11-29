@@ -65,19 +65,26 @@
                                             <div class="box_quantity mb-20">      
                                              <form th:action="@{|/addCartI/${product.id}|}" method="post">
                                                     <label>Số lượng</label>
-                                                    <input name="qty" min="1" max="100" value="1" type="number">
+                                                    <input name="qty" min="1" th:max="${product.quantity}" value="1" type="number">
                                                                                 
                                                 <button type="submit" onclick="alert('Đã thêm vào giỏ hàng!')"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
                                               </form>    
                                             </div>
                                   
 
-                                                
-
-                                            <div class="product_stock mb-20">
-                                               <p>299 sản phẩm</p>
+                                                     <div th:if="${product.available} != true">
+							  <div class="product_stock mb-20">
+                                               <p>[[${product.quantity}]] sản phẩm</p>
+                                                <span> Hết hàng </span>
+                                            </div>
+							</div>
+													                <div th:if="${product.available} == true">
+													                  <div class="product_stock mb-20">
+                                               <p>[[${product.quantity}]] sản phẩm</p>
                                                 <span> Trong kho </span>
                                             </div>
+												           
+           																		     </div> 
   
                                         </div>
                                     </div>
