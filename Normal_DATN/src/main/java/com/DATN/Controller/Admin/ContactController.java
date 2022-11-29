@@ -3,6 +3,8 @@ package com.DATN.Controller.Admin;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -46,63 +48,103 @@ public class ContactController {
 	// biến lưu id contact de tim email
 	int id;
 	@RequestMapping("/admin/contact")
-	public String contact(Model m,@RequestParam("p") Optional<Integer> p) {
-		List<Contact> list = contact.findAll();
-		int sizeUsers = list.size();
-		int size = 5;
-		int trang = (int)Math.ceil(sizeUsers/(double) size);
-		int sotrang = Integer.parseInt(p.orElse(0)+"");
-		
-		if(sotrang > trang-1) {
-			p = Optional.of(0);
-			System.err.println("If "+p);
-		}else if(sotrang <-1) {
-			p = Optional.of(0);
+	public String contact(Model m,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Contact> resultPage = contact.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
 		}
-		try {
-			Pageable page = PageRequest.of(p.orElse(0), 5);
-			Page<Contact> pageList = contact.findAll(page);
-			m.addAttribute("page",pageList);
+		m.addAttribute("contactPage",resultPage);
+	
 			m.addAttribute("contact",new Contact());
 			m.addAttribute("edit",false);
 			m.addAttribute("send",false);
-		}catch (java.lang.IllegalArgumentException e) {
-			p = Optional.of(0);
-			Pageable page = PageRequest.of(p.orElse(0), 5);
-			Page<Contact> pageList = contact.findAll(page);
-			m.addAttribute("page",pageList);
-			m.addAttribute("contact",new Contact());
-			m.addAttribute("edit",false);
-			m.addAttribute("send",false);
-		}
-		
 		
 		return "Admin/page/ContactAd";
 	}
 	@RequestMapping("/admin/contact/find")
 	public String find(Model m,
 			@RequestParam("keywords") Optional<String> kw,
-			@RequestParam("p") Optional<Integer> p) {
+			@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 		m.addAttribute("contact",new Contact());
 		
 		String kwords = kw.orElse(session.getAttribute("keywords"));
 		session.setAttribute("keywords", kwords);
 		m.addAttribute("keywords", kwords);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		Page<Contact> page = contact.findByKeywords("%"+kwords+"%", pageable);
-		m.addAttribute("page", page);
+		
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Contact> resultPage = contact.findByKeywords("%"+kwords+"%", pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("contactPage",resultPage);
 //		return "redirect:/admin/user";
 		return "Admin/page/ContactAd";
 	}
 	@RequestMapping("/admin/contact/edit")
-	public String edit(Model m,@RequestParam("id") int idContact,@RequestParam("p") Optional<Integer> p) {
+	public String edit(Model m,@RequestParam("id") int idContact,@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 		Contact Contact = contact.getById(idContact);
 		id = idContact;
-		System.err.println("----------"+idContact);
 		m.addAttribute("contact",Contact);
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<Contact> pageList = contact.findAll(page);
-		m.addAttribute("page",pageList);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Contact> resultPage = contact.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("contactPage",resultPage);
+		
 		m.addAttribute("edit",false);
 		if(Contact.getStatus() == false) {
 			m.addAttribute("send",true);
@@ -114,19 +156,40 @@ public class ContactController {
 		return "Admin/page/ContactAd";
 	}
 	@RequestMapping("/admin/contact/read")
-	public String phanhoi(Model m,@RequestParam("p") Optional<Integer> p) {
+	public String phanhoi(Model m,@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 		
 		m.addAttribute("contact",new Contact());
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<Contact> pageList = contact.findAll(page);
-		m.addAttribute("page",pageList);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Contact> resultPage = contact.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("contactPage",resultPage);
 
 		return "Admin/page/ContactAd";
 	}
 	@RequestMapping("/admin/contact/feedback")
-	public String phanhoi(Model m,@RequestParam("subject") String subject,@RequestParam("content") String content,@RequestParam("p") Optional<Integer> p) {
+	public String phanhoi(Model m,@RequestParam("subject") String subject,@RequestParam("content") String content,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
 		Boolean check = true;
-		System.err.println("----------"+id);
+		
 		Contact Contact = contact.getById(id);
 		if(subject.isEmpty()) {
 			m.addAttribute("subject","Bạn chưa nhập tiêu đề");
@@ -149,7 +212,7 @@ public class ContactController {
 				protected PasswordAuthentication getPasswordAuthentication() {
 			
 				String username = "trungttpc01815@fpt.edu.vn";
-				String password = "bneeplngfiaciwmg";
+				String password = "znavyzikibherjvj";
 				return new PasswordAuthentication(username, password);
 				}
 			});
@@ -192,9 +255,29 @@ public class ContactController {
 		}
 		
 		m.addAttribute("contact",new Contact());
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<Contact> pageList = contact.findAll(page);
-		m.addAttribute("page",pageList);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Contact> resultPage = contact.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("contactPage",resultPage);
 
 		return "Admin/page/ContactAd";
 	}

@@ -140,10 +140,13 @@ public class TaiKhoan {
 	public String xacThuc(Model m,@RequestParam("otp") int maXN ) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		m.addAttribute("maXN", maXN);
+		boolean check = true;
 		if(maXN != randomInt) {
 			m.addAttribute("tbforgotPassword","Mã xác nhận không đúng!");
+			check = false;
 			return "TaiKhoan/MaOTP";
-		}else {
+		} 
+		else{
 			users acc = u.getById(name);
 			for(int i=0;i<1;i++) {
 	            double random = Math.random();		             
@@ -170,36 +173,36 @@ public class TaiKhoan {
 		m.addAttribute("username",req.getRemoteUser());
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		users acc =u.getById(req.getRemoteUser());
+		boolean check = true;
 		if(acc != null) {
 			if(passMoi.isEmpty() || passMoi.isEmpty() || XNPass.isEmpty()) {
 				m.addAttribute("tb","Các dòng đang trống");
-			}else {
-				if(pe.matches(pass,acc.getPassword())) {
-					if(pe.matches(passMoi,acc.getPassword())) {
-						m.addAttribute("tb","Mật khẩu này đã đổi trước đó");
-						
-					}else {
-						if(passMoi.equals(XNPass)) {
-							acc.setPassword(pe.encode(passMoi));
-							users.saveAccountService(acc);
-							m.addAttribute("tb","Đổi mật khẩu thành công");
-						}else {
-							m.addAttribute("tb","Xác nhận mật khẩu không đúng");
-						}
-					}
-					
-				
-				}else {
-					m.addAttribute("tb","Mật khẩu cũ không đúng");
-				}
+				check =false;
 			}
+				if(!pe.matches(pass,acc.getPassword())) {
+					
+					
+					m.addAttribute("tb","Mật khẩu cũ không đúng");
+					check =false;
+				}
 			
+				if(pe.matches(passMoi,acc.getPassword())) {
+					m.addAttribute("tb","Mật khẩu này đã đổi trước đó");
+					check =false;
+				}
+					if(!passMoi.equals(XNPass)) {
+						m.addAttribute("tb","Xác nhận mật khẩu không đúng");
+						check =false;
+					}
+				
 			
-		}else {
-			m.addAttribute("tb","Username không tồn tại");
-		
 		}
-		return "taiKhoan/ChangePass";
+		if(check == true) {
+			acc.setPassword(pe.encode(XNPass));
+			users.saveAccountService(acc);
+			m.addAttribute("tb","Đổi mật khẩu thành công");
+		}
+		return "redirect:/security/logout";
 	}
 	@GetMapping("/editProfile")
 	public String editProfile(Model m) {
@@ -255,7 +258,7 @@ public class TaiKhoan {
 			protected PasswordAuthentication getPasswordAuthentication() {
 		
 			String username = "trungttpc01815@fpt.edu.vn";
-			String password = "bneeplngfiaciwmg";
+			String password = "znavyzikibherjvj";
 			return new PasswordAuthentication(username, password);
 			}
 		});

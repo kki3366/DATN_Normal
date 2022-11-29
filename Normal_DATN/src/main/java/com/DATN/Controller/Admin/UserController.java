@@ -4,9 +4,13 @@ package com.DATN.Controller.Admin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -34,6 +38,8 @@ import com.DATN.Service.UserServiceImpl;
 
 
 
+
+
 @Controller
 public class UserController {
 
@@ -46,68 +52,79 @@ public class UserController {
 	@Autowired
 	HttpServletRequest req;
 	int vtPage;
+
 	@RequestMapping("/admin/user")
-	public String u(Model m,@RequestParam("p") Optional<Integer> p) {
-		List<users> list = user.findAllAccountService();
-		int sizeUsers = list.size();
-		int size = 5;
-		int trang = (int)Math.ceil(sizeUsers/(double) size);
-		int sotrang = Integer.parseInt(p.orElse(0)+"");
-		System.err.println(sotrang);
-		if(sotrang > trang-1) {
-			p = Optional.of(0);
-			System.err.println("If "+p);
-		}else if(sotrang <-1) {
-			p = Optional.of(0);
+	public String u(Model m,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
 		}
-		try {
-			Pageable page = PageRequest.of(p.orElse(0), 5);
-			Page<users> pageList = u.findAll(page);
-			m.addAttribute("page",pageList);
-			m.addAttribute("edit",false);
-			m.addAttribute("acc",new users());
-		}catch (java.lang.IllegalArgumentException e) {
-			p = Optional.of(0);
-			Pageable page = PageRequest.of(p.orElse(0), 5);
-			Page<users> pageList = u.findAll(page);
-			m.addAttribute("page",pageList);
-			m.addAttribute("edit",false);
-			m.addAttribute("acc",new users());
-		}
-		
-//		Pageable page = PageRequest.of(p.orElse(0), 5);
-//		Page<users> pageList = u.findAll(page);
-//		m.addAttribute("page",pageList);
-//		m.addAttribute("edit",false);
-//		m.addAttribute("acc",new users());
-		
-		
+		m.addAttribute("userPage",resultPage);
+		m.addAttribute("edit",false);
+	m.addAttribute("acc",new users());
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/find")
 	public String find(Model m,
 			@RequestParam("keywords") Optional<String> kw,
-			@RequestParam("p") Optional<Integer> p) {
+			@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
 		m.addAttribute("acc",new users());
 		
 		String kwords = kw.orElse(session.getAttribute("keywords"));
 		session.setAttribute("keywords", kwords);
 		m.addAttribute("keywords", kwords);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		Page<users> page = u.findByKeywords("%"+kwords+"%", pageable);
-		m.addAttribute("page", page);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findByKeywords("%"+kwords+"%", pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("userPage",resultPage);
+	
 		
 //		return "redirect:/admin/user";
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/new")
 	public String New(Model m,@RequestParam("edit") Boolean edit,@RequestParam("p") Optional<Integer> p) {
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<users> pageList = u.findAll(page);
-		m.addAttribute("page",pageList);
-		m.addAttribute("edit",edit);
-		m.addAttribute("acc",new users());
-		return "Admin/page/user";
+		
+		return "redirect:/admin/user";
 	}
 	@GetMapping("/admin/user/add")
 	public String SignUp(Model m) {
@@ -118,7 +135,8 @@ public class UserController {
 		return "taiKhoan/SignUp";
 	}
 	@PostMapping("/admin/user/add")
-	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
+	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Thêm tài khoản thất bại");
 			
@@ -150,27 +168,70 @@ public class UserController {
 				m.addAttribute("tb","Thêm tài khoản thành công");
 		}
 		}
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<users> pageList = u.findAll(page);
-		m.addAttribute("page",pageList);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("userPage",resultPage);
 		m.addAttribute("edit",false);
 		return "Admin/page/user";
 	}
    
 	@RequestMapping("/admin/user/edit")
-	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("user") String User,@RequestParam("p") Optional<Integer> p) {
+	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("user") String User,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
 		users account = u.findId(User);
 		m.addAttribute("acc",account);
 		m.addAttribute("edit",edit);
 	    System.err.println(account.getPassword());
 	   
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<users> pageList = u.findAll(page);
-		m.addAttribute("page",pageList);
+	    int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("userPage",resultPage);
 		return "Admin/page/user";
 	}
+	
 	@PostMapping("/admin/user/update")
-	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p) {
+	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
 //		users account = u.findId(User);
 //		m.addAttribute("acc",account);
 		m.addAttribute("edit",true);
@@ -215,25 +276,31 @@ public class UserController {
 				
 		}
 		}
-		Pageable page = PageRequest.of(p.orElse(0), 5);
-		Page<users> pageList = u.findAll(page);
-		m.addAttribute("page",pageList);
-		return "redirect:/admin/user";
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("userPage",resultPage);
+		return "Admin/page/user";
 	}
 	
-//	@RequestMapping("/admin/user/status")
-//	public String status(Model m,@RequestParam("user") String User,@RequestParam("status") boolean status) {
-//		users account = u.findId(User);
-//		if(status == false) {
-//			account.setActivated(true);
-//			u.save(account);
-//		}else {
-//			account.setActivated(false);
-//			u.save(account);
-//		}
-//		m.addAttribute("acc",account);
-//		List<users> list = user.findAllAccountService();
-//		m.addAttribute("users",list);
-//		return "Admin/page/user";
-//	}
+
 }

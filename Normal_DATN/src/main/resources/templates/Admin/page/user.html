@@ -125,7 +125,7 @@
                 <tbody>
                 
                 
-                <tr th:each="Users:${page}" role="row" class="odd">
+                <tr th:each="Users,iStat :${userPage.content}" role="row" class="odd">
                   <td class="sorting_1">[[${Users.id}]]</td>
                  
                   <td class="sorting_1">[[${Users.fullname}]]</td>
@@ -156,16 +156,32 @@
               </div>
               <div class="row">
               <div class="col-sm-5">
-              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] users</div>
+              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${userPage.number+1}]] to [[${userPage.totalPages}]] of [[${userPage.totalElements}]] users</div>
               </div>
               <div class="col-sm-7">
                <div>
-                  <nav aria-label="Page navigation example">
+                  <nav aria-label="Page navigation example" 
+                  th:if="${userPage.totalPages >0}">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p =0|}">First</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
+			    <li th:class="${1== userPage.number + 1} ? 'page-item active' : 'page-item'">
+            <a  th:href="@{|/admin/user?s=${userPage.size}&p =0|}" class="page-link">First</a>
+          </li>
+           
+          <li class="page-item active"
+          th:each="pageNumber :${pageNumbers}" 
+          th:if="${userPage.totalPages > 1}"
+          th:class="${pageNumber == userPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a  th:href="@{|/admin/user?s=${userPage.size}&p=${pageNumber-1}|}" 
+          class="page-link"
+          th:text="${pageNumber}"></a>
+          </li>
+
+          <li th:class="${userPage.totalPages == userPage.number + 1} ? 'page-item active' : 'page-item'">
+            <a  th:href="@{|/admin/user?s=${userPage.size}&p=${userPage.totalPages-1}|}" class="page-link">Last</a>
+          </li>
+			    <!-- <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
 			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li> -->
 			  </ul>
 			</nav>
 			</div>

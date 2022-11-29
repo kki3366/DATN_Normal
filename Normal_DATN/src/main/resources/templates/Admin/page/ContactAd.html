@@ -122,7 +122,7 @@
                 <tbody>
                 
                 
-                <tr th:each="contact:${page}" role="row" class="odd">
+                <tr th:each="contact:${contactPage}" role="row" class="odd">
                   <td class="sorting_1">[[${contact.id}]]</td>
                  
                   <td class="sorting_1">[[${contact.name}]]</td>
@@ -142,16 +142,32 @@
               </div>
               <div class="row">
               <div class="col-sm-5">
-              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] contacts</div>
+              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${contactPage.number+1}]] to [[${contactPage.totalPages}]] of [[${contactPage.totalElements}]] contacts</div>
               </div>
               <div class="col-sm-7">
                <div>
-                  <nav aria-label="Page navigation example">
+                   <nav aria-label="Page navigation example" 
+                  th:if="${contactPage.totalPages >0}">
 			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p =0|}">First</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/contact?p=${page.totalPages-1}|}">Last</a></li>
+			    <li th:class="${1== contactPage.number + 1} ? 'page-item active' : 'page-item'">
+            <a  th:href="@{|/admin/contact?s=${contactPage.size}&p =0|}" class="page-link">First</a>
+          </li>
+           
+          <li class="page-item active"
+          th:each="pageNumber :${pageNumbers}" 
+          th:if="${contactPage.totalPages > 1}"
+          th:class="${pageNumber == contactPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a  th:href="@{|/admin/contact?s=${contactPage.size}&p=${pageNumber-1}|}" 
+          class="page-link"
+          th:text="${pageNumber}"></a>
+          </li>
+
+          <li th:class="${contactPage.totalPages == contactPage.number + 1} ? 'page-item active' : 'page-item'">
+            <a  th:href="@{|/admin/contact?s=${contactPage.size}&p=${contactPage.totalPages-1}|}" class="page-link">Last</a>
+          </li>
+			    <!-- <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
+			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li> -->
 			  </ul>
 			</nav>
 			</div>

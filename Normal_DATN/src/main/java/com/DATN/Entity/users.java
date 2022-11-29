@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +37,7 @@ public class users implements Serializable{
 	String id;
 	
 	@NotBlank(message = "Bạn chưa nhập mật khẩu")
-//	@Pattern(message = "Yếu",regexp = "/^[a-z0-9_-]{6,18}$/")
+    @Length(min = 6,message = "Mật khẩu phải từ 6 kí tự trở lên")
 	@Column(name = "Password")
 	String password;
 	
@@ -42,7 +45,7 @@ public class users implements Serializable{
 	@Column(name = "fullname")
 	String fullname;
 	@NotBlank(message = "Bạn chưa nhập Phone")
-//	@Pattern(message = "Phone chưa đúng định dạng",regexp  = "/^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$/")
+	@Length(min = 10,max=10,message = "Số điện thoại phải từ 6 kí tự trở lên")
 	@Column(name = "Phone")
 	String phone;
 	@NotBlank(message = "Bạn chưa nhập email")
