@@ -195,17 +195,22 @@ if (convertUrl.pathname = '/admin/category') {
 //----------------------------------------------PRODUCT---------------------------------------
 if (convertUrl.pathname = '/admin/product') {
 	//block F12
-		/*$(document).keydown(function(event) {
-			if (event.keyCode == 123) { // Prevent F12
-				return false;
-			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
-				return false;
-			}
-		});*/
+	/*$(document).keydown(function(event) {
+		if (event.keyCode == 123) { // Prevent F12
+			return false;
+		} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+			return false;
+		}
+	});*/
 	$(document).ready(function() {
 		var getProductUrl = protocol + '//' + hostname + ':' + port + '/api/products'
 		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories'
-		//load data product
+		
+		//format quantity, money
+		function formatToVND(n, currency) {
+			return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ' + currency;
+		}
+		//load and display data product
 		var tableProduct = $('#tableProduct').DataTable({
 			ajax: {
 				"type": "GET",
@@ -217,10 +222,19 @@ if (convertUrl.pathname = '/admin/product') {
 			columns: [
 				{ "data": "id" },
 				{ "data": "name" },
-				{ "data": "price" },
+				{
+					"data": "price",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
 				{ "data": "category.nameCategory" },
-				{ "data": "quantity" },
-
+				{ 
+					"data": "quantity",
+					 render: function(data, type, row) {
+						return formatToVND(data, '')
+					}
+				}
 
 			],
 			pageLength: 5,
@@ -247,8 +261,7 @@ if (convertUrl.pathname = '/admin/product') {
 					for (i in resp) {
 						$("#selectedCategory").append("<option value='" + resp[i].id + "'>" + resp[i].nameCategory + "</option>");
 					}
-					if(resp.length <= 0){
-						console.log("ok")
+					if (resp.length <= 0) {
 						$("#selectedCategory").html("<option value=''> Dang mục trống</option>");
 					}
 				}
@@ -262,7 +275,7 @@ if (convertUrl.pathname = '/admin/product') {
 			$('#priceProduct').val("")
 			$('#quanlityProduct').val("")
 			$('#descriptionProduct').val("")
-			$('#selectedCategory').val(1)
+			$("#selectedCategory").val($("#selectedCategory option:first").val());
 			$('#fileProduct').val("")
 		}
 		//Created Product
