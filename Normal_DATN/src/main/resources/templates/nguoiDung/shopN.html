@@ -66,9 +66,20 @@
                                                                 <div class="product_thumb">
                                                                    <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/assets/img/product/${HoLy.image}|}" alt=""></a> 
                                                               
-                                                                   <div class="product_action">
-                                                                   <a onclick="alert('Đã thêm vào giỏ hàng!')" th:href="@{|/addCartO/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                                                   </div>
+                                                              
+                                                              
+                                                                       <div th:if="${HoLy.available} != true">
+							 <div class="product_action">
+                                                               <a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                                           </div>
+							</div>
+													                <div th:if="${HoLy.available} == true">
+												 <div class="product_action">
+                                                               <a onclick="alert('Đã thêm vào giỏ hàng!')" th:href="@{|/addCartO/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                                           </div>
+												           
+           																		     </div> 
+                                                           
                                                                 </div>
                                                                 <div class="product_content">
                                                               <span class="product_price">[[${HoLy.price}]]</span>

@@ -3,6 +3,8 @@ package com.DATN.Controller.NguoiDung;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DATN.SessionService;
+import com.DATN.Entity.Cart;
 import com.DATN.Entity.Category;
 import com.DATN.Entity.Orders;
 import com.DATN.Entity.Product;
+import com.DATN.Repository.CartRepository;
 import com.DATN.Repository.CategoryRepository;
 import com.DATN.Repository.ProductRepository;
 
@@ -30,9 +34,26 @@ public class shop {
 	ProductRepository productRepository;
 	@Autowired
 	SessionService session;	
+	@Autowired
+	HttpServletRequest req;
+	@Autowired
+	CartRepository cartRepository;
 	@RequestMapping("/shop/{id}")
 	public String form(Model model, @PathVariable("id") Integer id,@RequestParam("subcategory") Integer subcategory,
 			@RequestParam("p") Optional<Integer> p) {
+		
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
+			model.addAttribute("size", ite.size());
+			}
+		
 		List<Category> item = categoryRepository.findAll();
 		
 		model.addAttribute("category", item);
@@ -55,6 +76,18 @@ public class shop {
 	public String find(Model model,
 			@RequestParam("keywords") Optional<String> kw,
 			@RequestParam("p") Optional<Integer> p) {
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
+			model.addAttribute("size", ite.size());
+			}
+		
 	List<Category> item = categoryRepository.findAll();
 		
 		model.addAttribute("category", item);
@@ -70,6 +103,18 @@ public class shop {
 	@RequestMapping("/shop")
 	public String form2(Model model, @RequestParam("subcategory") Integer subcategory,
 			@RequestParam("p") Optional<Integer> p) {
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
+			model.addAttribute("size", ite.size());
+			}
+		
 		List<Category> item = categoryRepository.findAll();
 		
 		model.addAttribute("category", item);

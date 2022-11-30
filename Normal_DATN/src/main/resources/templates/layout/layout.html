@@ -122,11 +122,16 @@
                                                         <button type="submit"><i class="fa fa-search"></i></button>
                                                     </form>
                                                 </div>
+                                                 <div th:if="${#request.remoteUser}">
                                             <div class="shopping_cart">
-                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> 2 Items - 500000 <i class="fa fa-angle-down"></i></a>
-
-                                              
+                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> [[${size}]] Sản phẩm - [[${tongTien}]]  </a>
                                             </div>
+                                            </div>
+                                               <div th:unless="${#request.remoteUser}">
+                                                 <div class="shopping_cart">
+                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> 0 Sản phẩm - 0 </a>
+                                            </div>
+                                               </div>
 
                                             </div>
                                         </div>

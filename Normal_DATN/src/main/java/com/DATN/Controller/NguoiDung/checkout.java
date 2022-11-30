@@ -52,6 +52,7 @@ public class checkout {
 		
 		
 		model.addAttribute("item", item);
+		model.addAttribute("size", item.size());
 		if(tongTien == null) {
 			tongTien = (double) 0;
 			model.addAttribute("tongTien", tongTien);
@@ -75,6 +76,7 @@ public class checkout {
 			
 		
 			model.addAttribute("item", item);
+			model.addAttribute("size", item.size());
 			if(tongTien == null) {
 				tongTien = (double) 0;
 				model.addAttribute("tongTien", tongTien);
@@ -110,13 +112,14 @@ public class checkout {
 				od.setOrder(ord);
 				//
 				orderDetailRepository.save(od); 
-				
-				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
 				if(product.getQuantity()==0) {
 					product.setAvailable(false);
 					productRepository.save(product);					
-				}
+				}else {
+				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
+			
 				productRepository.save(product);	
+				}
 				cartService.clear(cart.getId());
 				
 			

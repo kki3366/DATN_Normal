@@ -1,5 +1,7 @@
 package com.DATN.Controller.NguoiDung;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.DATN.Entity.Cart;
 import com.DATN.Entity.Contact;
 import com.DATN.Entity.users;
+import com.DATN.Repository.CartRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Repository.contactRepository;
 import com.DATN.Service.UserServiceImpl;
@@ -28,8 +32,21 @@ public class ContactUs {
 	UserRepository users;
 	@Autowired
 	contactRepository contactRep;
+	@Autowired
+	CartRepository cartRepository;
 	@GetMapping("/ContactUs")
 	public String contactUs(Model m) {
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				m.addAttribute("tongTien", tongTien);
+			}else {
+				m.addAttribute("tongTien", tongTien);
+			}
+			m.addAttribute("size", ite.size());
+			}
 		m.addAttribute("contact",new Contact());
 		return "nguoiDung/contactUs";
 	}

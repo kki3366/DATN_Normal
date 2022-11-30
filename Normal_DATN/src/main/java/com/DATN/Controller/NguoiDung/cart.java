@@ -46,7 +46,7 @@ public class cart {
 		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 		Double tongTien = cartRepository.tongTien(req.getRemoteUser());
 		
-		System.err.println("Tong la"+ tongTien);
+	
 		if(tongTien == null) {
 			tongTien = (double) 0;
 			model.addAttribute("tongTien", tongTien);
@@ -54,7 +54,8 @@ public class cart {
 			model.addAttribute("tongTien", tongTien);
 		}
 		model.addAttribute("item", item);
-	
+		model.addAttribute("size", item.size());
+		System.err.println("Tong la"+ item.size());
 
 		return "nguoiDung/cart";
 	}

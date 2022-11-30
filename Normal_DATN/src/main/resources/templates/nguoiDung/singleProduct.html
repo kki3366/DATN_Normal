@@ -66,8 +66,19 @@
                                              <form th:action="@{|/addCartI/${product.id}|}" method="post">
                                                     <label>Số lượng</label>
                                                     <input name="qty" min="1" th:max="${product.quantity}" value="1" type="number">
+                                                      
+                                                      
+                                                               <div th:if="${product.available} != true">
+                                                               
+						  <button  onclick="alert('Sản phẩm đã hết!')" disabled> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
+							</div>
+													                <div th:if="${product.available} == true">
+												  <button type="submit" onclick="alert('Đã thêm vào giỏ hàng!')"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+												           
+           																		     </div> 
+                                                      
                                                                                 
-                                                <button type="submit" onclick="alert('Đã thêm vào giỏ hàng!')"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                                              
                                               </form>    
                                             </div>
                                   
