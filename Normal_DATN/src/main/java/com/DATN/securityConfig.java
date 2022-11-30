@@ -35,6 +35,8 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/order/**","/cart").authenticated()
 //			.antMatchers("/admin/**").hasAnyRole(true+"")
 			.antMatchers("/rest/authorities").hasRole(true+"")
+			.antMatchers("/api/**").hasRole("No")
+
 			.anyRequest().permitAll();
 		
 		http.formLogin()
