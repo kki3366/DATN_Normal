@@ -16,10 +16,13 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.DATN.Entity.Cart;
 import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
+import com.DATN.Repository.CartRepository;
 import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
+import com.DATN.Repository.ProductRepository;
 
 
 @Controller
@@ -30,10 +33,25 @@ public class orderHistory {
 	OrderDetailRepository orderDetailRepository;
 	@Autowired
 	HttpServletRequest req;
+	@Autowired
+	CartRepository cartRepository;
 	@RequestMapping("/orderHistory")
 	public String form(Model model, @RequestParam("field") Optional<String> field) {
+		
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
+			model.addAttribute("size", ite.size());
+			}
+		
 		Sort sort = Sort.by(Direction.DESC,field.orElse("orderDate"));
-		//
+		
 		List<Orders> item = orderRepository.findByIdUser(req.getRemoteUser(),sort);
 		model.addAttribute("item", item);
 		return "nguoiDung/orderHistory";
@@ -41,6 +59,18 @@ public class orderHistory {
 	
 	@RequestMapping("/orderHistoryDetail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
+		if(req.getRemoteUser() != null) {
+			List<Cart> ite = cartRepository.findByIdUser(req.getRemoteUser());
+			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
+			if(tongTien == null) {
+				tongTien = (double) 0;
+				model.addAttribute("tongTien", tongTien);
+			}else {
+				model.addAttribute("tongTien", tongTien);
+			}
+			model.addAttribute("size", ite.size());
+			}
+		
 		List<OrderDetail> item = orderDetailRepository.findByIdOrder(id);
 		model.addAttribute("item", item);
 		return "nguoiDung/orderHistoryDetail";
