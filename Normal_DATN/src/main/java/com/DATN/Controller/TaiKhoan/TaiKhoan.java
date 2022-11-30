@@ -209,7 +209,7 @@ public class TaiKhoan {
 		m.addAttribute("username",req.getRemoteUser());
 		users acc = u.getById(req.getRemoteUser());
 		if(acc != null) {
-			m.addAttribute("pass",acc.getPassword());
+			
 			m.addAttribute("fullname",acc.getFullname());
 			m.addAttribute("email", acc.getEmail());
 			m.addAttribute("phone", acc.getPhone());
@@ -217,33 +217,33 @@ public class TaiKhoan {
 		return "taiKhoan/EditProfile";
 	}
 	@PostMapping("/editProfile")
-	public String editProfile(Model m,@RequestParam("password") String pass,@RequestParam("fullname") String fullname,
+	public String editProfile(Model m
+			,@RequestParam("fullname") String fullname,
 			@RequestParam("email") String email,@RequestParam("phone") String phone) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		m.addAttribute("username",req.getRemoteUser());
 		users acc = u.getById(req.getRemoteUser());
 		if(acc != null) {
 			
-			if(!pass.isEmpty() && !fullname.isEmpty() && !email.isEmpty() && !phone.isEmpty()) {
-				
-				
-					acc.setPassword(pe.encode(pass));
+			
+			m.addAttribute("fullname",acc.getFullname());
+			m.addAttribute("email", acc.getEmail());
+			m.addAttribute("phone", acc.getPhone());
+			
+					
 					acc.setFullname(fullname);
 					acc.setEmail(email);
 					acc.setPhone(phone);
 					users.saveAccountService(acc);
 					m.addAttribute("tb","Cập nhật thành công");
-					m.addAttribute("pass",acc.getPassword());
-					m.addAttribute("fullname",acc.getFullname());
-					m.addAttribute("email",acc.getEmail());
-					m.addAttribute("phone", acc.getPhone());
+					return "redirect:/security/logout";
 				
 				
-			}else {
-				m.addAttribute("tb","Cập nhật thất bại");
-			}
+			
+		}else {
+			return "taiKhoan/EditProfile";
 		}
-		return "taiKhoan/EditProfile";
+		
 	}
 	public void Mail(Model m,String email,String nd,String tieude) {
 		Properties props = new Properties(); 
@@ -256,9 +256,9 @@ public class TaiKhoan {
 		
 		Session session = Session.getInstance(props, new Authenticator() { 
 			protected PasswordAuthentication getPasswordAuthentication() {
-		
-			String username = "trungttpc01815@fpt.edu.vn";
-			String password = "znavyzikibherjvj";
+//				znavyzikibherjvj
+			String username = "trungttpc01815@gmail.com";
+			String password = "svzdetnyddotvaqs";
 			return new PasswordAuthentication(username, password);
 			}
 		});

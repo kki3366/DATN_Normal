@@ -32,7 +32,7 @@
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label><br>
                   <i style="color:red"th:errors="*{password}"></i>
-                  <input th:field="*{password}" type="password" class="form-control" placeholder="Enter Password">
+                  <input th:field="*{password}" type="password" minlength="6" class="form-control" placeholder="Enter Password">
                 </div>
                <div class="form-group">
                   <label for="exampleInputPassword1">FullName</label><br>
@@ -43,7 +43,7 @@
                   <label for="exampleInputPassword1">Phone</label><br>
                    <i style="color:red"th:errors="*{phone}"></i>
                    <i style="color:red" th:text="${ktPhone}"></i>
-                  <input th:field="*{phone}" type="text" class="form-control"  placeholder="Enter Phone">
+                  <input th:field="*{phone}" type="number" maxlength="10" class="form-control"  placeholder="Enter Phone">
                 </div>
                  <div class="form-group">
                   <label for="exampleInputPassword1">Email</label><br>
@@ -160,13 +160,16 @@
               </div>
               <div class="col-sm-7">
                <div>
+                <!-- <div th:if="${userPage.number} !=0"> -->
                   <nav aria-label="Page navigation example" 
                   th:if="${userPage.totalPages >0}">
 			  <ul class="pagination">
-			    <li th:class="${1== userPage.number + 1} ? 'page-item active' : 'page-item'">
+          
+			    <li th:class="${1== userPage.number + 1} ? 'page-item disabled ' : 'page-item'">
             <a  th:href="@{|/admin/user?s=${userPage.size}&p =0|}" class="page-link">First</a>
           </li>
-           
+        
+       
           <li class="page-item active"
           th:each="pageNumber :${pageNumbers}" 
           th:if="${userPage.totalPages > 1}"
@@ -176,14 +179,16 @@
           th:text="${pageNumber}"></a>
           </li>
 
-          <li th:class="${userPage.totalPages == userPage.number + 1} ? 'page-item active' : 'page-item'">
+          <li th:class="${userPage.totalPages == userPage.number + 1} ? 'page-item disabled ' : 'page-item'">
             <a  th:href="@{|/admin/user?s=${userPage.size}&p=${userPage.totalPages-1}|}" class="page-link">Last</a>
           </li>
-			    <!-- <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li> -->
+			    
 			  </ul>
 			</nav>
+    <!-- </div> -->
+
+    
+
 			</div>
               </div>
               

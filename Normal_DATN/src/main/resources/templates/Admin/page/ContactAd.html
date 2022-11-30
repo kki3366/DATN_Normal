@@ -149,7 +149,7 @@
                    <nav aria-label="Page navigation example" 
                   th:if="${contactPage.totalPages >0}">
 			  <ul class="pagination">
-			    <li th:class="${1== contactPage.number + 1} ? 'page-item active' : 'page-item'">
+			    <li th:class="${1== contactPage.number + 1} ? 'page-item disabled' : 'page-item'">
             <a  th:href="@{|/admin/contact?s=${contactPage.size}&p =0|}" class="page-link">First</a>
           </li>
            
@@ -162,12 +162,10 @@
           th:text="${pageNumber}"></a>
           </li>
 
-          <li th:class="${contactPage.totalPages == contactPage.number + 1} ? 'page-item active' : 'page-item'">
+          <li th:class="${contactPage.totalPages == contactPage.number + 1} ? 'page-item disabled' : 'page-item'">
             <a  th:href="@{|/admin/contact?s=${contactPage.size}&p=${contactPage.totalPages-1}|}" class="page-link">Last</a>
           </li>
-			    <!-- <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/user?p=${page.totalPages-1}|}">Last</a></li> -->
+			    
 			  </ul>
 			</nav>
 			</div>
