@@ -26,7 +26,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Giá của sản phẩm</label> <input
 										type="number" class="form-control" id="priceProduct"
-										placeholder="Nhập giá của sản phẩm (VNĐ)" min="1">
+										placeholder="Nhập giá của sản phẩm (VNĐ)" pattern="[0-9]" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
 								</div>
 								<div class="form-group">
 									<label>Danh mục sản phẩm</label> <select class="form-control"

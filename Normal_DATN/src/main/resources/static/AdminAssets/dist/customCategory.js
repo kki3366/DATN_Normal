@@ -5,6 +5,10 @@ baseUrl = protocol + '//' + hostname + ':' + port
 currentUrl = window.location.href;
 var convertUrl = new URL(currentUrl)
 var editor;
+//format quantity, money
+function formatToVND(n, currency) {
+	return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ' + currency;
+}
 //block Inspect
 /*document.addEventListener('contextmenu', function(e) {
 	e.preventDefault();
@@ -205,11 +209,7 @@ if (convertUrl.pathname = '/admin/product') {
 	$(document).ready(function() {
 		var getProductUrl = protocol + '//' + hostname + ':' + port + '/api/products'
 		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/categories'
-		
-		//format quantity, money
-		function formatToVND(n, currency) {
-			return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ' + currency;
-		}
+
 		//load and display data product
 		var tableProduct = $('#tableProduct').DataTable({
 			ajax: {
@@ -229,9 +229,9 @@ if (convertUrl.pathname = '/admin/product') {
 					}
 				},
 				{ "data": "category.nameCategory" },
-				{ 
+				{
 					"data": "quantity",
-					 render: function(data, type, row) {
+					render: function(data, type, row) {
 						return formatToVND(data, '')
 					}
 				}
@@ -625,4 +625,55 @@ if (convertUrl.pathname = '/admin/product') {
 
 	})
 }
-//----------------------------------------------Report---------------------------------------
+//----------------------------------------------Report by Category---------------------------------------
+if (convertUrl.pathname = 'admin/report/inventory') {
+	$(document).ready(function() {
+		var getInventoryUrl = protocol + '//' + hostname + ':' + port + '/api/report/inventory';
+		var tableReportInventory = $('#tableReportInventory').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getInventoryUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "nameCategory" },
+				{ "data": "quantiyProduct" },
+				{
+					 "data": "subTotal",
+					 render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					} 
+				},
+				{ 
+					"data": "minProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					} 
+				 },
+				{ 
+					"data": "maxProdouct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
+				{
+					 "data": "avgProduct",
+					 render: function(data, type, row) {
+						return formatToVND(data.toFixed(), 'VNĐ')
+					}
+				 }
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+
+
+
+
+	})
+}
