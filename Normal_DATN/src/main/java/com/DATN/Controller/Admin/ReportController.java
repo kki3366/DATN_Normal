@@ -10,4 +10,15 @@ public class ReportController {
 	public String reportPage() {
 		return "Admin/page/ReportByInventory";
 	}
+	
+	@GetMapping ("admin/report/revenueByCustomer")
+	public String reportCustomer() {
+		return "Admin/page/ReportRevenueByCustomer";
+	}
+	
+	@GetMapping ("admin/report/commentPerDay")
+	public String reportComment() {
+		return "Admin/page/ReportCommentPerDay";
+	}
+	
 }

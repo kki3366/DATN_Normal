@@ -671,9 +671,54 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 			processing: true
 
 		})
-
-
-
-
 	})
 }
+//----------------------------------------------Report by Customer---------------------------------------
+if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
+	$(document).ready(function() {
+		var getCustomerUrl = protocol + '//' + hostname + ':' + port + '/api/report/revenueByCustomer';
+		var tableReportCustomer = $('#tableReportCustomer').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getCustomerUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "userId" },
+				{ "data": "quantity" },
+				{
+					 "data": "subTotal",
+					 render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					} 
+				},
+				{ 
+					"data": "minPriceProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					} 
+				 },
+				{ 
+					"data": "maxPriceProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
+				{
+					 "data": "avgPriceProduct",
+					 render: function(data, type, row) {
+						return formatToVND(data.toFixed(), 'VNĐ')
+					}
+				 }
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}
+//----------------------------------------------Report by Comment---------------------------------------

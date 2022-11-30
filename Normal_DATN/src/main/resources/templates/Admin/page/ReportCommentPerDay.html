@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{Admin/components/header}">
+<body>
+	<div layout:fragment="contentChanges">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- general form elements -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Số lượng comment hằng ngày</h3>
+						</div>
+
+					</div>
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Dữ liệu</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div id="example2_wrapper"
+								class="dataTables_wrapper form-inline dt-bootstrap">
+								<div class="row">
+									<div class="col-sm-6"></div>
+									<div class="col-sm-6"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="tableReportComment"
+											class="table table-bordered table-hover dataTable"
+											role="grid" aria-describedby="example2_info">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc" tabindex="0"
+														aria-controls="example2" rowspan="1" colspan="1"
+														aria-sort="ascending"
+														aria-label="Rendering engine: activate to sort column descending">Người dùng</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Số lượng sản phẩm đã mua</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Tổng giá tiền</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Giá sản phẩm mua thấp nhất</th>
+														<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Giá sản phẩm mua cao nhất</th>
+														<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Giá trung bình mua</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+											<tfoot>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

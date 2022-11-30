@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.DATN.Entity.Report.ReportByInventory;
+import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 
 @Repository
 public class ReportRepository {
@@ -25,4 +26,14 @@ public class ReportRepository {
 		List<ReportByInventory> list = query.getResultList();
 		return list;
 	}
+	
+	public List<ReportByRevenueByCustomer> reportByRevenueByCustomers(){
+		String sql = "select new " + ReportByRevenueByCustomer.class.getName() +" (users.id, SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+				+ " from OrderDetail ordd join ordd.order ord join ord.user users group by users.id";
+		TypedQuery<ReportByRevenueByCustomer> query = entityManager.createQuery(sql,ReportByRevenueByCustomer.class);
+		List<ReportByRevenueByCustomer> list = query.getResultList();
+		return list;
+	}
+	
+	
 }
