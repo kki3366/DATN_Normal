@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DATN.Entity.Cart;
+import com.DATN.Entity.Category;
 import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
 import com.DATN.Entity.Product;
 import com.DATN.Entity.users;
 import com.DATN.Repository.CartRepository;
+import com.DATN.Repository.CategoryRepository;
 import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
 import com.DATN.Repository.ProductRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.CartService;
+import com.DATN.Service.CategoryService;
 
 @Controller
 public class checkout {
@@ -43,6 +46,10 @@ public class checkout {
 	UserRepository userRepository;
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
 	@RequestMapping("/checkout")
 	public String form(Model model) {
 		List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
@@ -106,9 +113,12 @@ public class checkout {
 				OrderDetail od = new OrderDetail();
 				Product product = productRepository.getById(cart.getProduct().getId());
 				Orders ord = ordersRepository.getById(id);
+				Category cate = categoryRepository.getById(product.getCategory().getId());
+				//System.err.println(cate.getNameCategory());
 				od.setName(cart.getNameProductCart());
 				od.setPrice(cart.getPriceProductCart());
 				od.setQuanlity(cart.getQuanlityProductCart());
+				od.setNamecate(cate.getNameCategory());
 				od.setOrder(ord);
 				//
 				orderDetailRepository.save(od); 

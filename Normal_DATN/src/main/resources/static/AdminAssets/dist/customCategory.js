@@ -641,29 +641,29 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 				{ "data": "nameCategory" },
 				{ "data": "quantiyProduct" },
 				{
-					 "data": "subTotal",
-					 render: function(data, type, row) {
+					"data": "subTotal",
+					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
-					} 
+					}
 				},
-				{ 
+				{
 					"data": "minProduct",
 					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
-					} 
-				 },
-				{ 
+					}
+				},
+				{
 					"data": "maxProdouct",
 					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
 					}
 				},
 				{
-					 "data": "avgProduct",
-					 render: function(data, type, row) {
+					"data": "avgProduct",
+					render: function(data, type, row) {
 						return formatToVND(data.toFixed(), 'VNĐ')
 					}
-				 }
+				}
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
@@ -689,29 +689,29 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 				{ "data": "userId" },
 				{ "data": "quantity" },
 				{
-					 "data": "subTotal",
-					 render: function(data, type, row) {
+					"data": "subTotal",
+					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
-					} 
+					}
 				},
-				{ 
+				{
 					"data": "minPriceProduct",
 					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
-					} 
-				 },
-				{ 
+					}
+				},
+				{
 					"data": "maxPriceProduct",
 					render: function(data, type, row) {
 						return formatToVND(data, 'VNĐ')
 					}
 				},
 				{
-					 "data": "avgPriceProduct",
-					 render: function(data, type, row) {
+					"data": "avgPriceProduct",
+					render: function(data, type, row) {
 						return formatToVND(data.toFixed(), 'VNĐ')
 					}
-				 }
+				}
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],
@@ -721,4 +721,51 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 		})
 	})
 }
-//----------------------------------------------Report by Comment---------------------------------------
+//----------------------------------------------Report by Category---------------------------------------
+if (convertUrl.pathname = 'admin/report/revenueByCategories') {
+	$(document).ready(function() {
+		var getCategoryUrl = protocol + '//' + hostname + ':' + port + '/api/report/revenueByCategory';
+		var tableReportCategory = $('#tableReportCategory').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getCategoryUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "nameCategory" },
+				{ "data": "quantiyProduct" },
+				{
+					"data": "subTotal",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
+				{
+					"data": "minProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
+				{
+					"data": "maxProdouct",
+					render: function(data, type, row) {
+						return formatToVND(data, 'VNĐ')
+					}
+				},
+				{
+					"data": "avgProduct",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), 'VNĐ')
+					}
+				}
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}

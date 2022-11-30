@@ -38,6 +38,9 @@ public class OrderDetail {
 	@Column(name = "Quanlity")
 	int quanlity;
 	
+	@Column(name = "name_cate")
+	String namecate;
+	
 	@ManyToOne
 	@JoinColumn(name = "Orderid")
 	Orders order;
@@ -74,6 +77,14 @@ public class OrderDetail {
 		this.quanlity = quanlity;
 	}
 
+	public String getNamecate() {
+		return namecate;
+	}
+
+	public void setNamecate(String namecate) {
+		this.namecate = namecate;
+	}
+
 	public Orders getOrder() {
 		return order;
 	}
@@ -81,6 +92,7 @@ public class OrderDetail {
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
+
 	
 	
 	

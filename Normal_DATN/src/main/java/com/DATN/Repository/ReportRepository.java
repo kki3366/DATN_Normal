@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
+import com.DATN.Entity.Report.ReportRevenueByCategory;
 
 @Repository
 public class ReportRepository {
@@ -32,6 +33,14 @@ public class ReportRepository {
 				+ " from OrderDetail ordd join ordd.order ord join ord.user users group by users.id";
 		TypedQuery<ReportByRevenueByCustomer> query = entityManager.createQuery(sql,ReportByRevenueByCustomer.class);
 		List<ReportByRevenueByCustomer> list = query.getResultList();
+		return list;
+	}
+	
+	public List<ReportRevenueByCategory> reportRevenueByCategories(){
+		String sql = "select new " + ReportRevenueByCategory.class.getName() + " (ordd.namecate, SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+				+ " from OrderDetail ordd group by ordd.namecate";
+		TypedQuery<ReportRevenueByCategory> query = entityManager.createQuery(sql, ReportRevenueByCategory.class);
+		List<ReportRevenueByCategory> list = query.getResultList();
 		return list;
 	}
 	

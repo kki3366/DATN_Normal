@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
+import com.DATN.Entity.Report.ReportRevenueByCategory;
 import com.DATN.Service.ReportService;
 
 @RestController
@@ -30,5 +31,10 @@ public class RestReport {
 	@GetMapping("/report/revenueByCustomer")
 	public ResponseEntity<List<ReportByRevenueByCustomer>> byCustomer(){
 		return new ResponseEntity<List<ReportByRevenueByCustomer>>(reportService.reportByRevenueCustomers().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping("/report/revenueByCategory")
+	public ResponseEntity<List<ReportRevenueByCategory>> byCategory(){
+		return new ResponseEntity<List<ReportRevenueByCategory>>(reportService.reportRevenueByCategories().stream().collect(Collectors.toList()), HttpStatus.OK);
 	}
 }

@@ -16,9 +16,9 @@ public class ReportController {
 		return "Admin/page/ReportRevenueByCustomer";
 	}
 	
-	@GetMapping ("admin/report/commentPerDay")
+	@GetMapping ("admin/report/revenueByCategories")
 	public String reportComment() {
-		return "Admin/page/ReportCommentPerDay";
+		return "Admin/page/ReportRevenueByCategories";
 	}
 	
 }
