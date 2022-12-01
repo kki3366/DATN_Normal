@@ -115,6 +115,7 @@ public class checkout {
 				Orders ord = ordersRepository.getById(id);
 				Category cate = categoryRepository.getById(product.getCategory().getId());
 				//System.err.println(cate.getNameCategory());
+				od.setImage(cart.getImgProductCart());
 				od.setName(cart.getNameProductCart());
 				od.setPrice(cart.getPriceProductCart());
 				od.setQuanlity(cart.getQuanlityProductCart());

@@ -28,6 +28,8 @@ public class OrderDetail {
 	@Column(name = "Orderdetailid")
 	int id;
 	
+	@Column(name = "Image")
+	String image;
 	
 	@Column(name = "Name")
 	String name;
@@ -51,6 +53,14 @@ public class OrderDetail {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getName() {

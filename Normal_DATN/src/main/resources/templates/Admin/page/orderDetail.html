@@ -20,12 +20,9 @@
           </div>
   		<div class="box">
             <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
+            
                <h3 style="float:right;" class="box-title">
-               <form th:action="@{/admin/order/find}" method="post">
-					<input name="keywords" th:value="${keywords}">
-					<button>Search</button>
-					</form>
+       
 
               </h3>
             </div>
@@ -54,7 +51,7 @@
                 
                 
                 <tr th:each="HoLy:${item}" role="row" class="odd">
-                  <td class="sorting_1">[[${HoLy.id}]]</td>
+                  <td class="sorting_1">[[${HoLy.image}]]</td>
                  
                    <td class="sorting_1">[[${HoLy.name}]]</td>
                   <td class="sorting_1">[[${HoLy.price}*1]]</td>
