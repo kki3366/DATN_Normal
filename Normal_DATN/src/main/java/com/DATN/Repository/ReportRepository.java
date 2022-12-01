@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.DATN.Entity.Report.ReportByInventory;
+import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
 
@@ -41,6 +42,14 @@ public class ReportRepository {
 				+ " from OrderDetail ordd group by ordd.namecate";
 		TypedQuery<ReportRevenueByCategory> query = entityManager.createQuery(sql, ReportRevenueByCategory.class);
 		List<ReportRevenueByCategory> list = query.getResultList();
+		return list;
+	}
+	
+	public List<ReportByPopularProduct> byPopularProducts(){
+		String sql = "select new " + ReportByPopularProduct.class.getName() + " (ordd.namecate,ordd.name,count(ordd.name))"
+				+ " from OrderDetail ordd group by ordd.namecate,ordd.name";
+		TypedQuery<ReportByPopularProduct> query = entityManager.createQuery(sql,ReportByPopularProduct.class);
+		List<ReportByPopularProduct> list = query.getResultList();
 		return list;
 	}
 	

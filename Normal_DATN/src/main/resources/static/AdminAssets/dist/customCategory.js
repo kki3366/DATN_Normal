@@ -769,3 +769,32 @@ if (convertUrl.pathname = 'admin/report/revenueByCategories') {
 		})
 	})
 }
+//----------------------------------------------Report Popular Products---------------------------------------
+if (convertUrl.pathname = 'admin/report/popularProduct') {
+	$(document).ready(function() {
+		var getPopularProductUrl = protocol + '//' + hostname + ':' + port + '/api/report/popularProduct';
+		var tablePopullarProduct = $('#tableReportByPopularProduct').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getPopularProductUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "nameCategory" },
+				{ "data": "nameProduct" },
+				{
+					"data": "times",
+					
+				}
+				
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}

@@ -1,11 +1,14 @@
 
 package com.DATN.Controller.NguoiDung;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +32,7 @@ import com.DATN.Repository.ProductRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.CartService;
 import com.DATN.Service.CategoryService;
+import com.DATN.Unit.FileUploadUtil;
 
 @Controller
 public class checkout {
@@ -46,6 +50,9 @@ public class checkout {
 	UserRepository userRepository;
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	ServletContext app;
 	
 	@Autowired
 	CategoryRepository categoryRepository;
@@ -73,7 +80,7 @@ public class checkout {
 		
 	}
 	@RequestMapping("/addOrder")
-	public String add( Orders order ,Model model) {
+	public String add( Orders order ,Model model) throws IOException {
 		if(order.getPhone().isEmpty() || order.getAddress().isEmpty() || order.getPhone().length()>11 || order.getPhone().length()<9  ) {
 
 			List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
@@ -116,6 +123,10 @@ public class checkout {
 				Category cate = categoryRepository.getById(product.getCategory().getId());
 				//System.err.println(cate.getNameCategory());
 				od.setImage(cart.getImgProductCart());
+				
+				FileUploadUtil file = new FileUploadUtil();
+				file.historyImageProduct(cart.getImgProductCart(), app);
+				
 				od.setName(cart.getNameProductCart());
 				od.setPrice(cart.getPriceProductCart());
 				od.setQuanlity(cart.getQuanlityProductCart());

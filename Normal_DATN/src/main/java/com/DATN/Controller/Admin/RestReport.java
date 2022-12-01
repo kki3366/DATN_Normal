@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DATN.Entity.Report.ReportByInventory;
+import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
 import com.DATN.Service.ReportService;
@@ -36,5 +37,10 @@ public class RestReport {
 	@GetMapping("/report/revenueByCategory")
 	public ResponseEntity<List<ReportRevenueByCategory>> byCategory(){
 		return new ResponseEntity<List<ReportRevenueByCategory>>(reportService.reportRevenueByCategories().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping("/report/popularProduct")
+	public ResponseEntity<List<ReportByPopularProduct>> reportPopular(){
+		return new ResponseEntity<List<ReportByPopularProduct>>(reportService.reportByPopularProducts().stream().collect(Collectors.toList()), HttpStatus.OK);
 	}
 }

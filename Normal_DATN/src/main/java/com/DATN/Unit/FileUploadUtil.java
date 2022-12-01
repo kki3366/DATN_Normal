@@ -64,6 +64,14 @@ public class FileUploadUtil {
 		}
 	}
 	
+	public void historyImageProduct(String filename,ServletContext app) throws IOException {
+		File prev = new File(app.getRealPath("/imgProducts/" + filename + ".png"));
+		if(prev.exists()) {
+			File next = new File(app.getRealPath("/historyBuy/" + filename + ".png"));
+			FileUtils.copyFile(prev, next);
+		}
+	}
+	
 	public void deleteFileByName(String filename,ServletContext app) throws IOException {
 		File getFiletoDelete = new File(app.getRealPath("/imgProducts/" + filename + ".png"));
 		if(getFiletoDelete.exists()) {

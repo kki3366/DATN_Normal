@@ -62,7 +62,7 @@ public class Product implements Serializable{
 	
 	
 	@Column(name = "Available")
-	boolean available;
+	boolean available = true;
 	
 	@NotNull(message = "Không được để trống số lượng")
 	@Min(value = 1, message = "Số lượng nhỏ nhất là 1")

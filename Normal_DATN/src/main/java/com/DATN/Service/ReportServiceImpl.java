@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DATN.Entity.Report.ReportByInventory;
+import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
 import com.DATN.Repository.ReportRepository;
@@ -26,6 +27,10 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public List<ReportRevenueByCategory> reportRevenueByCategories() {
 		return reportRepository.reportRevenueByCategories();
+	}
+	@Override
+	public List<ReportByPopularProduct> reportByPopularProducts() {
+		return reportRepository.byPopularProducts();
 	}
 	
 	

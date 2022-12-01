@@ -51,8 +51,7 @@
                 
                 
                 <tr th:each="HoLy:${item}" role="row" class="odd">
-                  <td class="sorting_1">[[${HoLy.image}]]</td>
-                 
+                 <td class="sorting_1"><img style="height: 200px; width: 200px" th:src="@{|/historyBuy/${HoLy.image}.png|}" alt=""></td>
                    <td class="sorting_1">[[${HoLy.name}]]</td>
                   <td class="sorting_1">[[${HoLy.price}*1]]</td>
                   <td class="sorting_1">[[${HoLy.quanlity}]]</td>
