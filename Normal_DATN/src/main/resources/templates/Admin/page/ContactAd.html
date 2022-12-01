@@ -92,8 +92,16 @@
               <h3 class="box-title">Hover Data Table</h3>
                <h3 style="float:right;" class="box-title">
                <form th:action="@{/admin/contact/find}" method="post">
-                  <input name="keywords" th:value="${keywords}" placeholder="Search name">
-                  <button>Search</button>
+                <input  style="height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                background-color: #fff;
+                background-image: none;
+                border: 1px solid #ccc;"  name="keywords" th:value="${keywords}" placeholder="Search Name">
+             
+              <button   class="btn btn-primary mb-2">Search</button>
                </form>
               </h3>
             </div>
