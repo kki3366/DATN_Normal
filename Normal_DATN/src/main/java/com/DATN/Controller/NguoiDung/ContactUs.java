@@ -51,7 +51,7 @@ public class ContactUs {
 		return "nguoiDung/contactUs";
 	}
 	
-	@PostMapping("/ContactUs")
+	@PostMapping("/ContactUs/form")
 	public String contactUs(Model m,@Validated @ModelAttribute("contact") Contact contact,Errors errors) {
 		if(errors.hasErrors()) {
 //			m.addAttribute("tb", "Vui lòng nhập đủ các trường");
