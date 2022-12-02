@@ -41,6 +41,7 @@ public class singleProduct {
 		
         Product product = productRepository.findById(id).get();
         model.addAttribute("product", product);
+        System.err.println(product.getImage());
 		return "NguoiDung/singleProduct";
 		
 	}
