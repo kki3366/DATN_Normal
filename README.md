@@ -48,9 +48,9 @@ Em xin chân thành cảm ơn!
 |               |      Tên của các thành viên         |       Mã số sinh viên          |      Chức vụ trong nhóm          |
 | :-----------: |:-----------------------------------:| :----------------------------: | :------------------------------: |
 |     1         |        Dương Gia Bảo                |         PC01660                |         Nhóm trưởng              |
-|     2         |        Trần Thành Trung             |         PC01815                |         Tổ viên                  |
-|     3         |        Võ Đăng Khoa                 |         PC00466                |         Tổ viên                  | 
-|     4         |        Đinh Nguyễn Hải Sang         |         PC01859                |         Tổ viên                  |
+|     2         |        Trần Thành Trung             |         PC01815                |                                  |
+|     3         |        Võ Đăng Khoa                 |         PC00466                |                                  | 
+|     4         |        Đinh Nguyễn Hải Sang         |         PC01859                |                                  |
 
 
 <a name = "II"></a>
