@@ -1,9 +1,15 @@
-# DATN_Normal - Nhóm Normal - Fpoly Cần Thơ
+# Dự án tốt nghiệp 2022
 > 
-> Dự án tốt nghiệp 2022 - Cần Thơ
+> Ứng dụng phần mềm
+>
+> Khóa 16.3 - FPT Polytechnic Cần Thơ
 > 
-> Giáo viên hướng dẫn: **Nguyễn Đình Ngọc**
+> Giáo viên hướng dẫn: *Thầy* **Nguyễn Đình Ngọc**
+
 ### Mục lục
+
+[LỜI NÓI ĐẦU](#loinoidau)
+
 [I. Thành viên nhóm](#I)
 
 [II. Đề tài của nhóm](#II)
@@ -13,14 +19,39 @@
 [2. Công nghệ và các thư viện](#congnghe)
 
 [3. Hướng dẫn sử dụng](#huongdan)
+
+[4. Cơ hội](#cohoi)
+
+[5. Hạn chế](#hanche)
+
+<a name = "loinoidau"></a>
+# LỜI NÓI ĐẦU
+
+Mở đầu cả nhóm xin chân thành cảm ơn các thầy cô bộ môn Công nghệ thông tin – Ứng dụng
+phần mềm của trường Cao đẳng thực hành FPT Polytechnic Cần Thơ đã tạo điều kiện
+thuận lợi cho chúng em trong suốt quá trình học.
+
+Chúng em xin chân thành cảm ơn tất cả các quý thầy cô đã nhiệt tình giảng dạy chuyên ngành
+Ứng dụng phần mềm để chúng em có được những kiến thức bổ ích để thực hiện dự án tốt nghiệp lần
+này.
+
+Đặc biệt, nhóm em vô cùng tri ân sự hướng dẫn tận tình và theo dõi động viên tinh thần trách
+nhiệm của thầy Nguyễn Đình Ngọc trong suốt quá trình cả nhóm thực hiện Báo cáo tốt nghiệp.
+
+Cuối cùng nhóm em muốn gửi lời cảm ơn đến quý thầy/cô người chịu trách
+nhiệm đóng góp ý kiến và khảo hạch quá trình báo cáo tốt nghiệp lần này.
+
+Em xin chân thành cảm ơn!
+
 <a name = "I"></a>
 # I.Thành viên nhóm
-|               |      Tên của các thành viên         |       Mã số sinh viên          |
-| :-----------: |:-----------------------------------:| :----------------------------: |
-|     1         |        Dương Gia Bảo (nhóm trưởng)  |         PC01660                |
-|     2         |        Trần Thành Trung             |         PC01815                |
-|     3         |        Võ Đăng Khoa                 |         PC00466                | 
-|     4         |        Đinh Nguyễn Hải Sang         |         PC01859                |
+|               |      Tên của các thành viên         |       Mã số sinh viên          |      Chức vụ trong nhóm          |
+| :-----------: |:-----------------------------------:| :----------------------------: | :------------------------------: |
+|     1         |        Dương Gia Bảo                |         PC01660                |         Nhóm trưởng              |
+|     2         |        Trần Thành Trung             |         PC01815                |         Tổ viên                  |
+|     3         |        Võ Đăng Khoa                 |         PC00466                |         Tổ viên                  | 
+|     4         |        Đinh Nguyễn Hải Sang         |         PC01859                |         Tổ viên                  |
+
 
 <a name = "II"></a>
 # II.Đề tài của nhóm
@@ -54,7 +85,13 @@
 
 + SQL Server: 2019
 
++ IDE: Eclipse
+
 <a name="huongdan"></a>
-## 2.*Hướng dẫn sử dụng*
+## 3.*Hướng dẫn sử dụng*
 
+<a name="cohoi"></a>
+## 4.*Cơ hội*
 
+<a name="hanche"></a>
+## 5.*Hạn chế*
