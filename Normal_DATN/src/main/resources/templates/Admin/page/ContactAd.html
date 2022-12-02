@@ -136,8 +136,12 @@
                   <td class="sorting_1">[[${contact.name}]]</td>
                   <td class="sorting_1">[[${contact.email}]]</td>
                   <td class="sorting_1">[[${contact.date}]]</td>
-                  
-                  <td class="sorting_1">[[${contact.status}]]</td>
+                  <div th:if="${contact.status == false}">
+                    <td class="sorting_1">Chưa phản hồi</td>
+                  </div>
+                  <div th:if="${contact.status != false}">
+                    <td class="sorting_1">Đã phản hồi</td>
+                  </div>
                    
                   <td class="sorting_1"><a th:href="@{|/admin/contact/edit?id=${contact.id}|}">Edit</a></td>
                    

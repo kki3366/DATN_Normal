@@ -55,7 +55,7 @@
                                                 <tbody >
                                                     <tr th:each="HoLy:${item}">
                                                          
-                                                       <td class="product_thumb"><a href="#"><img style="width:25%;" th:src="@{|/assets/img/product/${HoLy.image}|}"  alt=""></a></td>
+                                                       <td class="product_thumb"><a href="#"><img style="width:25%;" th:src="@{|/imgProducts/${HoLy.image}.png|}"  alt=""></a></td>
                                                         <td class="product_name"> [[${HoLy.name}]]</td>
                                                         <td class="product-price">[[${HoLy.price}*1]]</td>
                                                         <td class="product_quanlity">[[${HoLy.quanlity}]]</td>

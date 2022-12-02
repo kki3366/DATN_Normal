@@ -110,7 +110,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-6">
                                             <form action="#">    
-                                                <h3>Your order</h3> 
+                                                <h3>Đơn hàng của bạn</h3> 
                                                 <div class="order_table table-responsive mb-30">
                                                     <table>
                                                         <thead>
@@ -123,7 +123,7 @@
                                                         </thead>
                                                         <tbody>
                                                            <tr th:each="HoLy:${item}">
-                                                                <td><a href="#"><img style="width:60px;"  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
+                                                                <td><a href="#"><img style="width:60px;"  th:src="@{|/imgProducts/${HoLy.imgProductCart}.png|}"  alt=""></a></td>
                                                                 <td> [[${HoLy.nameProductCart}]]<strong> x [[${HoLy.quanlityProductCart}]]</strong></td>
                                                                 <td>[[${HoLy.priceProductCart}*1]]</td>
                                                                 <td>[[${HoLy.priceProductCart * HoLy.quanlityProductCart}*1]]</td>

@@ -67,16 +67,16 @@
                                                         <td class="product_total">[[${HoLy.amount}*1]]</td>
                                                              <td class="product_total">[[${HoLy.status}]]</td>
                                                              
-                                                              <div th:if="${HoLy.status} != Đã giao">
+                                                              <!-- <div th:if="${HoLy.status} != Đã giao">
                                                                   <td class="product_remove"><a th:href="@{|/orderHistory/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
 							
 						                            	</div>
 													                <div th:if="${HoLy.status} == Đã giao">
-												<!--    <td class="product_remove"><a onclick="alert('Đơn hàng đã giao không hủy được.')" th:href="#"><i class="fa fa-trash-o"></i></a></td>
+												    <td class="product_remove"><a onclick="alert('Đơn hàng đã giao không hủy được.')" th:href="#"><i class="fa fa-trash-o"></i></a></td>
 												           -->  
-           																		     </div> 
+           																		     <!-- </div>  -->
                                                              
-                                                    
+                                             <td class="product_remove"><a th:href="@{|/orderHistory/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>                           
                                                         <td class="product_remove"><a th:href="@{|/orderHistoryDetail/${HoLy.id}|}">Xem</a></td>
                                                     
                                                      

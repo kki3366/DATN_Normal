@@ -58,7 +58,7 @@
                                                     <tr th:each="HoLy:${item}">
                                                       
                                                        <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
-                                                        <td class="product_thumb"><a href="#"><img  th:src="@{|assets/img/product/${HoLy.imgProductCart}|}"  alt=""></a></td>
+                                                        <td class="product_thumb"><a href="#"><img  th:src="@{|/imgProducts/${HoLy.imgProductCart}.png|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
                                                         <td class="product-price">[[${HoLy.priceProductCart}]]</td>
                                                  <form th:action="@{/updateCart}" th:method="post"  > 

@@ -61,6 +61,8 @@ public class TaiKhoan {
 	@GetMapping("/dk")
 	public String SignUp(Model m) {
 		users acc = new users();
+		acc.setActivated(true);
+		acc.setAdmin(false);
 		m.addAttribute("acc", acc);
 		return "taiKhoan/SignUp";
 	}
@@ -256,9 +258,9 @@ public class TaiKhoan {
 		
 		Session session = Session.getInstance(props, new Authenticator() { 
 			protected PasswordAuthentication getPasswordAuthentication() {
-//				znavyzikibherjvj
-			String username = "trungttpc01815@gmail.com";
-			String password = "svzdetnyddotvaqs";
+//				   svzdetnyddotvaqs
+			String username = "trungttpc01815@fpt.edu.vn";
+			String password = "znavyzikibherjvj";
 			return new PasswordAuthentication(username, password);
 			}
 		});

@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +54,7 @@ public class ContactController {
 			@RequestParam("s") Optional<Integer> s) {
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
-		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
 		Page<Contact> resultPage = contact.findAll(pageable);
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
@@ -92,7 +94,7 @@ public class ContactController {
 		
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
-		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
 		Page<Contact> resultPage = contact.findByKeywords("%"+kwords+"%", pageable);
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
@@ -123,7 +125,7 @@ public class ContactController {
 		m.addAttribute("contact",Contact);
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
-		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
 		Page<Contact> resultPage = contact.findAll(pageable);
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
@@ -161,7 +163,7 @@ public class ContactController {
 		m.addAttribute("contact",new Contact());
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
-		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
 		Page<Contact> resultPage = contact.findAll(pageable);
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
@@ -257,7 +259,7 @@ public class ContactController {
 		m.addAttribute("contact",new Contact());
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
-		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
 		Page<Contact> resultPage = contact.findAll(pageable);
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
