@@ -14,6 +14,7 @@ import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
+import com.DATN.Entity.Report.ReportRevenueByProduct;
 import com.DATN.Service.ReportService;
 
 @RestController
@@ -43,4 +44,10 @@ public class RestReport {
 	public ResponseEntity<List<ReportByPopularProduct>> reportPopular(){
 		return new ResponseEntity<List<ReportByPopularProduct>>(reportService.reportByPopularProducts().stream().collect(Collectors.toList()), HttpStatus.OK);
 	}
+	
+	@GetMapping("/report/reportRevenueByProduct")
+	public ResponseEntity<List<ReportRevenueByProduct>> reportProduct(){
+		return new ResponseEntity<List<ReportRevenueByProduct>>(reportService.reportRevenueByProducts().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
 }

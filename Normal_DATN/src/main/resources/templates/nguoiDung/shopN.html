@@ -82,7 +82,8 @@
                                                            
                                                                 </div>
                                                                 <div class="product_content">
-                                                              <span class="product_price">[[${HoLy.price}]]</span>
+                                                              
+                                                              <span class="product_price"> ₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
                                                             <h3 class="product_title"><a  th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a></h3>
                                                                 </div>
                                                  

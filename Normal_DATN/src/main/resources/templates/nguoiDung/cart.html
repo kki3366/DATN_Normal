@@ -60,11 +60,12 @@
                                                        <td class="product_remove"><a th:href="@{|/deleteCart/${HoLy.id}|}"><i class="fa fa-trash-o"></i></a></td>
                                                         <td class="product_thumb"><a href="#"><img  th:src="@{|/imgProducts/${HoLy.imgProductCart}.png|}"  alt=""></a></td>
                                                         <td class="product_name"><a href="#"> [[${HoLy.nameProductCart}]]</a></td>
-                                                        <td class="product-price">[[${HoLy.priceProductCart}]]</td>
+                                                        <td class="product-price">₫[[${#numbers.formatDecimal(HoLy.priceProductCart, 0, 'POINT', 0, 'NONE')}]]</td>
                                                  <form th:action="@{/updateCart}" th:method="post"  > 
                                                    <input type="hidden" name="idcart" th:value="${HoLy.id}">
                                                         <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" th:onblur="this.form.submit()"></td>
-                                                        <td class="product_total">[[${HoLy.priceProductCart * HoLy.quanlityProductCart}]]</td>
+                                                        <td class="product_total">₫[[${#numbers.formatDecimal(HoLy.priceProductCart * HoLy.quanlityProductCart, 0, 'POINT', 0, 'NONE')}]]</td>
+   									
    <!-- <div class="cart_submit">   
  <td> <button type="submit" th:formaction="@{|/updateCart?idcart=${HoLy.id}|}">Update Cart</button> </td>
  </div> --> 
@@ -104,18 +105,19 @@
                                                     <div class="coupon_inner">
                                                        <div class="cart_subtotal">
                                                            <p>Tổng giỏ hàng</p>
-                                                           
-                                                           <p class="cart_amount">[[${tongTien}]]</p>
+                                                          
+                                                           <p class="cart_amount"> ₫[[${#numbers.formatDecimal(tongTien, 0, 'POINT', 0, 'NONE')}]]</p>
                                                        </div>
                                                        <div class="cart_subtotal ">
                                                            <p>Phí vận chuyển</p>
-                                                           <p class="cart_amount"><span>Flat Rate:</span> 30000</p>
+                                                           <p class="cart_amount"><span>Flat Rate:</span>₫ 30.000</p>
                                                        </div>
                                      
 
                                                        <div class="cart_subtotal">
                                                            <p>Thành tiền</p>
-                                                           <p class="cart_amount">[[${tongTien}+30000]]</p>
+                                                            
+                                                           <p class="cart_amount">₫[[${#numbers.formatDecimal(tongTien+30000, 0, 'POINT', 0, 'NONE')}]]</p>
                                                        </div>
                                                       
                                                                      <div th:if="${tongTien} != 0">

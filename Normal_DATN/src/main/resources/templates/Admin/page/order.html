@@ -125,7 +125,7 @@
                   <td class="sorting_1">[[${HoLy.phone}]]</td>
                   <td class="sorting_1">[[${HoLy.address}]]</td>
                  <td class="sorting_1">[[${HoLy.description}]]</td>
-                 <td class="sorting_1">[[${HoLy.amount}]]</td>
+                 <td class="sorting_1">[[${#numbers.formatDecimal(HoLy.amount, 0, 'POINT', 0, 'NONE')}]] ₫</td>
                  <td class="sorting_1">[[${HoLy.status}]]</td>
            
                   <td class="sorting_1"><a th:href="@{|/admin/order/edit?order=${HoLy.id}&edit=true|}">View</a></td>

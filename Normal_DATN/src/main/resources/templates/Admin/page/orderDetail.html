@@ -53,9 +53,9 @@
                 <tr th:each="HoLy:${item}" role="row" class="odd">
                  <td class="sorting_1"><img style="height: 200px; width: 200px" th:src="@{|/historyBuy/${HoLy.image}.png|}" alt=""></td>
                    <td class="sorting_1">[[${HoLy.name}]]</td>
-                  <td class="sorting_1">[[${HoLy.price}*1]]</td>
-                  <td class="sorting_1">[[${HoLy.quanlity}]]</td>
-                 <td class="sorting_1">[[${HoLy.quanlity * HoLy.price}*1]]</td>
+                  <td class="sorting_1">[[${#numbers.formatDecimal(HoLy.price *1, 0, 'POINT', 0, 'NONE')}]] ₫</td>
+                  <td class="sorting_1">[[${#numbers.formatDecimal(HoLy.quanlity, 0, 'POINT', 0, 'NONE')}]]</td>
+                 <td class="sorting_1">[[${#numbers.formatDecimal((HoLy.quanlity * HoLy.price) * 1, 0, 'POINT', 0, 'NONE')}]] ₫</td>
                  
            
                   

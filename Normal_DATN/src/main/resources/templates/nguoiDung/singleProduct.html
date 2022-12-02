@@ -34,9 +34,9 @@
                                             <div class="tab-content produc_tab_c">
                                                 <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
                                                     <div class="modal_img">
-                                                        <a href="#"><img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a>
+                                                        <a href="#"><img th:src="@{|/imgProducts/${product.image}.png|}" alt=""></a>
                                                         <div class="img_icone">
-                                                           <img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt="">
+                                                           <img th:src="@{|/imgProducts/${product.image}.png|}" alt="">
                                                        </div>
                                              <!--             <div class="view_img">
                                                             <a class="large_view" src="/assets/img/product/${product.image}" ><i class="fa fa-search-plus"></i></a>
@@ -54,13 +54,11 @@
                                              <div class="product_ratting mb-10">
                                      
                                             </div>
-                                            <div class="product_desc">
-                                                <p>[[${product.description}]]</p>
-                                            </div>
+                                           
 
                                             <div class="content_price mb-15">
-                                                <span>[[${product.price}]]</span>
-                        
+                                                <span>₫[[${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'NONE')}]]</span>
+                        						
                                             </div>
                                             <div class="box_quantity mb-20">      
                                              <form th:action="@{|/addCartI/${product.id}|}" method="post">
@@ -85,14 +83,14 @@
 
                                                      <div th:if="${product.available} != true">
 							  <div class="product_stock mb-20">
-                                               <p>[[${product.quantity}]] sản phẩm</p>
+                                               <p th:inline="text">[[${product.quantity}]] sản phẩm</p>
                                                 <span> Hết hàng </span>
                                             </div>
 							</div>
 													                <div th:if="${product.available} == true">
 													                  <div class="product_stock mb-20">
                                                <p>[[${product.quantity}]] sản phẩm</p>
-                                                <span> Trong kho </span>
+                                                <span>  Còn hàng</span>
                                             </div>
 												           
            																		     </div> 
@@ -112,91 +110,16 @@
                                         <div class="product_info_button">    
                                             <ul class="nav" role="tablist">
                                                 <li>
-                                                    <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">More info</a>
+                                                    <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Mô tả</a>
                                                 </li>
-                                                <li>
-                                                     <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Data sheet</a>
-                                                </li>
-                                                <li>
-                                                   <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
-                                                </li>
+                                               
                                             </ul>
                                         </div>
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="info" role="tabpanel">
                                                 <div class="product_info_content">
-                                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
+                                                    <p>[[${product.description}]]</p>
                                                 </div>    
-                                            </div>
-
-                                            <div class="tab-pane fade" id="sheet" role="tabpanel">
-                                                <div class="product_d_table">
-                                                   <form action="#">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="first_child">Compositions</td>
-                                                                    <td>Polyester</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="first_child">Styles</td>
-                                                                    <td>Girly</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="first_child">Properties</td>
-                                                                    <td>Short Dress</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                                <div class="product_info_content">
-                                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                                </div>    
-                                            </div>
-                                            <div class="tab-pane fade" id="reviews" role="tabpanel">
-                                                <div class="product_info_content">
-                                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                                </div>
-                                                <div class="product_info_inner">
-                                                    <div class="product_ratting mb-10">
-                                                        <ul>
-                                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        </ul>
-                                                        <strong>Posthemes</strong> 
-                                                        <p>09/07/2018</p>
-                                                    </div>
-                                                    <div class="product_demo">
-                                                        <strong>demo</strong>
-                                                        <p>That's OK!</p>
-                                                    </div>
-                                                </div> 
-                                                <div class="product_review_form">
-                                                    <form action="#">
-                                                        <h2>Add a review </h2>
-                                                        <p>Your email address will not be published. Required fields are marked </p>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <label for="review_comment">Your review </label>
-                                                                <textarea name="comment" id="review_comment"></textarea>
-                                                            </div> 
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <label for="author">Name</label>
-                                                                <input id="author" type="text">
-
-                                                            </div> 
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <label for="email">Email </label>
-                                                                <input id="email" type="text">
-                                                            </div>  
-                                                        </div>
-                                                        <button type="submit">Submit</button>
-                                                     </form>   
-                                                </div>     
                                             </div>
                                         </div>
                                     </div>     
@@ -217,29 +140,7 @@
                             </div>
                             <div class="row">
                                 <div class="single_p_active owl-carousel">
-                                    <div class="col-lg-3">
-                                        <div class="single_product">
-                                            <div class="product_thumb">
-                                               <a href="single-product.html"><img src="assets\img\product\product1.jpg" alt=""></a> 
-                                               <div class="img_icone">
-                                                   <img src="assets\img\cart\span-new.png" alt="">
-                                               </div>
-                                               <div class="product_action">
-                                                   <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                               </div>
-                                            </div>
-                                            <div class="product_content">
-                                                <span class="product_price">$50.00</span>
-                                                <h3 class="product_title"><a href="single-product.html">Curabitur sodales</a></h3>
-                                            </div>
-                                            <div class="product_info">
-                                                <ul>
-                                                    <li><a href="#" title=" Add to Wishlist ">Add to Wishlist</a></li>
-                                                    <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">View Detail</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-lg-3">
                                         <div class="single_product">
                                             <div class="product_thumb">

@@ -124,7 +124,8 @@
                                                 </div>
                                                  <div th:if="${#request.remoteUser}">
                                             <div class="shopping_cart">
-                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> [[${size}]] Sản phẩm - [[${tongTien}]]  </a>
+                                                <a href="/cart"><i class="fa fa-shopping-cart"></i> [[${size}]] Sản phẩm - ₫[[${#numbers.formatDecimal(tongTien, 0, 'POINT', 0, 'NONE')}]]  </a>
+                                                 
                                             </div>
                                             </div>
                                                <div th:unless="${#request.remoteUser}">
@@ -145,10 +146,8 @@
                                                 <div class="main_menu d-none d-lg-block">
                                                     <nav>
                                                         <ul>
-                                                            <li class="active"><a th:href="@{/index}"><span th:text="#{lo.mn.home }"></span></a>
-                                                                <div class="mega_menu jewelry">
-                                                         
-                                                                </div> 
+                                                            <li ><a th:href="@{/index}"><span th:text="#{lo.mn.home }"></span></a>
+                                                              
                                                             </li>
                                                     
                                                             <li><a href="/shop?subcategory=1" ><span th:text="#{lo.mn.men }"></span></a>

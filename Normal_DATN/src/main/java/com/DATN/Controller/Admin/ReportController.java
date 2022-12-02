@@ -26,4 +26,9 @@ public class ReportController {
 		return "Admin/page/ReportByPopularProduct";
 	}
 	
+	@GetMapping ("admin/report/reportRevenueByProduct")
+	public String reportRevenueByProduct() {
+		return "Admin/page/ReportRevenueByProduct";
+	}
+	
 }

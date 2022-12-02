@@ -14,6 +14,7 @@ import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
+import com.DATN.Entity.Report.ReportRevenueByProduct;
 
 @Repository
 public class ReportRepository {
@@ -53,5 +54,12 @@ public class ReportRepository {
 		return list;
 	}
 	
+	public List<ReportRevenueByProduct> reportRevenueByProducts(){
+		String sql = "select new " + ReportRevenueByProduct.class.getName() + " (ordd.name, SUM(ordd.quanlity),count(ordd.order), SUM(ordd.quanlity * ordd.price))"
+				+ " from OrderDetail ordd group by ordd.name";
+		TypedQuery<ReportRevenueByProduct> query = entityManager.createQuery(sql, ReportRevenueByProduct.class);
+		List<ReportRevenueByProduct> list = query.getResultList();
+		return list;
+	}
 	
 }
