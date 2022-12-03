@@ -62,13 +62,13 @@ public class index {
 		model.addAttribute("item", item);
 		model.addAttribute("category", category);
 		
-        List<Product> p = null;
+        
 		Pageable pageableBanChay = PageRequest.of(0,5);
 		List<String> BanChay = orderDetaiRep.BanChayNhat();
 		for (String orderDetail : BanChay) {
 			List<Product> spbanchay = productRepository.findByName(orderDetail);
 			model.addAttribute("spbanchay", spbanchay);
-			p.add((Product) spbanchay);
+			
 		}
 		
 		
