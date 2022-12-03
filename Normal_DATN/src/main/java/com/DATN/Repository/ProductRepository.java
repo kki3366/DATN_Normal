@@ -1,5 +1,7 @@
 package com.DATN.Repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	@Query("SELECT o FROM Product o WHERE o.name LIKE ?1")
 	Page<Product> findByKeywords(String keywords, Pageable pgeable);
+	@Query("SELECT o FROM Product o WHERE o.name =?1")
+	List<Product> findByName(String name);
+	
 }
