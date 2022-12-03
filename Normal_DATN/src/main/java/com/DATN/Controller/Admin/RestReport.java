@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
+import com.DATN.Entity.Report.ReportByRevenueByYear;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
+import com.DATN.Entity.Report.ReportRevenueByMonth;
 import com.DATN.Entity.Report.ReportRevenueByProduct;
+import com.DATN.Entity.Report.ReportRevenueByQuarter;
 import com.DATN.Service.ReportService;
 
 @RestController
@@ -50,4 +53,18 @@ public class RestReport {
 		return new ResponseEntity<List<ReportRevenueByProduct>>(reportService.reportRevenueByProducts().stream().collect(Collectors.toList()), HttpStatus.OK);
 	}
 	
+	@GetMapping("/report/reportByRevenueByYears")
+	public ResponseEntity<List<ReportByRevenueByYear>> reportYear(){
+		return new ResponseEntity<List<ReportByRevenueByYear>>(reportService.reportByRevenueByYears().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping("/report/reportByRevenueByQuarter")
+	public ResponseEntity<List<ReportRevenueByQuarter>> reportQuarter(){
+		return new ResponseEntity<List<ReportRevenueByQuarter>>(reportService.reportRevenueByQuarters().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
+	
+	@GetMapping("/report/reportByRevenueByMonth")
+	public ResponseEntity<List<ReportRevenueByMonth>> reportMonth(){
+		return new ResponseEntity<List<ReportRevenueByMonth>>(reportService.reportRevenueByMonths().stream().collect(Collectors.toList()), HttpStatus.OK);
+	}
 }

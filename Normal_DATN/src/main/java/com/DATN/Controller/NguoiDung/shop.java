@@ -125,6 +125,9 @@ public class shop {
 		int pagesize = s.orElse(5);
 		Pageable pageable = PageRequest.of(currentPage, pagesize);
 		Page<Product> resultPage = productRepository.findByKeywords("%"+kwords+"%", pageable);
+		if(resultPage.isEmpty()) {
+			model.addAttribute("NoProduct", true);
+		}
 		int totalPages = resultPage.getTotalPages();
 		if(totalPages >0) {
 			int start = Math.max(1,currentPage-2);
@@ -144,9 +147,9 @@ public class shop {
 			model.addAttribute("pageNumbers",pageNumber);
 		}
 		model.addAttribute("shopFindPage",resultPage);
-		
 	
 		model.addAttribute("keywords", kwords);
+		
 		return "nguoiDung/shopFind";
 	}
 	@RequestMapping("/shop")

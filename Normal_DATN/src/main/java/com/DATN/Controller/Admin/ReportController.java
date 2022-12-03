@@ -31,4 +31,19 @@ public class ReportController {
 		return "Admin/page/ReportRevenueByProduct";
 	}
 	
+	@GetMapping ("admin/report/reportRevenueByYears")
+	public String reportRevenueByYears() {
+		return "Admin/page/ReportByRevenueByYears";
+	}
+	
+	@GetMapping ("admin/report/reportRevenueByQuarter")
+	public String revenueByQuarter() {
+		return "Admin/page/ReportRevenueByQuarter";
+	}
+	
+	@GetMapping ("admin/report/reportRevenueByMonth")
+	public String reportRevenueByMonth() {
+		return "Admin/page/ReportRevenueByMonth";
+	}
+	
 }

@@ -1,147 +1,170 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org"
-  th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
+<html class="no-js" lang="zxx" xmlns="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
 <head>
 <meta charset="UTF-8">
 <title th:text="#{shop.title}"></title>
 </head>
-    <body>
-                        <!--breadcrumbs area start-->
-                        <div class="breadcrumbs_area">
-                            <div class="row">
-                                    <div class="col-12">
-                                        <div class="breadcrumb_content">
-                                            <ul>
-                                                <li><a href="/index.html">Trang chủ</a></li>
-                                                <li><i class="fa fa-angle-right"></i></li>
-                                                <li>Cửa hàng</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <!--breadcrumbs area end-->
+<body>
+	<!--breadcrumbs area start-->
+	<div class="breadcrumbs_area">
+		<div class="row">
+			<div class="col-12">
+				<div class="breadcrumb_content">
+					<ul>
+						<li><a href="/index.html">Trang chủ</a></li>
+						<li><i class="fa fa-angle-right"></i></li>
+						<li>Cửa hàng</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--breadcrumbs area end-->
 
-                        <!--pos home section-->
-                        <div class=" pos_home_section">
-                            <div class="row pos_home">
-                                    <div class="col-lg-3 col-md-12">
-                                      <div class="sidebar_widget catrgorie mb-35">
-                                        <h3><span th:text="#{lo.mn.category }"></span></h3>
-                                        <ul>
-                                      
+	<!--pos home section-->
+	<div class=" pos_home_section">
+		<div class="row pos_home">
+			<div class="col-lg-3 col-md-12">
+				<div class="sidebar_widget catrgorie mb-35">
+					<h3>
+						<span th:text="#{lo.mn.category }"></span>
+					</h3>
+					<ul>
 
-                                            </li>   
-                                             <li th:each="HoLy:${category}"  class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
-                                                <ul class="categorie_sub">
-                                        
-                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=1|}"><span th:text="#{lo.mn.men }"></span></a></li>
-                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=2|}"><span th:text="#{lo.mn.women }"></span></a></li>
-                                                </ul>     
-                                            </li>          
 
-                                        </ul>
-                                    </div>
+						</li>
+						<li th:each="HoLy:${category}" class="has-sub"><a href="#"><i
+								class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
+							<ul class="categorie_sub">
 
-                                    </div>
-                                    <center><h3>[[${message}]]</h3></center>
-                                    <div class="col-lg-9 col-md-12">
-                                        <!--banner slider start-->
-                                        <div class="banner_slider mb-35">
-                                            <img src="/assets/img/slider/sl1.png" alt="">
-                                        </div> 
-                                        <!--banner slider start-->
+								<li><a th:href="@{|/shop/${HoLy.id}?subcategory=1|}"><span
+										th:text="#{lo.mn.men }"></span></a></li>
+								<li><a th:href="@{|/shop/${HoLy.id}?subcategory=2|}"><span
+										th:text="#{lo.mn.women }"></span></a></li>
+							</ul></li>
 
-                                        <!--shop toolbar start-->
-                        
-                                        <!--shop toolbar end-->
+					</ul>
+				</div>
 
-                                        <!--shop tab product-->
-                                        <div class="shop_tab_product">   
-                                     
-                                               
-                                                    <div class="row">
-                                                        <div th:each="HoLy:${shopNPage.content}"  class="col-lg-4 col-md-6">
-                                                            <div class="single_product">
-                                                                <div class="product_thumb">
-                                                                   <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a> 
-                                                              
-                                                              
-                                                              
-                                                                       <div th:if="${HoLy.available} != true">
-							 <div class="product_action">
-                                                               <a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                                           </div>
+			</div>
+			<center>
+				<h3>[[${message}]]</h3>
+			</center>
+			<div class="col-lg-9 col-md-12">
+				<!--banner slider start-->
+				<div class="banner_slider mb-35">
+					<img src="/assets/img/slider/sl1.png" alt="">
+				</div>
+				<!--banner slider start-->
+
+				<!--shop toolbar start-->
+
+				<!--shop toolbar end-->
+
+				<!--shop tab product-->
+				<div class="shop_tab_product">
+
+
+					<div class="row">
+						<div th:each="HoLy:${shopNPage.content}" class="col-lg-4 col-md-6">
+							<div class="single_product">
+								<div class="product_thumb">
+									<a th:href="@{|/singleProduct/${HoLy.id}|}"><img
+										th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a>
+
+
+
+									<div th:if="${HoLy.available} != true">
+										<div class="product_action">
+											<a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#">
+												<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+											</a>
+										</div>
+									</div>
+									<div th:if="${HoLy.available} == true">
+										<div class="product_action">
+											<a onclick="alert('Đã thêm vào giỏ hàng!')"
+												th:href="@{|/addCartO/${HoLy.id}|}"> <i
+												class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+											</a>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="product_content">
+
+									<span class="product_price">
+										₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0,
+										'NONE')}]]</span>
+									<h3 class="product_title">
+										<a th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a>
+									</h3>
+								</div>
+
 							</div>
-													                <div th:if="${HoLy.available} == true">
-												 <div class="product_action">
-                                                               <a onclick="alert('Đã thêm vào giỏ hàng!')" th:href="@{|/addCartO/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                                           </div>
-												           
-           																		     </div> 
-                                                           
-                                                                </div>
-                                                                <div class="product_content">
-                                                              
-                                                              <span class="product_price"> ₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
-                                                            <h3 class="product_title"><a  th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a></h3>
-                                                                </div>
-                                                 
-                                                            </div>
-                                                        </div>
-                                                       
-                                                      
-                                                       
-                                                      
-                                                
+						</div>
 
-                                            </div>
 
-                                        <!--shop tab product end-->
-                      <div class="pro-pagination" >
-                       
-                        <nav aria-label="Page navigation example" 
-                        th:if="${shopNPage.totalPages >0}">
-                    <ul class="pagination justify-content-center">
-                
-                      <li th:class="${1== shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-                  <a  th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p =0|}" class="page-link">First</a>
-                </li>
-              
-             
-                <li class="page-item active"
-                th:each="pageNumber :${pageNumbers}" 
-                th:if="${shopNPage.totalPages > 1}"
-                th:class="${pageNumber == shopNPage.number + 1} ? 'page-item active' : 'page-item'">
-                <a  th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${pageNumber-1}|}" 
-                class="page-link"
-                th:text="${pageNumber}"></a>
-                </li>
-      
-                <li th:class="${shopNPage.totalPages == shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-                  <a  th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${shopNPage.totalPages-1}|}" class="page-link">Last</a>
-                </li>
-                      
-                    </ul>
-                  </nav>
-                               
-                                    <div class="product-pagination">
-                                        <span class="grid-item-list">Trang  [[${shopNPage.number+1}]]/[[${shopNPage.totalPages}]]([[${shopNPage.totalElements}]] Sản phẩm)</span>
-                                    </div>
-                                </div>
-                                        <!--pagination style start--> 
-                                     
-                                        <!--pagination style end--> 
-                                   
-                                </div>  
-                        </div>
-                        <!--pos home section end-->
-                    </div>
-                    <!--pos page inner end-->
-                </div>    
-            </div>
-            <!--pos page end-->
-            
-         
-    </body>
+
+
+
+
+					</div>
+
+					<!--shop tab product end-->
+					<div class="pro-pagination">
+
+						<nav aria-label="Page navigation example"
+							th:if="${shopNPage.totalPages >0}">
+							<ul class="pagination justify-content-center">
+
+								<li
+									th:class="${1== shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+									<a th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p =0|}"
+									class="page-link">First</a>
+								</li>
+
+
+								<li class="page-item active"
+									th:each="pageNumber :${pageNumbers}"
+									th:if="${shopNPage.totalPages > 1}"
+									th:class="${pageNumber == shopNPage.number + 1} ? 'page-item active' : 'page-item'">
+									<a
+									th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${pageNumber-1}|}"
+									class="page-link" th:text="${pageNumber}"></a>
+								</li>
+
+								<li
+									th:class="${shopNPage.totalPages == shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+									<a
+									th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${shopNPage.totalPages-1}|}"
+									class="page-link">Last</a>
+								</li>
+
+							</ul>
+						</nav>
+
+						<div class="product-pagination">
+							<span class="grid-item-list">Trang
+								[[${shopNPage.number+1}]]/[[${shopNPage.totalPages}]]([[${shopNPage.totalElements}]]
+								Sản phẩm)</span>
+						</div>
+					</div>
+					<!--pagination style start-->
+
+					<!--pagination style end-->
+
+				</div>
+			</div>
+			<!--pos home section end-->
+		</div>
+		<!--pos page inner end-->
+	</div>
+	</div>
+	<!--pos page end-->
+
+
+</body>
 </html>
