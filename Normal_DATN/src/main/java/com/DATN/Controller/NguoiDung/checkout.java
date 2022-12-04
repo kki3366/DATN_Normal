@@ -134,14 +134,17 @@ public class checkout {
 				od.setOrder(ord);
 				//
 				orderDetailRepository.save(od); 
+				
+				if(product.getQuantity()!=0){
+					product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
+				
+					}
 				if(product.getQuantity()==0) {
 					product.setAvailable(false);
-					productRepository.save(product);					
-				}else {
-				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
-			
-				productRepository.save(product);	
+								
 				}
+
+				productRepository.save(product);	
 				cartService.clear(cart.getId());
 				
 			
