@@ -197,9 +197,7 @@ public class shop {
 		model.addAttribute("shopNPage",resultPage);
 		
 		model.addAttribute("subcategory", subcategory);
-		if(resultPage == null) {
-			model.addAttribute("message", "Hiện không có sản phẩm");
-		}
+		
 
 		
 		return "nguoiDung/shopN";
