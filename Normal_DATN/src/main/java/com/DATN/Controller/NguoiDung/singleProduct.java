@@ -5,6 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +46,13 @@ public class singleProduct {
 		
         Product product = productRepository.findById(id).get();
         model.addAttribute("product", product);
-        System.err.println(product.getImage());
+        Pageable pageable = PageRequest.of(0,5);
+        System.err.println("ID"+product.getCategory().getId());
+		Page<Product> item = productRepository.findSPLienQuan(product.getCategory().getId(),product.getName(),pageable);
+		model.addAttribute("SPLienQuan", item);
+        for (Product product2 : item) {
+			System.err.println(product2.getName());
+		}
 		return "NguoiDung/singleProduct";
 		
 	}

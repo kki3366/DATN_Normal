@@ -52,6 +52,7 @@ public class ContactController {
 	@RequestMapping("/admin/contact")
 	public String contact(Model m,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
+		id =0;
 		int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);
 		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
@@ -153,6 +154,47 @@ public class ContactController {
 		}else {
 			m.addAttribute("send",false);
 		}
+		
+		
+		return "Admin/page/ContactAd";
+	}
+	@RequestMapping("/admin/contact/delete")
+	public String delete(Model m,@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
+		if(id == 0) {
+			m.addAttribute("tb","Bạn chưa chọn nội dung để xóa");
+			m.addAttribute("contact",new Contact());
+		}else {
+			Contact Contact = contact.getById(id);
+			contact.delete(Contact);
+			m.addAttribute("contact",Contact);
+			m.addAttribute("tb","Xóa thành công");
+		}
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize,Sort.by(Direction.DESC,"date"));
+		Page<Contact> resultPage = contact.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("contactPage",resultPage);
+		
+		m.addAttribute("edit",false);
+		
 		
 		
 		return "Admin/page/ContactAd";

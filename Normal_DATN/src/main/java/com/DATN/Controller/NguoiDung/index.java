@@ -56,7 +56,6 @@ public class index {
 		model.addAttribute("size", ite.size());
 		}
 		Pageable pageable = PageRequest.of(0,5,Sort.by(Direction.DESC,"date"));
-		
 		Page<Product> item = productRepository.findAll(pageable);
 		List<Category> category = categorytRepository.findAll();
 		model.addAttribute("item", item);
@@ -65,11 +64,11 @@ public class index {
         
 		Pageable pageableBanChay = PageRequest.of(0,5);
 		List<String> BanChay = orderDetaiRep.BanChayNhat();
-		for (String orderDetail : BanChay) {
-			List<Product> spbanchay = productRepository.findByName(orderDetail);
-			model.addAttribute("spbanchay", spbanchay);
-			
-		}
+//		for (String orderDetail : BanChay) {
+//			List<Product> spbanchay = productRepository.findByName(orderDetail);
+//			model.addAttribute("spbanchay", spbanchay);
+//			
+//		}
 		
 		
 	

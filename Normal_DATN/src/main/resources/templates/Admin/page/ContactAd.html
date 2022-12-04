@@ -58,12 +58,17 @@
               <div class="box-footer">
               <div th:if="${send} == false">
                   <button class="btn btn-primary" disabled>Phản hồi</button>
+                  <button formaction="/admin/contact/delete"  class="btn btn-primary">Xóa</button>
+                  <button formaction="/admin/contact"  class="btn btn-primary">Hủy</button>
               </div>
               
              <div th:unless="${send} == false">
                   <button formaction="/admin/contact/read?edit=true" class="btn btn-primary">Phản hồi</button>
+                  <button formaction="/admin/contact/read?edit=true" disabled class="btn btn-primary">Xóa</button>
+                  <button formaction="/admin/contact"  class="btn btn-primary">Hủy</button>
+                  
               </div>
-               
+              
             </form>
             </div>
            <div th:unless="${edit} == false">
@@ -80,7 +85,7 @@
                 </div>
                 <div class="box-footer">
                 <i style="color:red" th:text="${tbContact}"></i><br>
-                    <button formaction="/admin/contact/feedback?edit=true" class="btn btn-primary" >Phản hồi</button>
+                    <button formaction="/admin/contact/feedback?edit=true" class="btn btn-primary" >Gửi</button>
                 </div>
               </form>
            </div>
