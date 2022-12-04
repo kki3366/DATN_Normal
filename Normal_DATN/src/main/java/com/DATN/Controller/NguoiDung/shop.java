@@ -64,7 +64,7 @@ public class shop {
 		model.addAttribute("item", item);
 		
 		int currentPage = p.orElse(0);
-		int pagesize = s.orElse(5);
+		int pagesize = s.orElse(6);
 		Pageable pageable = PageRequest.of(currentPage, pagesize);
 		Page<Product> resultPage = productRepository.findByShop(id,subcategory,pageable);
 		int totalPages = resultPage.getTotalPages();
@@ -72,11 +72,11 @@ public class shop {
 			int start = Math.max(1,currentPage-2);
 			int end = Math.min(currentPage +2,totalPages);
 			
-			if(totalPages >5) {
+			if(totalPages >6) {
 				if(end == totalPages) {
-					start = end -5;
+					start = end -6;
 				}else if(start == 1) {
-					end = start +5;
+					end = start +6;
 				}
 			}
 			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
@@ -122,7 +122,7 @@ public class shop {
 		String kwords = kw.orElse(session.getAttribute("keywords"));
 		session.setAttribute("keywords", kwords);
 		int currentPage = p.orElse(0);
-		int pagesize = s.orElse(5);
+		int pagesize = s.orElse(6);
 		Pageable pageable = PageRequest.of(currentPage, pagesize);
 		Page<Product> resultPage = productRepository.findByKeywords("%"+kwords+"%", pageable);
 		if(resultPage.isEmpty()) {
@@ -133,11 +133,11 @@ public class shop {
 			int start = Math.max(1,currentPage-2);
 			int end = Math.min(currentPage +2,totalPages);
 			
-			if(totalPages >5) {
+			if(totalPages >6) {
 				if(end == totalPages) {
-					start = end -5;
+					start = end -6;
 				}else if(start == 1) {
-					end = start +5;
+					end = start +6;
 				}
 			}
 			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
@@ -173,7 +173,7 @@ public class shop {
 		model.addAttribute("category", item);
 		model.addAttribute("item", item);
 		int currentPage = p.orElse(0);
-		int pagesize = s.orElse(5);
+		int pagesize = s.orElse(6);
 		Pageable pageable = PageRequest.of(currentPage, pagesize);
 		Page<Product> resultPage = productRepository.findByShopNN(subcategory,pageable);
 		int totalPages = resultPage.getTotalPages();
@@ -181,11 +181,11 @@ public class shop {
 			int start = Math.max(1,currentPage-2);
 			int end = Math.min(currentPage +2,totalPages);
 			
-			if(totalPages >5) {
+			if(totalPages >6) {
 				if(end == totalPages) {
-					start = end -5;
+					start = end -6;
 				}else if(start == 1) {
-					end = start +5;
+					end = start +6;
 				}
 			}
 			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
