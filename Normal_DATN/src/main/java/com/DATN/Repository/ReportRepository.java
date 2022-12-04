@@ -26,7 +26,12 @@ public class ReportRepository {
 	private EntityManager entityManager;
 	
 	public List<ReportByInventory> reportByInventory() {
-		String sql = "select NEW " + ReportByInventory.class.getName() + " (c.nameCategory, SUM(CASE WHEN p.available = 'true' THEN p.quantity END),SUM(p.price*p.quantity),MIN(p.price),MAX(p.price),AVG(p.price))"
+		String sql = "select NEW " + ReportByInventory.class.getName() + " (c.nameCategory, "
+				+ " SUM(CASE WHEN p.available = 'true' THEN p.quantity ELSE 0 END), "
+				+ " SUM(CASE WHEN p.available = 'true' THEN (p.price*p.quantity) ELSE 0 END),"
+				+ " MIN(CASE WHEN p.available = 'true' THEN p.price ELSE 0 END),"
+				+ "MAX(CASE WHEN p.available = 'true' THEN p.price END),"
+				+ "AVG(CASE WHEN p.available = 'true' THEN p.price ELSE 0 END))"
 				+" from Product p join p.category c group by c.nameCategory";
 		TypedQuery<ReportByInventory> query = entityManager.createQuery(sql, ReportByInventory.class);
 		List<ReportByInventory> list = query.getResultList();

@@ -144,11 +144,13 @@ public class checkout {
 				System.err.println("Số lượng total " + total);
 				if(total <= 0) {
 					product.setAvailable(false);
-					productRepository.save(product);					
+					productRepository.save(product);
 				}else {
 					product.setQuantity(total);
 					productRepository.save(product);
 				}
+
+				productRepository.save(product);	
 				cartService.clear(cart.getId());
 				
 			

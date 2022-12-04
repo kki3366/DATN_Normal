@@ -669,25 +669,41 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
-						return formatToVND(data, '₫')
+						if(row.quantiyProduct == 0){
+							return formatToVND(0, '₫');
+						}else{
+							return formatToVND(data, '₫')
+						}
 					}
 				},
 				{
 					"data": "minProduct",
 					render: function(data, type, row) {
-						return formatToVND(data, '₫')
+						if(row.quantiyProduct == 0){
+							return formatToVND(0, '₫');
+						}else{
+							return formatToVND(data, '₫')
+						}
 					}
 				},
 				{
 					"data": "maxProdouct",
 					render: function(data, type, row) {
-						return formatToVND(data, '₫')
+						if(row.quantiyProduct == 0){
+							return formatToVND(0, '₫');
+						}else{
+							return formatToVND(data, '₫')
+						}
 					}
 				},
 				{
 					"data": "avgProduct",
 					render: function(data, type, row) {
-						return formatToVND(data.toFixed(), '₫')
+						if(row.quantiyProduct == 0){
+							return formatToVND(0, '₫');
+						}else{
+							return formatToVND(data, '₫')
+						}
 					}
 				}
 			],
