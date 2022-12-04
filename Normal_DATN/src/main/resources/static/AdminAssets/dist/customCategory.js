@@ -9,6 +9,9 @@ var editor;
 function formatToVND(n, currency) {
 	return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ' + currency;
 }
+
+
+
 //block Inspect
 /*document.addEventListener('contextmenu', function(e) {
 	e.preventDefault();
@@ -216,12 +219,21 @@ if (convertUrl.pathname = '/admin/product') {
 				"type": "GET",
 				"url": getProductUrl,
 				"dataSrc": function(resp) {
+					console.log(resp)
 					return resp;
 				}
 			},
 			columns: [
 				{ "data": "id" },
-				{ "data": "name" },
+				{ 
+					"data": "name"
+				 },
+				 { 
+					"data": "available",
+					render: function(data, type, row) {
+						return data?"Còn hàng":"Hết hàng"
+					}
+				 },
 				{
 					"data": "price",
 					render: function(data, type, row) {
@@ -232,7 +244,12 @@ if (convertUrl.pathname = '/admin/product') {
 				{
 					"data": "quantity",
 					render: function(data, type, row) {
-						return formatToVND(data, '')
+						if(row.available == false){
+							console.log("ok")
+							return "0";
+						}else{
+							return data
+						}
 					}
 				}
 
@@ -407,7 +424,11 @@ if (convertUrl.pathname = '/admin/product') {
 			//console.log(rowData.category.nameCategory)
 			$('#nameProduct').val(rowData.name)
 			$('#priceProduct').val(rowData.price)
-			$('#quanlityProduct').val(rowData.quantity)
+			if(rowData.available == false){
+			$('#quanlityProduct').val(0)
+			}else{
+				$('#quanlityProduct').val(rowData.quantity)
+			}
 			$('#descriptionProduct').val(rowData.description)
 			$("#selectedCategory").val(rowData.category.id).prop('selected', true);
 			$("#selectedSubcategory").val(rowData.subcategory.id).prop('selected', true);

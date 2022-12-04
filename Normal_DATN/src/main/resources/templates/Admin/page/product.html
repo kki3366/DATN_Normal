@@ -26,7 +26,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Giá của sản phẩm</label> <input
 										type="number" class="form-control" id="priceProduct"
-										placeholder="Nhập giá của sản phẩm (VNĐ)" pattern="[0-9]" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
+										placeholder="Nhập giá của sản phẩm (tối thiểu 1.000 VNĐ)" pattern="[1-9]" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
 								</div>
 								<div class="form-group">
 									<label>Danh mục sản phẩm</label> <select class="form-control"
@@ -44,7 +44,7 @@
 								<div class="form-group">
 									<label for="exampleInputPassword1">Nhập số lượng sản
 										phẩm</label> <input type="number" class="form-control"
-										id="quanlityProduct" placeholder="Nhập số lượng sản phẩm" min ="1">
+										id="quanlityProduct" placeholder="Nhập số lượng sản phẩm (tối thiểu là 1)" onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"/>
 								</div>
 
 								<div class="form-group">
@@ -95,6 +95,9 @@
 														rowspan="1" colspan="1"
 														aria-label="Browser: activate to sort column ascending">Tên
 														sản phẩm</th>
+														<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Browser: activate to sort column ascending">Trạng thái</th>
 													<th class="sorting" tabindex="0" aria-controls="example2"
 														rowspan="1" colspan="1"
 														aria-label="Platform(s): activate to sort column ascending">Giá

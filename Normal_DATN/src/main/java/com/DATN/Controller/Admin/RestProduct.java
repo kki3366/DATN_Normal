@@ -84,6 +84,7 @@ public class RestProduct {
 			Optional<Product> productsOption = productService.findByIdProducts(productsUpdate.getId());
 			return (ResponseEntity<Product>) productsOption.map(p -> {
 				productsUpdate.setId(p.getId());
+				productsUpdate.setAvailable(true);
 				return new ResponseEntity<>(productService.saveProductsService(productsUpdate), HttpStatus.OK);
 			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 //			System.err.println(productsUpdate.getId());
@@ -95,6 +96,7 @@ public class RestProduct {
 			return (ResponseEntity<Product>) productsOption.map(p -> {
 				productsUpdate.setId(p.getId());
 				productsUpdate.setImgage(fileUtil.getGetFileNameForEntity());
+				productsUpdate.setAvailable(true);
 				return new ResponseEntity<>(productService.saveProductsService(productsUpdate), HttpStatus.OK);
 			}).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));	
 		}

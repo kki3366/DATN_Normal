@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Min;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,11 @@ import com.DATN.Repository.ProductRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.CartService;
 import com.DATN.Service.CategoryService;
+import com.DATN.Service.ProductService;
 import com.DATN.Unit.FileUploadUtil;
 
 @Controller
+@Validated
 public class checkout {
 	@Autowired
 	CartRepository cartRepository;
@@ -50,6 +53,9 @@ public class checkout {
 	UserRepository userRepository;
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	ProductService productService;
 	
 	@Autowired
 	ServletContext app;
@@ -87,7 +93,7 @@ public class checkout {
 			
 			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
 			users acc = userRepository.getById(req.getRemoteUser());
-			
+			System.err.println(req.getRemoteUser());
 		
 			model.addAttribute("item", item);
 			model.addAttribute("size", item.size());
@@ -118,29 +124,30 @@ public class checkout {
 			
 			for(Cart cart:gio) {
 				OrderDetail od = new OrderDetail();
-				Product product = productRepository.getById(cart.getProduct().getId());
+				Product product = productRepository.findById(cart.getProduct().getId()).get();
 				Orders ord = ordersRepository.getById(id);
 				Category cate = categoryRepository.getById(product.getCategory().getId());
 				//System.err.println(cate.getNameCategory());
-				od.setImage(cart.getImgProductCart());
 				
 				FileUploadUtil file = new FileUploadUtil();
 				file.historyImageProduct(cart.getImgProductCart(), app);
 				
 				od.setName(cart.getNameProductCart());
+				od.setImage(cart.getImgProductCart());
 				od.setPrice(cart.getPriceProductCart());
 				od.setQuanlity(cart.getQuanlityProductCart());
 				od.setNamecate(cate.getNameCategory());
 				od.setOrder(ord);
 				//
 				orderDetailRepository.save(od); 
-				if(product.getQuantity()==0) {
+				int total = product.getQuantity() -cart.getQuanlityProductCart();
+				System.err.println("Số lượng total " + total);
+				if(total <= 0) {
 					product.setAvailable(false);
 					productRepository.save(product);					
 				}else {
-				product.setQuantity(product.getQuantity()-cart.getQuanlityProductCart());
-			
-				productRepository.save(product);	
+					product.setQuantity(total);
+					productRepository.save(product);
 				}
 				cartService.clear(cart.getId());
 				

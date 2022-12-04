@@ -18,7 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -65,9 +65,9 @@ public class Product implements Serializable{
 	boolean available = true;
 	
 	@NotNull(message = "Không được để trống số lượng")
-	@Min(value = 1, message = "Số lượng nhỏ nhất là 1")
+	@Min(value = 1, message = "Số lượng tối thiểu là 1")
 	@Column(name = "Quantity")
-	int quantity;
+	Integer quantity;
 	
 	@NotEmpty(message = "Không được để trống mô tả sản phẩm")
 	@Column(name = "Description")
