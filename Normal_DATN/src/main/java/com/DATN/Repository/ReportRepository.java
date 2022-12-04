@@ -13,7 +13,11 @@ import org.springframework.stereotype.Repository;
 import com.DATN.Entity.Report.ReportByInventory;
 import com.DATN.Entity.Report.ReportByPopularProduct;
 import com.DATN.Entity.Report.ReportByRevenueByCustomer;
+import com.DATN.Entity.Report.ReportByRevenueByYear;
 import com.DATN.Entity.Report.ReportRevenueByCategory;
+import com.DATN.Entity.Report.ReportRevenueByMonth;
+import com.DATN.Entity.Report.ReportRevenueByProduct;
+import com.DATN.Entity.Report.ReportRevenueByQuarter;
 
 @Repository
 public class ReportRepository {
@@ -53,5 +57,37 @@ public class ReportRepository {
 		return list;
 	}
 	
+	public List<ReportRevenueByProduct> reportRevenueByProducts(){
+		String sql = "select new " + ReportRevenueByProduct.class.getName() + " (ordd.name, SUM(ordd.quanlity),count(ordd.order), SUM(ordd.quanlity * ordd.price))"
+				+ " from OrderDetail ordd group by ordd.name";
+		TypedQuery<ReportRevenueByProduct> query = entityManager.createQuery(sql, ReportRevenueByProduct.class);
+		List<ReportRevenueByProduct> list = query.getResultList();
+		return list;
+	}
+	
+	public List<ReportByRevenueByYear> reportByRevenueByYears(){
+		String sql = "select new " + ReportByRevenueByYear.class.getName() + " (year(ord.orderDate), SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+				+ " from OrderDetail ordd join ordd.order ord group by year(ord.orderDate)";
+		TypedQuery<ReportByRevenueByYear> query = entityManager.createQuery(sql,ReportByRevenueByYear.class);
+		List<ReportByRevenueByYear> list = query.getResultList();
+		return list;
+	}
+	
+	
+	public List<ReportRevenueByQuarter> reportRevenueByQuarters(){
+		String sql = "select new " + ReportRevenueByQuarter.class.getName() + " (year(ord.orderDate),CEILING((MONTH(ord.orderDate)+1)/3), SUM(ordd.quanlity),SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+				+" from OrderDetail ordd join ordd.order ord group by year(ord.orderDate),CEILING((MONTH(ord.orderDate)+1)/3)";
+		TypedQuery<ReportRevenueByQuarter> query = entityManager.createQuery(sql,ReportRevenueByQuarter.class);
+		List<ReportRevenueByQuarter> list = query.getResultList();
+		return list;
+	}
+	
+	public List<ReportRevenueByMonth> reportRevenueByMonths(){
+		String sql = "select new " + ReportRevenueByMonth.class.getName() + " (year(ord.orderDate),MONTH(ord.orderDate), SUM(ordd.quanlity),SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+				+" from OrderDetail ordd join ordd.order ord group by year(ord.orderDate),MONTH(ord.orderDate)";
+		TypedQuery<ReportRevenueByMonth> query = entityManager.createQuery(sql,ReportRevenueByMonth.class);
+		List<ReportRevenueByMonth> list = query.getResultList();
+		return list;
+	}
 	
 }

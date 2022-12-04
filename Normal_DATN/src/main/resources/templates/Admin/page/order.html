@@ -3,165 +3,204 @@
 	xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{Admin/components/header}">
 <body>
-<div layout:fragment ="contentChanges">
-	<section class="content">
-		<div class="row">
-			<div class="col-md-12">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Order</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            
-            <form action="/admin/order/update" method="POST" th:object="${order}">
-              <div class="box-body">
-               
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Order Id</label><br>
-     
-                       <input name="id" th:field="*{id}" type="text" class="form-control" placeholder="Enter Order Id" readonly>
+	<div layout:fragment="contentChanges">
+		<section class="content">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- general form elements -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">Order</h3>
+						</div>
+						<!-- /.box-header -->
+						<!-- form start -->
 
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">User Id</label><br>
-          
-                  <input readonly th:field="*{user}" type="text" class="form-control" placeholder="Enter User Id">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Phone</label><br>
-    
-                   <i style="color:red" th:text="${ktPhone}"></i>
-                  <input readonly th:field="*{phone}" type="text" class="form-control"  placeholder="Enter Phone">
-                </div>
-                 <div class="form-group">
-                  <label for="exampleInputPassword1">Address</label><br>
-       
-                  <input readonly th:field="*{address}" type="text" class="form-control"  placeholder="Enter Address">
-                </div>
-                    <div class="form-group">
-                  <label for="exampleInputPassword1">Description</label><br>
-                  <Input readonly th:field="*{description}" type="text" class="form-control"  placeholder="Enter Description">
-                </div>
-         <div class="form-group">
-                  <label for="exampleInputPassword1">Amount</label><br>
-                  <input readonly th:field="*{amount}" type="text" class="form-control"  placeholder="Enter Amount">
-                </div>
-                 <div >
-                  <label for="exampleInputPassword1">Status</label><br>
+						<form action="/admin/order/update" method="POST"
+							th:object="${order}">
+							<div class="box-body">
 
-                  <input th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;
-                   <input  th:field="*{status}" type="radio"name="status" value="Đã hủy">Đã hủy&ensp;&ensp;
-                      <input  th:field="*{status}" type="radio"name="status" value="Đã giao">Đã giao
-                </div>
-              </div>
-              <!-- /.box-body -->
-                      <i style="color:red" th:text="${tb}"></i>
-        
-              <div class="box-footer">
-              
-                 <div th:if="${edit} == true">
-                
-             <button class="btn btn-primary">Cập nhật</button>
-               <button th:formaction="@{|/admin/orderDetail/${order.id}|}"  class="btn btn-primary">Xem chi tiết hóa đơn</button>
-              
-                </div>
-                <div th:unless="${edit} == true">
-                     
-              
-                     
-                </div> 
-                   
-              </div>
-            </form>
-           
-          </div>
-  		<div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-               <h3 style="float:right;" class="box-title">
-               <form th:action="@{/admin/order/find}" method="post">
-					<input name="keywords" th:value="${keywords}">
-					<button>Search</button>
-					</form>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Order Id</label><br> <input
+										name="id" th:field="*{id}" type="text" class="form-control"
+										placeholder="Enter Order Id" readonly>
 
-              </h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-              <div class="row"><div class="col-sm-6">
-              </div><div class="col-sm-6">
-              </div></div>
-              <div class="row"><div class="col-sm-12">
-      
-              <table id="example" class="table table-bordered table-hover dataTable" width="100%" data-page-length="25" data-order="[[ 1, &quot;asc&quot; ]]">
-                <thead>
-                 <tr role="row">
-                 <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Order Id</th>
-                
-            
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">User Id</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Order Date</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Telephone</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Address</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Description</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Amount</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Status</th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending"></th>
-                 <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending"></th>
-                 </tr>
-                
-                </thead>
-                <tbody>
-                
-                
-                <tr th:each="HoLy:${page}" role="row" class="odd">
-                  <td class="sorting_1">[[${HoLy.id}]]</td>
-                 
-                  <td class="sorting_1">[[${HoLy.user.id}]]</td>
-                   <td class="sorting_1">[[${HoLy.orderDate}]]</td>
-                  <td class="sorting_1">[[${HoLy.phone}]]</td>
-                  <td class="sorting_1">[[${HoLy.address}]]</td>
-                 <td class="sorting_1">[[${HoLy.description}]]</td>
-                 <td class="sorting_1">[[${HoLy.amount}]]</td>
-                 <td class="sorting_1">[[${HoLy.status}]]</td>
-           
-                  <td class="sorting_1"><a th:href="@{|/admin/order/edit?order=${HoLy.id}&edit=true|}">View</a></td>
-                   
-                  
-                </tr>
-               </tbody>
-               
-              </table>
-              </div>
-              </div>
-                    <div class="row">
-              <div class="col-sm-5">
-              <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing [[${page.number+1}]] to [[${page.totalPages}]] of [[${page.totalElements}]] orders</div>
-              </div>
-              <div class="col-sm-7">
-               <div>
-                  <nav aria-label="Page navigation example">
-			  <ul class="pagination">
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=0|}">First</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-			    <li class="page-item"><a class="page-link" th:href="@{|/admin/order?p=${page.totalPages-1}|}">Last</a></li>
-			  </ul>
-			</nav>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">User Id</label><br> <input
+										readonly th:field="*{user}" type="text" class="form-control"
+										placeholder="Enter User Id">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Phone</label><br> <i
+										style="color: red" th:text="${ktPhone}"></i> <input readonly
+										th:field="*{phone}" type="text" class="form-control"
+										placeholder="Enter Phone">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Address</label><br> <input
+										readonly th:field="*{address}" type="text"
+										class="form-control" placeholder="Enter Address">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Description</label><br>
+									<Input readonly th:field="*{description}" type="text"
+										class="form-control" placeholder="Enter Description">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Amount</label><br> <input
+										readonly th:field="*{amount}" type="text" class="form-control"
+										placeholder="Enter Amount">
+								</div>
+								<div>
+									<label for="exampleInputPassword1">Status</label><br> <input
+										th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã
+									đặt&ensp;&ensp; <input th:field="*{status}" type="radio"
+										name="status" value="Đã hủy">Đã hủy&ensp;&ensp; <input
+										th:field="*{status}" type="radio" name="status"
+										value="Đã giao">Đã giao
+								</div>
+							</div>
+							<!-- /.box-body -->
+							<i style="color: red" th:text="${tb}"></i>
+
+							<div class="box-footer">
+
+								<div th:if="${edit} == true">
+
+									<button class="btn btn-primary">Cập nhật</button>
+									<button th:formaction="@{|/admin/orderDetail/${order.id}|}"
+										class="btn btn-primary">Xem chi tiết hóa đơn</button>
+
+								</div>
+								<div th:unless="${edit} == true"></div>
+
+							</div>
+						</form>
+
+					</div>
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Hover Data Table</h3>
+							<h3 style="float: right;" class="box-title">
+								<form th:action="@{/admin/order/find}" method="post">
+									<input name="keywords" th:value="${keywords}">
+									<button>Search</button>
+								</form>
+
+							</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div id="example2_wrapper"
+								class="dataTables_wrapper form-inline dt-bootstrap">
+								<div class="row">
+									<div class="col-sm-6"></div>
+									<div class="col-sm-6"></div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+
+										<table id="example"
+											class="table table-bordered table-hover dataTable"
+											width="100%" data-page-length="25"
+											data-order="[[ 1, &quot;asc&quot; ]]">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc" tabindex="0"
+														aria-controls="example2" rowspan="1" colspan="1"
+														aria-sort="ascending"
+														aria-label="Rendering engine: activate to sort column descending">Order
+														Id</th>
+
+
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="Engine version: activate to sort column ascending">User
+														Id</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Order
+														Date</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Telephone</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Address</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Description</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Amount</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending">Status</th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending"></th>
+													<th class="sorting" tabindex="0" aria-controls="example2"
+														rowspan="1" colspan="1"
+														aria-label="CSS grade: activate to sort column ascending"></th>
+												</tr>
+
+											</thead>
+											<tbody>
+
+
+												<tr th:each="HoLy:${page}" role="row" class="odd">
+													<td class="sorting_1">[[${HoLy.id}]]</td>
+
+													<td class="sorting_1">[[${HoLy.user.id}]]</td>
+													<td class="sorting_1">[[${HoLy.orderDate}]]</td>
+													<td class="sorting_1">[[${HoLy.phone}]]</td>
+													<td class="sorting_1">[[${HoLy.address}]]</td>
+													<td class="sorting_1">[[${HoLy.description}]]</td>
+													<td class="sorting_1">[[${#numbers.formatDecimal(HoLy.amount,
+														0, 'POINT', 0, 'NONE')}]] ₫</td>
+													<td class="sorting_1">[[${HoLy.status}]]</td>
+
+													<td class="sorting_1"><a
+														th:href="@{|/admin/order/edit?order=${HoLy.id}&edit=true|}">View</a></td>
+
+
+												</tr>
+											</tbody>
+
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5">
+										<div class="dataTables_info" id="example2_info" role="status"
+											aria-live="polite">Showing [[${page.number+1}]] to
+											[[${page.totalPages}]] of [[${page.totalElements}]] orders</div>
+									</div>
+									<div class="col-sm-7">
+										<div>
+											<nav aria-label="Page navigation example">
+												<ul class="pagination">
+													<li class="page-item"><a class="page-link"
+														th:href="@{|/admin/order?p=0|}">First</a></li>
+													<li class="page-item"><a class="page-link"
+														th:href="@{|/admin/order?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
+													<li class="page-item"><a class="page-link"
+														th:href="@{|/admin/order?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
+													<li class="page-item"><a class="page-link"
+														th:href="@{|/admin/order?p=${page.totalPages-1}|}">Last</a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+				</div>
 			</div>
-              </div>
-              
-              </div>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-        </div>
-		</div>
-	</section>
-</div>
+		</section>
+	</div>
 </body>
 </html>

@@ -225,7 +225,7 @@ if (convertUrl.pathname = '/admin/product') {
 				{
 					"data": "price",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{ "data": "category.nameCategory" },
@@ -639,29 +639,34 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 			},
 			columns: [
 				{ "data": "nameCategory" },
-				{ "data": "quantiyProduct" },
+				{ 
+					"data": "quantiyProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, '')
+					}
+				 },
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "minProduct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "maxProdouct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "avgProduct",
 					render: function(data, type, row) {
-						return formatToVND(data.toFixed(), 'VNĐ')
+						return formatToVND(data.toFixed(), '₫')
 					}
 				}
 			],
@@ -687,29 +692,34 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 			},
 			columns: [
 				{ "data": "userId" },
-				{ "data": "quantity" },
+				{
+					"data": "quantity",
+					render: function(data, type, row) {
+						return formatToVND(data, '')
+					}
+				},
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "minPriceProduct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "maxPriceProduct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "avgPriceProduct",
 					render: function(data, type, row) {
-						return formatToVND(data.toFixed(), 'VNĐ')
+						return formatToVND(data.toFixed(), '₫')
 					}
 				}
 			],
@@ -735,29 +745,34 @@ if (convertUrl.pathname = 'admin/report/revenueByCategories') {
 			},
 			columns: [
 				{ "data": "nameCategory" },
-				{ "data": "quantiyProduct" },
+				{
+					"data": "quantiyProduct",
+					render: function(data, type, row) {
+						return formatToVND(data, '')
+					}
+				},
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "minProduct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "maxProdouct",
 					render: function(data, type, row) {
-						return formatToVND(data, 'VNĐ')
+						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "avgProduct",
 					render: function(data, type, row) {
-						return formatToVND(data.toFixed(), 'VNĐ')
+						return formatToVND(data.toFixed(), '₫')
 					}
 				}
 			],
@@ -786,9 +801,228 @@ if (convertUrl.pathname = 'admin/report/popularProduct') {
 				{ "data": "nameProduct" },
 				{
 					"data": "times",
-					
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+
 				}
+
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}
+//----------------------------------------------Report by Product---------------------------------------
+if (convertUrl.pathname = 'admin/report/reportRevenueByProduct') {
+	$(document).ready(function() {
+		var getRevenueByProductProductUrl = protocol + '//' + hostname + ':' + port + '/api/report/reportRevenueByProduct';
+		var tableRevenueByProductProduct = $('#tableReportRevenueByProduct').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getRevenueByProductProductUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "nameProduct" },
+				{
+					"data": "totalQuantity",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+				},
+				{
+					"data": "order",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+				},
+				{
+					"data": "totalSub",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				}
+
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}
+//----------------------------------------------Report by Years---------------------------------------
+if (convertUrl.pathname = 'admin/report/reportRevenueByYears') {
+	$(document).ready(function() {
+		var getRevenueByYearUrl = protocol + '//' + hostname + ':' + port + '/api/report/reportByRevenueByYears';
+		var tableRevenueByYear = $('#tableReportYears').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getRevenueByYearUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ "data": "year" },
+				{
+					"data": "quantity",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+				},
+				{
+					"data": "totalSub",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "minPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "maxPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "avgPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				}
+
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}
+//----------------------------------------------Report by Quarter---------------------------------------
+if (convertUrl.pathname = 'admin/report/reportRevenueByQuarter') {
+	$(document).ready(function() {
+		var getRevenueByQuarterUrl = protocol + '//' + hostname + ':' + port + '/api/report/reportByRevenueByQuarter';
+		var tableReportQuarter = $('#tableReportQuarter').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getRevenueByQuarterUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ 
+					"data": "years",
+					render: function(data, type, row) {
+						return "Quý " +row.quarter + " - " + data;
+					}
+				},
 				
+				{
+					"data": "quantity",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+				},
+				{
+					"data": "totalSub",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "minPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "maxPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "avgPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				}
+
+			],
+			pageLength: 5,
+			lengthMenu: [5, 10, 20, 25, 50],
+			order: [],
+			processing: true
+
+		})
+	})
+}
+//----------------------------------------------Report by Quarter---------------------------------------
+if (convertUrl.pathname = 'admin/report/reportRevenueByMonth') {
+	$(document).ready(function() {
+		var getRevenueByMonthUrl = protocol + '//' + hostname + ':' + port + '/api/report/reportByRevenueByMonth';
+		var tableReportMonth = $('#tableReportMonth').DataTable({
+			ajax: {
+				"type": "GET",
+				"url": getRevenueByMonthUrl,
+				"dataSrc": function(resp) {
+					return resp;
+				}
+			},
+			columns: [
+				{ 
+					"data": "years",
+					render: function(data, type, row) {
+						return row.month + " - " + data;
+					}
+				},
+				
+				{
+					"data": "quantity",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '')
+					}
+				},
+				{
+					"data": "totalSub",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "minPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "maxPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				},
+				{
+					"data": "avgPrice",
+					render: function(data, type, row) {
+						return formatToVND(data.toFixed(), '₫')
+					}
+				}
+
 			],
 			pageLength: 5,
 			lengthMenu: [5, 10, 20, 25, 50],

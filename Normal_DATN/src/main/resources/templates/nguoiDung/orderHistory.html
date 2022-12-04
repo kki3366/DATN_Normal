@@ -64,7 +64,8 @@
                                                           <td class="product_thumb"> [[${HoLy.orderDate}]]</td>
                                                         <td class="product_name"> [[${HoLy.phone}]]</td>
                                                         <td class="product-name">[[${HoLy.address}]]</td>
-                                                        <td class="product_total">[[${HoLy.amount}*1]]</td>
+                                                        <td class="product_total"> ₫[[${#numbers.formatDecimal(HoLy.amount * 1, 0, 'POINT', 0, 'NONE')}]]</td>
+                                                        
                                                              <td class="product_total">[[${HoLy.status}]]</td>
                                                              
                                                               <!-- <div th:if="${HoLy.status} != Đã giao">

@@ -74,8 +74,6 @@ public class Product implements Serializable{
 	String description;
 	
 
-	
-
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
 	@JoinColumn(name = "Categoryid")
 	Category category;
@@ -147,8 +145,6 @@ public class Product implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	
 
 	public Category getCategory() {
 		return category;

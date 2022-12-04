@@ -228,7 +228,44 @@ public class UserController {
 		m.addAttribute("userPage",resultPage);
 		return "Admin/page/user";
 	}
-	
+	@RequestMapping("/admin/user/lock")
+	public String lock(Model m, @ModelAttribute("acc") users acc,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("s") Optional<Integer> s) {
+		if(acc.getId().equals(req.getRemoteUser())) {
+			
+			m.addAttribute("ktItMe", "Bạn không thể khóa tài khoản của mình");
+			
+		}else {
+			acc.setActivated(false);
+			u.save(acc);
+			m.addAttribute("tb","Tài khoản bị đã khóa");
+		}
+		
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<users> resultPage = u.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("userPage",resultPage);
+		return "Admin/page/user";
+	}
 	@PostMapping("/admin/user/update")
 	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
@@ -261,7 +298,7 @@ public class UserController {
 			}
 			if(acc.getId().equals(req.getRemoteUser())) {
 				kt++;
-				m.addAttribute("ktItMe", "Bạn không thể cập nhật chính bạn");
+				m.addAttribute("ktItMe", "Bạn không thể cập nhật tài khoản của mình");
 				
 			}
 			if(kt==0) {

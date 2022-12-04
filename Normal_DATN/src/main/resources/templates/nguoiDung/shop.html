@@ -61,7 +61,7 @@
                                      
                                                
                                                     <div class="row">
-                                                        <div th:each="HoLy:${page.content}"  class="col-lg-4 col-md-6">
+                                                        <div th:each="HoLy:${shopPage.content}"  class="col-lg-4 col-md-6">
                                                             <div class="single_product">
                                                                 <div class="product_thumb">
                                                                    <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a> 
@@ -81,7 +81,7 @@
                                                            
                                                                 </div>
                                                                 <div class="product_content">
-                                                              <span class="product_price">[[${HoLy.price}]]</span>
+                                                              <span class="product_price">₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
                                                             <h3 class="product_title"><a  th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a></h3>
                                                                 </div>
                                                  
@@ -98,31 +98,33 @@
                                         <!--shop tab product end-->
                       <div class="pro-pagination">
                  
-                                               <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center">
-                  
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=0|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.number-1 < 0 ? 0:page.number-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&p=${page.totalPages-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
-</svg></a></li>
-
-
-
-                </ul>
-              </nav>   
+                        <nav aria-label="Page navigation example" 
+                        th:if="${shopPage.totalPages >0}">
+                    <ul class="pagination justify-content-center">
+                
+                      <li th:class="${1== shopPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p =0|}" class="page-link">First</a>
+                </li>
+              
+             
+                <li class="page-item active"
+                th:each="pageNumber :${pageNumbers}" 
+                th:if="${shopPage.totalPages > 1}"
+                th:class="${pageNumber == shopPage.number + 1} ? 'page-item active' : 'page-item'">
+                <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p=${pageNumber-1}|}" 
+                class="page-link"
+                th:text="${pageNumber}"></a>
+                </li>
+      
+                <li th:class="${shopPage.totalPages == shopPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p=${shopPage.totalPages-1}|}" class="page-link">Last</a>
+                </li>
+                      
+                    </ul>
+                  </nav>
                                         
                                     <div class="product-pagination">
-                                        <span class="grid-item-list">Trang  [[${page.number+1}]]/[[${page.totalPages}]]([[${page.totalElements}]] Sản phẩm)</span>
+                                        <span class="grid-item-list">Trang  [[${shopPage.number+1}]]/[[${shopPage.totalPages}]]([[${shopPage.totalElements}]] Sản phẩm)</span>
                                     </div>
                                 </div>
                                         <!--pagination style start--> 

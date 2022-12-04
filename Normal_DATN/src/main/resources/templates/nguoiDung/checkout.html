@@ -41,7 +41,8 @@
                                             <form th:action="@{/addOrder}" mehtod="post"  >
                                                 <h3>Chi tiết thanh toán</h3>
                                                 <div class="row">
-                                                <input type="hidden" name="amount"  th:value="${tongTien}+30000" >  
+                                                <input type="hidden" name="amount"  th:value="${tongTien}+30000" >
+                                                  
                                                     <div class="col-12 mb-30">
                                                         <label>Tên <span>*</span></label>
                                                         <input type="text" name="user" th:value="${acc.id}" readonly>    
@@ -125,8 +126,8 @@
                                                            <tr th:each="HoLy:${item}">
                                                                 <td><a href="#"><img style="width:60px;"  th:src="@{|/imgProducts/${HoLy.imgProductCart}.png|}"  alt=""></a></td>
                                                                 <td> [[${HoLy.nameProductCart}]]<strong> x [[${HoLy.quanlityProductCart}]]</strong></td>
-                                                                <td>[[${HoLy.priceProductCart}*1]]</td>
-                                                                <td>[[${HoLy.priceProductCart * HoLy.quanlityProductCart}*1]]</td>
+                                                                <td> ₫[[${#numbers.formatDecimal(HoLy.priceProductCart * 1, 0, 'POINT', 0, 'NONE')}]]</td>
+                                                                <td>₫[[${#numbers.formatDecimal(HoLy.priceProductCart * HoLy.quanlityProductCart * 1, 0, 'POINT', 0, 'NONE')}]]</td>
                                                             </tr>
                                                         
                                                         </tbody>
@@ -135,19 +136,21 @@
                                                                 <th>Tổng giỏ hàng</th>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td><strong>[[${tongTien}*1]]</strong></td>
+                                                                <td><strong>₫[[${#numbers.formatDecimal(tongTien * 1, 0, 'POINT', 0, 'NONE')}]]</strong></td>
+                                                                
                                                             </tr>
                                                             <tr>
                                                                 <th>Phí vận chuyển</th>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td><strong>30000</strong></td>
+                                                                <td><strong>₫30.000</strong></td>
                                                             </tr>
                                                             <tr class="order_total">
                                                                 <th>Thành tiền</th>
                                                                 <td></td>
                                                                 <td></td> 
-                                                                <td><strong>[[${tongTien + 30000}*1]]</strong></td>
+                                                                <td><strong> ₫[[${#numbers.formatDecimal((tongTien + 30000) * 1, 0, 'POINT', 0, 'NONE')}]]</strong></td>
+                                                               
                                                             </tr>
                                                         </tfoot>
                                                     </table>     
