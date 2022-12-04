@@ -44,7 +44,7 @@
                                     </div>
 
                                     </div>
-                                    <center><h3>[[${message}]]</h3></center>
+                          
                                     <div class="col-lg-9 col-md-12">
                                         <!--banner slider start-->
                                         <div class="banner_slider mb-35">
@@ -103,7 +103,7 @@
                     <ul class="pagination justify-content-center">
                 
                       <li th:class="${1== shopPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p =0|}" class="page-link">First</a>
+                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p=0|}" class="page-link">Đầu</a>
                 </li>
               
              
@@ -117,7 +117,7 @@
                 </li>
       
                 <li th:class="${shopPage.totalPages == shopPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p=${shopPage.totalPages-1}|}" class="page-link">Last</a>
+                  <a  th:href="@{|/shop/${cate.id}?subcategory=${subcategory}&s=${shopPage.size}&p=${shopPage.totalPages-1}|}" class="page-link">Cuối</a>
                 </li>
                       
                     </ul>

@@ -1,65 +1,73 @@
 <!DOCTYPE html>
-<html class="no-js" lang="zxx" xmlns="http://www.thymeleaf.org"
-	th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
+<html class="no-js" lang="zxx" xmlns= "http://www.thymeleaf.org"
+  th:replace="~{/layout/layout::dynamic(~{::title},~{::body})}">
 <head>
 <meta charset="UTF-8">
 <title th:text="#{shop.title}"></title>
 </head>
-<body>
-	<!--breadcrumbs area start-->
-	<div class="breadcrumbs_area">
-		<div class="row">
-			<div class="col-12">
-				<div class="breadcrumb_content">
-					<ul>
-						<li><a href="/index.html">Trang chủ</a></li>
-						<li><i class="fa fa-angle-right"></i></li>
-						<li>Cửa hàng</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--breadcrumbs area end-->
+    <body>
+                        <!--breadcrumbs area start-->
+                        <div class="breadcrumbs_area">
+                            <div class="row">
+                                    <div class="col-12">
+                                        <div class="breadcrumb_content">
+                                            <ul>
+                                                <li><a href="/index.html">Trang chủ</a></li>
+                                                <li><i class="fa fa-angle-right"></i></li>
+                                                <li>Cửa hàng</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--breadcrumbs area end-->
 
-	<!--pos home section-->
-	<div class=" pos_home_section">
-		<div class="row pos_home">
-			<div class="col-lg-3 col-md-12">
-				<div class="sidebar_widget catrgorie mb-35">
-					<h3>
-						<span th:text="#{lo.mn.category }"></span>
-					</h3>
-					<ul>
+                        <!--pos home section-->
+                        <div class=" pos_home_section">
+                            <div class="row pos_home">
+                                    <div class="col-lg-3 col-md-12">
+                                      <div class="sidebar_widget catrgorie mb-35">
+                                        <h3><span th:text="#{lo.mn.category }"></span></h3>
+                                        <ul>
+                                      
 
+                                            </li>   
+                                             <li th:each="HoLy:${category}"  class="has-sub"><a href="#"><i class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
+                                                <ul class="categorie_sub">
+                                        
+                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=1|}"><span th:text="#{lo.mn.men }"></span></a></li>
+                                                    <li><a th:href="@{|/shop/${HoLy.id}?subcategory=2|}"><span th:text="#{lo.mn.women }"></span></a></li>
+                                                </ul>     
+                                            </li>          
 
-						</li>
-						<li th:each="HoLy:${category}" class="has-sub"><a href="#"><i
-								class="fa fa-caret-right"></i> [[${HoLy.nameCategory}]]</a>
-							<ul class="categorie_sub">
+                                        </ul>
+                                    </div>
 
-								<li><a th:href="@{|/shop/${HoLy.id}?subcategory=1|}"><span
-										th:text="#{lo.mn.men }"></span></a></li>
-								<li><a th:href="@{|/shop/${HoLy.id}?subcategory=2|}"><span
-										th:text="#{lo.mn.women }"></span></a></li>
-							</ul></li>
+                                    </div>
+                                    <center><h3>[[${message}]]</h3></center>
+                                    <div class="col-lg-9 col-md-12">
+                                        <!--banner slider start-->
+                                        <div class="banner_slider mb-35">
+                                            <img src="/assets/img/slider/sl1.png" alt="">
+                                        </div> 
+                                        <!--banner slider start-->
 
-					</ul>
-				</div>
+                                        <!--shop toolbar start-->
+                        
+                                        <!--shop toolbar end-->
 
                                         <!--shop tab product-->
                                         <div class="shop_tab_product">   
                                      
                                                
                                                     <div class="row">
-                                                        <div th:each="HoLy:${page.content}"  class="col-lg-4 col-md-6">
+                                                        <div th:each="HoLy:${shopNPage.content}"  class="col-lg-4 col-md-6">
                                                             <div class="single_product">
                                                                 <div class="product_thumb">
                                                                    <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a> 
                                                               
                                                               
-                                                              
-                                                                        <div th:if="${HoLy.quantity} == 0">
+                                                                       <div th:if="${HoLy.quantity} == 0">
 							 								<div class="product_action">
                                                                <a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                                            </div>
@@ -73,7 +81,7 @@
                                                            
                                                                 </div>
                                                                 <div class="product_content">
-                                                              <span class="product_price">[[${HoLy.price}]]</span>
+                                                              <span class="product_price">₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
                                                             <h3 class="product_title"><a  th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a></h3>
                                                                 </div>
                                                  
@@ -88,95 +96,7 @@
                                             </div>
 
                                         <!--shop tab product end-->
-                      <div class="pro-pagination">
-                 
-                                               <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center">
-                  
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop?subcategory=${subcategory}&p=0|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop?subcategory=${subcategory}&p=${page.number-1 < 0 ? 0:page.number-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop?subcategory=${subcategory}&p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-</svg></a></li>
-                  <li class="page-item"><a class="page-link" th:href="@{|/shop?subcategory=${subcategory}&p=${page.totalPages-1}|}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"/>
-</svg></a></li>
-
-			</div>
-			<center>
-				<h3>[[${message}]]</h3>
-			</center>
-			<div class="col-lg-9 col-md-12">
-				<!--banner slider start-->
-				<div class="banner_slider mb-35">
-					<img src="/assets/img/slider/sl1.png" alt="">
-				</div>
-				<!--banner slider start-->
-
-				<!--shop toolbar start-->
-
-				<!--shop toolbar end-->
-
-				<!--shop tab product-->
-				<div class="shop_tab_product">
-
-
-					<div class="row">
-						<div th:each="HoLy:${shopNPage.content}" class="col-lg-4 col-md-6">
-							<div class="single_product">
-								<div class="product_thumb">
-									<a th:href="@{|/singleProduct/${HoLy.id}|}"><img
-										th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a>
-
-
-
-									<div th:if="${HoLy.available} != true">
-										<div class="product_action">
-											<a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#">
-												<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-											</a>
-										</div>
-									</div>
-									<div th:if="${HoLy.available} == true">
-										<div class="product_action">
-											<a onclick="alert('Đã thêm vào giỏ hàng!')"
-												th:href="@{|/addCartO/${HoLy.id}|}"> <i
-												class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-											</a>
-										</div>
-
-									</div>
-
-								</div>
-								<div class="product_content">
-
-									<span class="product_price">
-										₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0,
-										'NONE')}]]</span>
-									<h3 class="product_title">
-										<a th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a>
-									</h3>
-								</div>
-
-							</div>
-						</div>
-
-
-
-
-
-
-
-					</div>
-
-					<!--shop tab product end-->
-					<div class="pro-pagination">
+                                    	<div class="pro-pagination">
 
 						<nav aria-label="Page navigation example"
 							th:if="${shopNPage.totalPages >0}">
@@ -184,8 +104,8 @@
 
 								<li
 									th:class="${1== shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-									<a th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p =0|}"
-									class="page-link">First</a>
+									<a th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=0|}"
+									class="page-link">Đầu</a>
 								</li>
 
 
@@ -202,7 +122,7 @@
 									th:class="${shopNPage.totalPages == shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
 									<a
 									th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${shopNPage.totalPages-1}|}"
-									class="page-link">Last</a>
+									class="page-link">Cuối</a>
 								</li>
 
 							</ul>
@@ -214,19 +134,19 @@
 								Sản phẩm)</span>
 						</div>
 					</div>
-					<!--pagination style start-->
-
-					<!--pagination style end-->
-
-				</div>
-			</div>
-			<!--pos home section end-->
-		</div>
-		<!--pos page inner end-->
-	</div>
-	</div>
-	<!--pos page end-->
-
-
-</body>
+                                        <!--pagination style start--> 
+                                     
+                                        <!--pagination style end--> 
+                                   
+                                </div>  
+                        </div>
+                        <!--pos home section end-->
+                    </div>
+                    <!--pos page inner end-->
+                </div>    
+            </div>
+            <!--pos page end-->
+            
+         
+    </body>
 </html>
