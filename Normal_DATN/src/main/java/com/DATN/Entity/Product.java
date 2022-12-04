@@ -73,16 +73,7 @@ public class Product implements Serializable{
 	@Column(name = "Description")
 	String description;
 	
-	@Column(name = "Discount")
-	float discount;
-	
-	
-	@Column(name = "Viewcount")
-	int viewCount;
 
-	
-	@Column(name = "Special")
-	boolean special;
 	
 
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Category.class)
@@ -157,29 +148,7 @@ public class Product implements Serializable{
 		this.description = description;
 	}
 
-	public float getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(float discount) {
-		this.discount = discount;
-	}
-
-	public int getViewCount() {
-		return viewCount;
-	}
-
-	public void setViewCount(int viewCount) {
-		this.viewCount = viewCount;
-	}
-
-	public boolean isSpecial() {
-		return special;
-	}
-
-	public void setSpecial(boolean special) {
-		this.special = special;
-	}
+	
 
 	public Category getCategory() {
 		return category;
