@@ -55,7 +55,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.oauth2Login()
 			.loginPage("/security/login/form")
-			.defaultSuccessUrl("/index",false)
+			.defaultSuccessUrl("/loginSuccess",false)
 			.failureUrl("/security/error")
 			.authorizationEndpoint()
 			    .baseUri("/oauth2/authorization");

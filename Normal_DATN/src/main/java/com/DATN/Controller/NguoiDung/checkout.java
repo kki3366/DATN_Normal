@@ -123,6 +123,7 @@ public class checkout {
 				Product product = productRepository.findById(cart.getProduct().getId()).get();
 				Orders ord = ordersRepository.getById(id);
 				Category cate = categoryRepository.getById(product.getCategory().getId());
+
 				
 				FileUploadUtil file = new FileUploadUtil();
 				file.historyImageProduct(cart.getImgProductCart(), app);
@@ -136,6 +137,7 @@ public class checkout {
 				
 				orderDetailRepository.save(od); 
 				int total = product.getQuantity() -cart.getQuanlityProductCart();
+
 				if(total <= 0) {
 					product.setAvailable(false);
 					productRepository.save(product);

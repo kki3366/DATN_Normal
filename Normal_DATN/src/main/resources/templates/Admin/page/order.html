@@ -148,7 +148,7 @@
 											<tbody>
 
 
-												<tr th:each="HoLy:${page}" role="row" class="odd">
+												<tr th:each="HoLy:${OrderPage}" role="row" class="odd">
 													<td class="sorting_1">[[${HoLy.id}]]</td>
 
 													<td class="sorting_1">[[${HoLy.user.id}]]</td>
@@ -173,23 +173,35 @@
 								<div class="row">
 									<div class="col-sm-5">
 										<div class="dataTables_info" id="example2_info" role="status"
-											aria-live="polite">Showing [[${page.number+1}]] to
-											[[${page.totalPages}]] of [[${page.totalElements}]] orders</div>
+											aria-live="polite">Showing [[${OrderPage.number+1}]] to
+											[[${OrderPage.totalPages}]] of [[${OrderPage.totalElements}]] orders</div>
 									</div>
 									<div class="col-sm-7">
 										<div>
-											<nav aria-label="Page navigation example">
-												<ul class="pagination">
-													<li class="page-item"><a class="page-link"
-														th:href="@{|/admin/order?p=0|}">First</a></li>
-													<li class="page-item"><a class="page-link"
-														th:href="@{|/admin/order?p=${page.number-1 < 0 ? 0:page.number-1}|}">Previous</a></li>
-													<li class="page-item"><a class="page-link"
-														th:href="@{|/admin/order?p=${page.number+1 > page.totalPages - 1 ? page.totalPages - 1: page.number+1}|}">Next</a></li>
-													<li class="page-item"><a class="page-link"
-														th:href="@{|/admin/order?p=${page.totalPages-1}|}">Last</a></li>
-												</ul>
-											</nav>
+											 <nav aria-label="Page navigation example" 
+                  th:if="${OrderPage.totalPages >0}">
+			  <ul class="pagination">
+          
+			    <li th:class="${1== OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order?s=${OrderPage.size}&p =0|}" class="page-link">First</a>
+          </li>
+        
+       
+          <li class="page-item active"
+          th:each="pageNumber :${pageNumbers}" 
+          th:if="${OrderPage.totalPages > 1}"
+          th:class="${pageNumber == OrderPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a  th:href="@{|/admin/order?s=${OrderPage.size}&p=${pageNumber-1}|}" 
+          class="page-link"
+          th:text="${pageNumber}"></a>
+          </li>
+
+          <li th:class="${OrderPage.totalPages == OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order?s=${OrderPage.size}&p=${OrderPage.totalPages-1}|}" class="page-link">Last</a>
+          </li>
+			    
+			  </ul>
+			</nav>
 										</div>
 									</div>
 
