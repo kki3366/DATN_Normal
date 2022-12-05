@@ -64,11 +64,7 @@ public class index {
         
 		Pageable pageableBanChay = PageRequest.of(0,5);
 		List<String> BanChay = orderDetaiRep.BanChayNhat();
-//		for (String orderDetail : BanChay) {
-//			List<Product> spbanchay = productRepository.findByName(orderDetail);
-//			model.addAttribute("spbanchay", spbanchay);
-//			
-//		}
+//		
 		
 		
 	
