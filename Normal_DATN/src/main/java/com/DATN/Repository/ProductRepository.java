@@ -30,4 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	@Query("SELECT o FROM Product o WHERE o.category.id = ?1 and o.name != ?2")
 	Page<Product> findSPLienQuan(Integer category,String name, Pageable pageable);
+	
+	@Query("SELECT o FROM Product o WHERE o.quantity >0")
+	Page<Product> findSPMoi(Pageable pageable);
 }

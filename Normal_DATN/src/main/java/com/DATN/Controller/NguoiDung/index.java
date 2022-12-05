@@ -56,7 +56,7 @@ public class index {
 		model.addAttribute("size", ite.size());
 		}
 		Pageable pageable = PageRequest.of(0,5,Sort.by(Direction.DESC,"date"));
-		Page<Product> item = productRepository.findAll(pageable);
+		Page<Product> item = productRepository.findSPMoi(pageable);
 		List<Category> category = categorytRepository.findAll();
 		model.addAttribute("item", item);
 		model.addAttribute("category", category);

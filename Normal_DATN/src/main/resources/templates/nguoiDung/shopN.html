@@ -104,7 +104,7 @@
 
 								<li
 									th:class="${1== shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
-									<a th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=0|}"
+									<a th:href="@{|/shop?subcategory=${subcategory}&s=${shopNPage.size}&p=0|}"
 									class="page-link">Đầu</a>
 								</li>
 
@@ -114,14 +114,14 @@
 									th:if="${shopNPage.totalPages > 1}"
 									th:class="${pageNumber == shopNPage.number + 1} ? 'page-item active' : 'page-item'">
 									<a
-									th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${pageNumber-1}|}"
+									th:href="@{|/shop?subcategory=${subcategory}&s=${shopNPage.size}&p=${pageNumber-1}|}"
 									class="page-link" th:text="${pageNumber}"></a>
 								</li>
 
 								<li
 									th:class="${shopNPage.totalPages == shopNPage.number + 1} ? 'page-item disabled ' : 'page-item'">
 									<a
-									th:href="@{|/shop?subcategory=2&s=${shopNPage.size}&p=${shopNPage.totalPages-1}|}"
+									th:href="@{|/shop?subcategory=${subcategory}&s=${shopNPage.size}&p=${shopNPage.totalPages-1}|}"
 									class="page-link">Cuối</a>
 								</li>
 
