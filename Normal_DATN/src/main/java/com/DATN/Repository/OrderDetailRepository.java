@@ -14,7 +14,7 @@ import com.DATN.Entity.OrderDetail;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
 	@Query("SELECT o FROM OrderDetail o WHERE o.order.id=?1")
     List<OrderDetail>  findByIdOrder(Integer user);
-	@Query("select o.name from OrderDetail o GROUP BY o.name ORDER BY sum(o.quanlity) DESC")
-    List<String>  BanChayNhat();
+	
+
 
 }

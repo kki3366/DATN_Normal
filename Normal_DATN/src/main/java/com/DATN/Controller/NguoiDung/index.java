@@ -63,11 +63,8 @@ public class index {
 		
         
 		Pageable pageableBanChay = PageRequest.of(0,5);
-		List<String> BanChay = orderDetaiRep.BanChayNhat();
 //		
 		
-		
-	
 		return "nguoiDung/index";
 	}
 }
