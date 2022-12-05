@@ -52,7 +52,7 @@ public class UserController {
 	@Autowired
 	HttpServletRequest req;
 	int vtPage;
-
+    
 	@RequestMapping("/admin/user")
 	public String u(Model m,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
@@ -200,6 +200,7 @@ public class UserController {
 			@RequestParam("s") Optional<Integer> s) {
 		users account = u.findId(User);
 		m.addAttribute("acc",account);
+		
 		m.addAttribute("edit",edit);
 	    System.err.println(account.getPassword());
 	   
@@ -229,7 +230,7 @@ public class UserController {
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/lock")
-	public String lock(Model m, @ModelAttribute("acc") users acc,@RequestParam("p") Optional<Integer> p,
+	public String lock(Model m,@RequestParam("pass") String pass, @ModelAttribute("acc") users acc,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
 		if(acc.getId().equals(req.getRemoteUser())) {
 			
@@ -237,6 +238,8 @@ public class UserController {
 			
 		}else {
 			acc.setActivated(false);
+			BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
+			acc.setPassword(pe.encode(pass));
 			u.save(acc);
 			m.addAttribute("tb","Tài khoản bị đã khóa");
 		}
@@ -264,18 +267,22 @@ public class UserController {
 			m.addAttribute("pageNumbers",pageNumber);
 		}
 		m.addAttribute("userPage",resultPage);
+		m.addAttribute("edit",true);
 		return "Admin/page/user";
 	}
 	@PostMapping("/admin/user/update")
-	public String update(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
+	public String update(Model m,@RequestParam("pass") String pass,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
 //		users account = u.findId(User);
 //		m.addAttribute("acc",account);
 		m.addAttribute("edit",true);
+		
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Sửa tài khoản thất bại");
 			
 		}else {
+			BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
+			acc.setPassword(pe.encode(pass));
 			Integer kt = 0;
 			users account = u.findId(acc.getId());
 			
@@ -302,9 +309,9 @@ public class UserController {
 				
 			}
 			if(kt==0) {
-				BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
 				
-				acc.setPassword(pe.encode(acc.getPassword()));
+				
+				
 				acc.setActivated(acc.getActivated());
 				acc.setAdmin(acc.getAdmin());
 				user.saveAccountService(acc);

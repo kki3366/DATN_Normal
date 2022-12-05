@@ -90,9 +90,7 @@ public class UserServiceImpl implements UserService {
 		Boolean role = false;
 		System.err.println(pass);
 		
-		UserDetails user = User.withUsername(name).password(pe.encode(pass)).roles(role+"").build();
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(auth);
+		
 		
 		String email = oauth2.getPrincipal().getAttribute("email");
 		if(findByEmailService(email) == null) {
@@ -101,13 +99,20 @@ public class UserServiceImpl implements UserService {
 			acc.setActivated(true);
 			acc.setAdmin(role);
 			acc.setFullname(name);
-			acc.setPhone("NULL");
+			acc.setPhone("0000000000");
 			acc.setPassword(pass);
 			acc.setEmail(email);
 			saveAccountService(acc);
 		}else {
 			
+			
+				UserDetails user = User.withUsername(name).password(pe.encode(pass)).roles(role+"").build();
+				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+				SecurityContextHolder.getContext().setAuthentication(auth);
+			
 		}
+		
+		
 	}
 
 	@Override

@@ -32,12 +32,13 @@
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label><br>
                   <i style="color:red"th:errors="*{password}"></i>
-                  <input th:field="*{password}" type="text" minlength="6" class="form-control" placeholder="Enter Password">
+                  <input th:field="*{password}"type="hidden" minlength="6" class="form-control" placeholder="Enter Password">
+                  <input  name="pass" th:value="${acc.password}" type="password" minlength="6" class="form-control" placeholder="Enter Password">
                 </div>
                <div class="form-group">
                   <label for="exampleInputPassword1">FullName</label><br>
                    <i style="color:red"th:errors="*{fullname}"></i>
-                  <input th:field="*{fullname}" type="text" class="form-control" placeholder="Enter FullName">
+                  <input th:field="*{fullname}"  type="text" class="form-control" placeholder="Enter FullName">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Phone</label><br>
