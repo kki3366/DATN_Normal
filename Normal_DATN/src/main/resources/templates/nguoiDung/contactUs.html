@@ -31,12 +31,12 @@
 		<div class="row">
 			<div class="col-lg-6 col-md-12">
 				<div class="contact_message">
-					<h3>Tell us your project</h3>
+					<h3>Câu hỏi của bạn</h3>
 					<form action="/ContactUs/form" method="POST" th:object="${contact}">
 						<div class="row">
 							<div class="col-lg-6">
 								<i style="color: red" th:errors="*{name}"></i> <input
-									th:field="*{name}" placeholder="Name *" type="text">
+									th:field="*{name}" placeholder="Tên *" type="text">
 							</div>
 							<div class="col-lg-6">
 								<i style="color: red" th:errors="*{email}"></i> <input
@@ -44,17 +44,17 @@
 							</div>
 							<div class="col-12">
 								<i style="color: red" th:errors="*{subject}"></i> <input
-									th:field="*{subject}" placeholder="Subject *" type="text">
+									th:field="*{subject}" placeholder="Tiêu đề *" type="text">
 							</div>
 
 
 							<div class="col-12">
 								<div class="contact_textarea">
 									<i style="color: red" th:errors="*{Contents}"></i>
-									<textarea th:field="*{Contents}" placeholder="Message *"
+									<textarea th:field="*{Contents}" placeholder="Nội dung *"
 										class="form-control2"></textarea>
 								</div>
-								<i style="color: red" th:text="${tb}"></i>
+								<i style="color: red" th:text="${tb}"></i><br>
 								<button type="submit">Gửi</button>
 							</div>
 							<div class="col-12">
@@ -67,11 +67,8 @@
 
 			<div class="col-lg-6 col-md-12">
 				<div class="contact_message contact_info">
-					<h3>contact us</h3>
-					<p>Claritas est etiam processus dynamicus, qui sequitur
-						mutationem consuetudium lectorum. Mirum est notare quam littera
-						gothica, quam nunc putamus parum claram anteposuerit litterarum
-						formas human.</p>
+					<h3>Liên hệ</h3>
+				
 					<ul>
 						<li><i class="fa fa-fax"></i> Địa chỉ : 288 Nguyễn Văn
 							Linh,Phường Hưng Lợi,Quận Ninh Kiều,TP Cần Thơ</li>

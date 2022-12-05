@@ -134,7 +134,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="block_title">
-                                    <h3>  5 other products category:</h3>
+                                    <h3> Sản phẩm khác cùng loại</h3>
                                 </div>
                                 </div> 
                             </div>
@@ -145,9 +145,7 @@
                                         <div class="single_product">
                                             <div class="product_thumb">
                                                <a th:href="@{|/singleProduct/${sp.id}|}"><img th:src="@{|/imgProducts/${sp.image}.png|}" alt=""></a> 
-                                               <div class="hot_img">
-                                                   <img src="\assets\img\cart\span-hot.png" alt="">
-                                               </div>
+                                         
                                                <div class="product_action">
                                                    <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
                                                </div>
@@ -169,7 +167,7 @@
                                             </div>
                                             <div class="product_info">
                                                 <ul>
-                                                    <li><a  th:href="@{|/singleProduct/${sp.id}|}" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                                    <li><a  th:href="@{|/singleProduct/${sp.id}|}" >Xem chi tiết</a></li>
                                                     
                                                 </ul>
                                             </div>
