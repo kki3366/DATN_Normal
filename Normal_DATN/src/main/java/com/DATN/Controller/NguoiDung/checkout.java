@@ -2,22 +2,17 @@
 package com.DATN.Controller.NguoiDung;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Min;
 
-import org.apache.commons.io.FileUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DATN.Entity.Cart;
 import com.DATN.Entity.Category;
@@ -32,7 +27,6 @@ import com.DATN.Repository.OrdersRepository;
 import com.DATN.Repository.ProductRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.CartService;
-import com.DATN.Service.CategoryService;
 import com.DATN.Service.ProductService;
 import com.DATN.Unit.FileUploadUtil;
 
@@ -93,7 +87,7 @@ public class checkout {
 			
 			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
 			users acc = userRepository.getById(req.getRemoteUser());
-			System.err.println(req.getRemoteUser());
+			
 		
 			model.addAttribute("item", item);
 			model.addAttribute("size", item.size());
@@ -105,7 +99,9 @@ public class checkout {
 			}
 			model.addAttribute("acc", acc);
 			model.addAttribute("order", new Orders());
+			if(order.getPhone().isEmpty()) {		
 			model.addAttribute("loiphone", "Vui lòng nhập số điện thoại");
+			}
 			if(order.getPhone().length()>11 || order.getPhone().length()<9  ) {
 				model.addAttribute("loiphone", "Vui lòng nhập đúng số điện thoại");
 			}
@@ -115,7 +111,7 @@ public class checkout {
 			}
 			
 			return "nguoiDung/checkout";
-//			return "redirect:/checkout";
+
 		}else {
 			order.setStatus("Đã đặt");
 			ordersRepository.save(order);
@@ -127,7 +123,6 @@ public class checkout {
 				Product product = productRepository.findById(cart.getProduct().getId()).get();
 				Orders ord = ordersRepository.getById(id);
 				Category cate = categoryRepository.getById(product.getCategory().getId());
-				//System.err.println(cate.getNameCategory());
 				
 				FileUploadUtil file = new FileUploadUtil();
 				file.historyImageProduct(cart.getImgProductCart(), app);
@@ -138,10 +133,9 @@ public class checkout {
 				od.setQuanlity(cart.getQuanlityProductCart());
 				od.setNamecate(cate.getNameCategory());
 				od.setOrder(ord);
-				//
+				
 				orderDetailRepository.save(od); 
 				int total = product.getQuantity() -cart.getQuanlityProductCart();
-				System.err.println("Số lượng total " + total);
 				if(total <= 0) {
 					product.setAvailable(false);
 					productRepository.save(product);

@@ -105,12 +105,12 @@
                                                                <img src="assets\img\cart\span-new.png" alt="">
                                                            </div>
                                                          
-                                                                      <div th:if="${HoLy.quantity} == 0">
+                                                                      < <div th:if="${HoLy.available} != true">
 							 								<div class="product_action">
                                                                <a onclick="alert('Xin lỗi! Sản phẩm đã hết hàng.')" href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                                            </div>
 																	</div>
-													                <div th:if="${HoLy.quantity} != 0">
+													                <div th:if="${HoLy.available} == true">
 																		 <div class="product_action">
                                               					          <a onclick="alert('Đã thêm vào giỏ hàng!')" th:href="@{|/addCartO/${HoLy.id}|}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                                            </div>
