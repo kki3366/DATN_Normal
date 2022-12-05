@@ -93,7 +93,7 @@ public class checkout {
 			
 			Double tongTien = cartRepository.tongTien(req.getRemoteUser());
 			users acc = userRepository.getById(req.getRemoteUser());
-			System.err.println(req.getRemoteUser());
+			
 		
 			model.addAttribute("item", item);
 			model.addAttribute("size", item.size());
@@ -127,7 +127,7 @@ public class checkout {
 				Product product = productRepository.findById(cart.getProduct().getId()).get();
 				Orders ord = ordersRepository.getById(id);
 				Category cate = categoryRepository.getById(product.getCategory().getId());
-				//System.err.println(cate.getNameCategory());
+				
 				
 				FileUploadUtil file = new FileUploadUtil();
 				file.historyImageProduct(cart.getImgProductCart(), app);
@@ -141,7 +141,7 @@ public class checkout {
 				//
 				orderDetailRepository.save(od); 
 				int total = product.getQuantity() -cart.getQuanlityProductCart();
-				System.err.println("Số lượng total " + total);
+				
 				if(total <= 0) {
 					product.setAvailable(false);
 					productRepository.save(product);

@@ -60,7 +60,7 @@ public class ContactUs {
 //			if(check == true) {
 				contact.setStatus(false);
 				users acc = users.getById(req.getRemoteUser());
-				System.err.println(acc.getId());
+			
 				contact.setUser(acc);
 				contactRep.save(contact);
 				m.addAttribute("tb", "Đã gửi");

@@ -202,7 +202,7 @@ public class UserController {
 		m.addAttribute("acc",account);
 		
 		m.addAttribute("edit",edit);
-	    System.err.println(account.getPassword());
+	    
 	   
 	    int currentPage = p.orElse(0);
 		int pagesize = s.orElse(5);

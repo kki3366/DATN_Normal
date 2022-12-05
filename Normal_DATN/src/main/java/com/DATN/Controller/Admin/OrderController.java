@@ -2,6 +2,8 @@ package com.DATN.Controller.Admin;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,10 +44,32 @@ public class OrderController {
 	@Autowired
 	SessionService session;	
 	@RequestMapping("/admin/order")
-	public String form(Model m,	@RequestParam("p") Optional<Integer> p) {
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		Page<Orders> page = ordersRepository.findAll(pageable);
-		m.addAttribute("page",page);
+	public String form(Model m,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Orders> resultPage = ordersRepository.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("OrderPage",resultPage);
+		
+		
 		m.addAttribute("edit",false);
 
 		m.addAttribute("order",new Orders());
@@ -53,40 +77,101 @@ public class OrderController {
 	}
 	@PostMapping("/admin/order/update")
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
-			,	@RequestParam("p") Optional<Integer> p ){
+			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s ){
 	
 	
 	order.setStatus(order.getStatus());
 	ordersRepository.save(order);
-	Pageable pageable = PageRequest.of(p.orElse(0), 5);
-	Page<Orders> page = ordersRepository.findAll(pageable);
-	m.addAttribute("page",page);
+	int currentPage = p.orElse(0);
+	int pagesize = s.orElse(5);
+	Pageable pageable = PageRequest.of(currentPage, pagesize);
+	Page<Orders> resultPage = ordersRepository.findAll(pageable);
+	int totalPages = resultPage.getTotalPages();
+	if(totalPages >0) {
+		int start = Math.max(1,currentPage-2);
+		int end = Math.min(currentPage +2,totalPages);
+		
+		if(totalPages >5) {
+			if(end == totalPages) {
+				start = end -5;
+			}else if(start == 1) {
+				end = start +5;
+			}
+		}
+		List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+				.boxed()
+				.collect(Collectors.toList());
+		
+		m.addAttribute("pageNumbers",pageNumber);
+	}
+	m.addAttribute("OrderPage",resultPage);
 	m.addAttribute("tb","Sửa đơn hàng thành công");
 	return "Admin/page/order";
 		}
 	
 	@RequestMapping("/admin/order/edit")
 	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("order") Integer Order
-			,	@RequestParam("p") Optional<Integer> p) {
+			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 		Orders ord = ordersRepository.getById(Order);
 		m.addAttribute("order",ord);
 		m.addAttribute("edit",edit);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		Page<Orders> page = ordersRepository.findAll(pageable);
-		m.addAttribute("page",page);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Orders> resultPage = ordersRepository.findAll(pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			m.addAttribute("pageNumbers",pageNumber);
+		}
+		m.addAttribute("OrderPage",resultPage);
 		return "Admin/page/order";
 	}
 	@RequestMapping("/admin/order/find")
 	public String find(Model model,
 			@RequestParam("keywords") Optional<String> kw,
-			@RequestParam("p") Optional<Integer> p) {
+			@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 
 		
 		String kwords = kw.orElse(session.getAttribute("keywords"));
 		session.setAttribute("keywords", kwords);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		Page<Orders> page = ordersRepository.findByKeywords("%"+kwords+"%", pageable);
-		model.addAttribute("page", page);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Orders> resultPage = ordersRepository.findByKeywords("%"+kwords+"%", pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			model.addAttribute("pageNumbers",pageNumber);
+		}
+		model.addAttribute("OrderPage",resultPage);
+		
 		model.addAttribute("order",new Orders());
 		model.addAttribute("keywords", kwords);
 		return "Admin/page/order";

@@ -55,7 +55,7 @@ public class cart {
 		}
 		model.addAttribute("item", item);
 		model.addAttribute("size", item.size());
-		System.err.println("Tong la"+ item.size());
+		
 
 		return "nguoiDung/cart";
 	}
@@ -128,8 +128,7 @@ public class cart {
 			@RequestParam("qty") Integer qty
 			) {
 	
-		System.err.println(id);
-		System.err.println(qty);
+		
 			cart.update(id,qty);
 		
 		return "redirect:/cart";

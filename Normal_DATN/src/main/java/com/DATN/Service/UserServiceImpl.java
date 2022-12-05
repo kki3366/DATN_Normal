@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 		String name = oauth2.getPrincipal().getAttribute("name");
 		String pass = Long.toHexString(System.currentTimeMillis());
 		Boolean role = false;
-		System.err.println(pass);
+		
 		
 		
 		
@@ -103,14 +103,14 @@ public class UserServiceImpl implements UserService {
 			acc.setPassword(pass);
 			acc.setEmail(email);
 			saveAccountService(acc);
-		}else {
 			
+		}
 			
 				UserDetails user = User.withUsername(name).password(pe.encode(pass)).roles(role+"").build();
 				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			
-		}
+		
 		
 		
 	}
