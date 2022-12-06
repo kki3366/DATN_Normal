@@ -118,7 +118,7 @@ public class UserController {
 		m.addAttribute("userPage",resultPage);
 	
 		
-//		return "redirect:/admin/user";
+
 		return "Admin/page/user";
 	}
 	@RequestMapping("/admin/user/new")
