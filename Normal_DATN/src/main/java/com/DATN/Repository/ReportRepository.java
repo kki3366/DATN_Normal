@@ -55,10 +55,11 @@ public class ReportRepository {
 	}
 	
 	public List<ReportByPopularProduct> byPopularProducts(){
-		String sql = "select new " + ReportByPopularProduct.class.getName() + " (ordd.namecate,ordd.name,count(ordd.name))"
-				+ " from OrderDetail ordd group by ordd.namecate,ordd.name";
-		TypedQuery<ReportByPopularProduct> query = entityManager.createQuery(sql,ReportByPopularProduct.class);
-		List<ReportByPopularProduct> list = query.getResultList();
+		String sql = "select new " + ReportByPopularProduct.class.getName() + " (ordd.namecate,ordd.name,"
+				+ " COUNT(CASE WHEN (ord.status like :status) THEN ordd.id end))"
+				+ " from OrderDetail ordd join ordd.order ord group by ordd.namecate,ordd.name";
+		TypedQuery<ReportByPopularProduct> query = entityManager.createQuery(sql,ReportByPopularProduct.class).setParameter("status", "%" + "Đã giao" + "%");
+		List<ReportByPopularProduct> list =query.getResultList();
 		return list;
 	}
 	

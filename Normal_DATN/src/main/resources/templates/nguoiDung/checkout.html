@@ -18,7 +18,7 @@
                                         <ul>
                                             <li><a href="/index">Trang chủ</a></li>
                                             <li><i class="fa fa-angle-right"></i></li>
-                                            <li>Thanh toán</li>
+                                            <li>Đặt hàng</li>
                                         </ul>
 
                                     </div>
@@ -39,7 +39,7 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6">
                                             <form th:action="@{/addOrder}" mehtod="post"  >
-                                                <h3>Chi tiết thanh toán</h3>
+                                                <h3>Chi tiết đặt hàng</h3>
                                                 <div class="row">
                                                 <input type="hidden" name="amount"  th:value="${tongTien}+30000" >
                                                   
@@ -60,14 +60,14 @@
                                                     </div> 
                                                           <div class="col-12 mb-30">
                                                         <label>Địa chỉ  <span>*</span></label>
-                                                        <input placeholder="House number and street name" name="address" type="text">   
+                                                        <input placeholder="Số nhà, đường, xã, tỉnh. Hãy nhập địa chỉ cụ thể của bạn" name="address" type="text">   
                                                           <i style="color:red">[[${loiaddress}]]</i>
                                                     </div>
      
                                                     <div class="col-12">
                                                      <div class="order-notes">
                                                              <label for="order_note">Ghi chú</label>
-                                                            <textarea id="order_note" name="description" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                                            <textarea id="order_note" name="description" placeholder="Ghi chú"></textarea>
                                                         </div>    
                                                     </div>   
                                                   	    	    	    	    	    

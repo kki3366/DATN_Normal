@@ -66,11 +66,11 @@
                                                     <input name="qty" min="1" th:max="${product.quantity}" value="1" type="number">
                                                       
                                                       
-                                                               <div th:if="${product.quantity} == 0">
+                                                               <div th:if="${product.available} != true">
                                                                
 						  <button  onclick="alert('Sản phẩm đã hết!')" disabled> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
 							</div>
-													                <div th:if="${product.quantity} != 0">
+													                <div th:if="${product.available} == true">
 												  <button type="submit" onclick="alert('Đã thêm vào giỏ hàng!')"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
 												           
            																		     </div> 
@@ -83,7 +83,7 @@
 
                                                      <div th:if="${product.available} != true">
 							  <div class="product_stock mb-20">
-                                               <p th:inline="text">[[${product.quantity}]] sản phẩm</p>
+                                               <p th:inline="text">0 sản phẩm</p>
                                                 <span> Hết hàng </span>
                                             </div>
 							</div>
@@ -134,7 +134,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="block_title">
-                                    <h3>  5 other products category:</h3>
+                                    <h3> Sản phẩm khác cùng loại</h3>
                                 </div>
                                 </div> 
                             </div>
@@ -145,9 +145,7 @@
                                         <div class="single_product">
                                             <div class="product_thumb">
                                                <a th:href="@{|/singleProduct/${sp.id}|}"><img th:src="@{|/imgProducts/${sp.image}.png|}" alt=""></a> 
-                                               <div class="hot_img">
-                                                   <img src="\assets\img\cart\span-hot.png" alt="">
-                                               </div>
+                                         
                                                <div class="product_action">
                                                    <a href="#"> <i class="fa fa-shopping-cart"></i> Add to cart</a>
                                                </div>
@@ -169,7 +167,7 @@
                                             </div>
                                             <div class="product_info">
                                                 <ul>
-                                                    <li><a  th:href="@{|/singleProduct/${sp.id}|}" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                                    <li><a  th:href="@{|/singleProduct/${sp.id}|}" >Xem chi tiết</a></li>
                                                     
                                                 </ul>
                                             </div>

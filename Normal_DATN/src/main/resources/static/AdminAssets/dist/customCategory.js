@@ -225,15 +225,15 @@ if (convertUrl.pathname = '/admin/product') {
 			},
 			columns: [
 				{ "data": "id" },
-				{ 
+				{
 					"data": "name"
-				 },
-				 { 
+				},
+				{
 					"data": "available",
 					render: function(data, type, row) {
-						return data?"Còn hàng":"Hết hàng"
+						return data ? "Còn hàng" : "Hết hàng"
 					}
-				 },
+				},
 				{
 					"data": "price",
 					render: function(data, type, row) {
@@ -244,10 +244,10 @@ if (convertUrl.pathname = '/admin/product') {
 				{
 					"data": "quantity",
 					render: function(data, type, row) {
-						if(row.available == false){
+						if (row.available == false) {
 							console.log("ok")
 							return "0";
-						}else{
+						} else {
 							return data
 						}
 					}
@@ -424,9 +424,9 @@ if (convertUrl.pathname = '/admin/product') {
 			//console.log(rowData.category.nameCategory)
 			$('#nameProduct').val(rowData.name)
 			$('#priceProduct').val(rowData.price)
-			if(rowData.available == false){
-			$('#quanlityProduct').val(0)
-			}else{
+			if (rowData.available == false) {
+				$('#quanlityProduct').val(0)
+			} else {
 				$('#quanlityProduct').val(rowData.quantity)
 			}
 			$('#descriptionProduct').val(rowData.description)
@@ -660,18 +660,18 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 			},
 			columns: [
 				{ "data": "nameCategory" },
-				{ 
+				{
 					"data": "quantiyProduct",
 					render: function(data, type, row) {
 						return formatToVND(data, '')
 					}
-				 },
+				},
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
-						if(row.quantiyProduct == 0){
+						if (row.quantiyProduct == 0) {
 							return formatToVND(0, '₫');
-						}else{
+						} else {
 							return formatToVND(data, '₫')
 						}
 					}
@@ -679,9 +679,9 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 				{
 					"data": "minProduct",
 					render: function(data, type, row) {
-						if(row.quantiyProduct == 0){
+						if (row.quantiyProduct == 0) {
 							return formatToVND(0, '₫');
-						}else{
+						} else {
 							return formatToVND(data, '₫')
 						}
 					}
@@ -689,9 +689,9 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 				{
 					"data": "maxProdouct",
 					render: function(data, type, row) {
-						if(row.quantiyProduct == 0){
+						if (row.quantiyProduct == 0) {
 							return formatToVND(0, '₫');
-						}else{
+						} else {
 							return formatToVND(data, '₫')
 						}
 					}
@@ -699,10 +699,10 @@ if (convertUrl.pathname = 'admin/report/inventory') {
 				{
 					"data": "avgProduct",
 					render: function(data, type, row) {
-						if(row.quantiyProduct == 0){
+						if (row.quantiyProduct == 0) {
 							return formatToVND(0, '₫');
-						}else{
-							return formatToVND(data, '₫')
+						} else {
+							return formatToVND(data.toFixed(), '₫')
 						}
 					}
 				}
@@ -835,7 +835,9 @@ if (convertUrl.pathname = 'admin/report/popularProduct') {
 			},
 			columns: [
 				{ "data": "nameCategory" },
-				{ "data": "nameProduct" },
+				{
+					"data": "nameProduct"
+				},
 				{
 					"data": "times",
 					render: function(data, type, row) {
@@ -962,13 +964,13 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByQuarter') {
 				}
 			},
 			columns: [
-				{ 
+				{
 					"data": "years",
 					render: function(data, type, row) {
-						return "Quý " +row.quarter + " - " + data;
+						return "Quý " + row.quarter + " - " + data;
 					}
 				},
-				
+
 				{
 					"data": "quantity",
 					render: function(data, type, row) {
@@ -1022,13 +1024,13 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByMonth') {
 				}
 			},
 			columns: [
-				{ 
+				{
 					"data": "years",
 					render: function(data, type, row) {
 						return row.month + " - " + data;
 					}
 				},
-				
+
 				{
 					"data": "quantity",
 					render: function(data, type, row) {
