@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns= "http://www.thymeleaf.org">
 <head>
 <title>Đổi mật khẩu</title>
 <script src="assets/js/jquery.min.js"></script>
@@ -29,15 +29,17 @@
 	<form action="/changePass" method="post">
 					  
 		<input type="text"name="username" th:value="${username}" placeholder="Username"readonly/>
-		<input type="password"name="password" th:value="${password}" minlength="6" placeholder="Password cũ"/>			
-		<input type="password"name="passwordMoi" th:value="${password}" minlength="6" placeholder="Password mới"/>			   
-		<input type="password"name="passwordXN" th:value="${password}" minlength="6" placeholder="Xác nhận lại Password"/>
+		<input type="password"name="password" th:value="${password}" minlength="6" required placeholder="Password cũ"/>			
+		<input type="password"name="passwordMoi" th:value="${password}" minlength="6" required placeholder="Password mới"/>			   
+		<input type="password"name="passwordXN" th:value="${password}" minlength="6" required placeholder="Xác nhận lại Password"/>
 			<div class="forgot">
 							<h6>  <a href="/login">Đăng nhập</a></h6>
 						 </div>
 						 <br><br><br>
-						 
-	<input type="submit" onclick="alert('Đổi mật khẩu thành công')" value="Gửi">
+					 
+	
+	    <input type="submit"  value="Gửi">
+	
   </form>	
 					
 					

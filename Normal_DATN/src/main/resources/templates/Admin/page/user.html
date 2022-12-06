@@ -32,8 +32,14 @@
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label><br>
                   <i style="color:red"th:errors="*{password}"></i>
-                  <input th:field="*{password}"type="hidden" minlength="6" class="form-control" placeholder="Enter Password">
+                  <div th:if="${edit} == true">
+                       <input th:field="*{password}"type="hidden" minlength="6" class="form-control" placeholder="Enter Password">
                   <input  name="pass" th:value="${acc.password}" type="password" minlength="6" class="form-control" placeholder="Enter Password">
+                  </div>
+                  <div th:unless="${edit} == true">
+                       <input th:field="*{password}"type="password" minlength="6" class="form-control" placeholder="Enter Password">
+                  <input  name="pass" th:value="${acc.password}" type="hidden" minlength="6" class="form-control" placeholder="Enter Password">
+                  </div>
                 </div>
                <div class="form-group">
                   <label for="exampleInputPassword1">FullName</label><br>

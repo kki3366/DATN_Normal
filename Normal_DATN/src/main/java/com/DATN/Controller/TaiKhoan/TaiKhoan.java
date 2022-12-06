@@ -127,8 +127,8 @@ public class TaiKhoan {
 	           random =random *1000000;   
 	              randomInt =(int) random;
 		}
-			String nd ="Nhập mã "+randomInt+" để xác nhận đổi mật khẩu";
-			this.Mail(m,email,nd,"Mã xác nhận");
+			String nd ="Mã OTP của bạn là: "+randomInt+". Vui lòng nhập để nhận mật khẩu mới.";
+			this.Mail(m,email,nd,"HoLy Watch");
 			name = username;
 			mail = email;
 			return "taiKhoan/MaOTP";
@@ -155,8 +155,8 @@ public class TaiKhoan {
 	           random =random *1000000;   
 	              randomInt =(int) random;                
 		}
-			String nd ="Mật khẩu mới của bạn là:"+randomInt;
-			this.Mail(m,mail,nd,"Mật khẩu mới");
+			String nd ="Mật khẩu mới của bạn là: "+randomInt+".Vui lòng đổi lại mật khẩu.";
+			this.Mail(m,mail,nd,"HoLy Watch");
 			acc.setPassword(pe.encode(randomInt+""));
 			users.saveAccountService(acc);
 			m.addAttribute("tbforgotPassword","Vui lòng đăng nhập với mật khẩu mới!");
@@ -203,8 +203,11 @@ public class TaiKhoan {
 			acc.setPassword(pe.encode(XNPass));
 			users.saveAccountService(acc);
 			m.addAttribute("tb","Đổi mật khẩu thành công");
+			return "redirect:/security/logout";
+		}else {
+			return "taiKhoan/ChangePass";
 		}
-		return "redirect:/security/logout";
+		
 	}
 	@GetMapping("/editProfile")
 	public String editProfile(Model m) {
@@ -259,8 +262,8 @@ public class TaiKhoan {
 		Session session = Session.getInstance(props, new Authenticator() { 
 			protected PasswordAuthentication getPasswordAuthentication() {
 //				   svzdetnyddotvaqs
-			String username = "trungttpc01815@fpt.edu.vn";
-			String password = "znavyzikibherjvj";
+			String username = "holywatchct@gmail.com";
+			String password = "kgmtmuieyixjkwbq";
 			return new PasswordAuthentication(username, password);
 			}
 		});

@@ -255,8 +255,8 @@ public class ContactController {
 			Session session = Session.getInstance(props, new Authenticator() { 
 				protected PasswordAuthentication getPasswordAuthentication() {
 			
-				String username = "trungttpc01815@fpt.edu.vn";
-				String password = "znavyzikibherjvj";
+				String username = "holywatchct@gmail.com";
+				String password = "kgmtmuieyixjkwbq";
 				return new PasswordAuthentication(username, password);
 				}
 			});

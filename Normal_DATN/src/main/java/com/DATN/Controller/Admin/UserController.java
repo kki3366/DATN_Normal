@@ -135,7 +135,7 @@ public class UserController {
 		return "taiKhoan/SignUp";
 	}
 	@PostMapping("/admin/user/add")
-	public String SignUp(Model m,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
+	public String SignUp(Model m,@RequestParam("pass") String pass,@Validated @ModelAttribute("acc") users acc, Errors errors,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("s") Optional<Integer> s) {
 		if(errors.hasErrors()) {
 			m.addAttribute("tb", "Thêm tài khoản thất bại");
@@ -160,7 +160,7 @@ public class UserController {
 			if(kt==0) {
 				BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
 				
-				acc.setPassword(pe.encode(acc.getPassword()));
+				acc.setPassword(pe.encode(pass));
 				acc.setActivated(true);
 				acc.setAdmin(false);
 				user.saveAccountService(acc);

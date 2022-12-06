@@ -53,6 +53,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter{
 			.logoutUrl("/security/logout")
 			.logoutSuccessUrl("/security/logout/success");
 		
+		
 		http.oauth2Login()
 			.loginPage("/security/login/form")
 			.defaultSuccessUrl("/loginSuccess",false)
