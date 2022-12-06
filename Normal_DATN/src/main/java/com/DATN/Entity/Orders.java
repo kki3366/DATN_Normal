@@ -40,7 +40,8 @@ public class Orders {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Date")
-	Date orderDate = new Date();
+//	Date orderDate = new Date();
+	Date orderDate;
 	
 	@Column(name = "Telephone")
 	String phone;
@@ -49,7 +50,7 @@ public class Orders {
 	String address;
 	
 	@Column(name = "Amount")
-	float amount;
+	Double amount;
 	
 	@Column(name = "Description")
 	String description;
@@ -93,11 +94,11 @@ public class Orders {
 		this.address = address;
 	}
 
-	public float getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

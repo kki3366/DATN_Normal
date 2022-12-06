@@ -76,7 +76,7 @@
                                             </table>   
                                                 </div>  
                                                    <div class="cart_submit">                                              
-                                                    <button  ><a  th:href="@{/clearCart}" >>Xóa hết giỏ hàng</a></button>   
+                                                    <button  ><a  th:href="@{/clearCart}" >Xóa hết giỏ hàng</a></button>   
                                                                                         
                                                   
                                                 </div>   
@@ -122,13 +122,13 @@
                                                       
                                                                      <div th:if="${tongTien} != 0">
                                                                 <div class="checkout_btn">
-												                           <a th:href="@{/checkout}">Tiến hành thanh toán</a>
+												                           <a th:href="@{/checkout}">Tiến hành đặt hàng</a>
 												                            </div>
 													                </div>
 													                <div th:if="${tongTien} == 0">
 													                 
 												                                 <div class="checkout_btn">
-												             <a  onclick="alert('Vui lòng thêm sản phẩm cần mua vào giỏ hàng!')" href="#">Tiến hành thanh toán</a>
+												             <a  onclick="alert('Vui lòng thêm sản phẩm cần mua vào giỏ hàng!')" href="#">Tiến hành đặt hàng</a>
 												               </div>
            																		     </div> 
                                                      

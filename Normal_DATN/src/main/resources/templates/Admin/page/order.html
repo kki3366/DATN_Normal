@@ -26,10 +26,16 @@
 
 								</div>
 								<div class="form-group">
-									<label for="exampleInputPassword1">User Id</label><br> <input
+									<label for="exampleInputPassword1">User</label><br> <input
 										readonly th:field="*{user}" type="text" class="form-control"
-										placeholder="Enter User Id">
+										placeholder="Enter User">
 								</div>
+							
+							  <div class="form-group">
+									<label for="exampleInputPassword1">Order Date</label><br> <input
+										readonly th:field="*{orderDate}" type="text" class="form-control"
+										placeholder="Enter Order Date">
+								</div> 
 								<div class="form-group">
 									<label for="exampleInputPassword1">Phone</label><br> <i
 										style="color: red" th:text="${ktPhone}"></i> <input readonly
@@ -48,16 +54,14 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleInputPassword1">Amount</label><br> <input
-										readonly th:field="*{amount}" type="text" class="form-control"
+										readonly th:field="*{amount}"  class="form-control"
 										placeholder="Enter Amount">
 								</div>
 								<div>
 									<label for="exampleInputPassword1">Status</label><br> <input
-										th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã
-									đặt&ensp;&ensp; <input th:field="*{status}" type="radio"
-										name="status" value="Đã hủy">Đã hủy&ensp;&ensp; <input
-										th:field="*{status}" type="radio" name="status"
-										value="Đã giao">Đã giao
+										th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;
+									 <input th:field="*{status}" type="radio"name="status" value="Đã hủy">Đã hủy&ensp;&ensp; 
+										<input th:field="*{status}" type="radio" name="status"value="Đã giao">Đã giao
 								</div>
 							</div>
 							<!-- /.box-body -->
@@ -66,10 +70,18 @@
 							<div class="box-footer">
 
 								<div th:if="${edit} == true">
+								<div th:if="${status} == true">
 
-									<button class="btn btn-primary">Cập nhật</button>
+									
 									<button th:formaction="@{|/admin/orderDetail/${order.id}|}"
 										class="btn btn-primary">Xem chi tiết hóa đơn</button>
+									</div>
+									<div th:unless="${status} == true">
+										<button class="btn btn-primary">Cập nhật</button>
+									<button th:formaction="@{|/admin/orderDetail/${order.id}|}"
+										class="btn btn-primary">Xem chi tiết hóa đơn</button>
+									</div>
+									
 
 								</div>
 								<div th:unless="${edit} == true"></div>
@@ -83,7 +95,7 @@
 							<h3 class="box-title">Hover Data Table</h3>
 							<h3 style="float: right;" class="box-title">
 								<form th:action="@{/admin/order/find}" method="post">
-									<input name="keywords" th:value="${keywords}">
+									<input placeholder="User" name="keywords" th:value="${keywords}">
 									<button>Search</button>
 								</form>
 
@@ -116,7 +128,7 @@
 													<th class="sorting" tabindex="0" aria-controls="example2"
 														rowspan="1" colspan="1"
 														aria-label="Engine version: activate to sort column ascending">User
-														Id</th>
+														</th>
 													<th class="sorting" tabindex="0" aria-controls="example2"
 														rowspan="1" colspan="1"
 														aria-label="CSS grade: activate to sort column ascending">Order
@@ -156,8 +168,8 @@
 													<td class="sorting_1">[[${HoLy.phone}]]</td>
 													<td class="sorting_1">[[${HoLy.address}]]</td>
 													<td class="sorting_1">[[${HoLy.description}]]</td>
-													<td class="sorting_1">[[${#numbers.formatDecimal(HoLy.amount,
-														0, 'POINT', 0, 'NONE')}]] ₫</td>
+													<td class="sorting_1">₫[[${#numbers.formatDecimal(HoLy.amount,
+														0, 'POINT', 0, 'NONE')}]]</td>
 													<td class="sorting_1">[[${HoLy.status}]]</td>
 
 													<td class="sorting_1"><a

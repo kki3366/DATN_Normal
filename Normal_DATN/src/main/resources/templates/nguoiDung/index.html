@@ -61,27 +61,27 @@
                                             <div class="single_slider" style="background-image: url(assets/img/slider/sl1.png)">
                                                 <div class="slider_content">
                                                     <div class="slider_content_inner">  
-                                                        <h1>Men's Watch</h1>
+                                                        <h1>Đồng hồ nam</h1>
                                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                                                        <a href="#">shop now</a>
+                                                        <a href="/shop?subcategory=1">Xem</a>
                                                     </div>     
                                                 </div>    
                                             </div>
-                                            <div class="single_slider" style="background-image: url(assets/img/slider/sl2.png)">
+                                            <div class="single_slider" style="background-image: url(assets/img/slider/slCasio.png)">
                                                 <div class="slider_content">
                                                     <div class="slider_content_inner">  
-                                                        <h1>New Collection</h1>
+                                                        <h1>Casio</h1>
                                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                                                        <a href="#">shop now</a>
+                                                        <a href="/shop/find?keywords=casio">Xem</a>
                                                     </div>         
                                                 </div>         
                                             </div>
-                                            <div class="single_slider" style="background-image: url(assets/img/slider/sl1.png)">
+                                            <div class="single_slider" style="background-image: url(assets/img/slider/sl2.png)">
                                                 <div class="slider_content">  
                                                     <div class="slider_content_inner">  
                                                         <h1>Best Collection</h1>
                                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                                                        <a href="#">shop now</a>
+                                                        <a href="#">Xem</a>
                                                     </div> 
                                                 </div> 
                                             </div>
@@ -128,7 +128,7 @@
                                                         <div class="product_info">
                                                             <ul>
                                       
-                                                                <li><a  th:href="@{|/singleProduct/${HoLy.id}|}" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                                                <li><a  th:href="@{|/singleProduct/${HoLy.id}|}"  >Xem chi tiết</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -173,13 +173,13 @@
                                                       
                                                         </div>
                                                         <div class="product_content">
-                                                            <span class="product_price">d[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
+                                                            <span class="product_price">₫[[${#numbers.formatDecimal(HoLy.price, 0, 'POINT', 0, 'NONE')}]]</span>
                                                             <h3 class="product_title"><a  th:href="@{|/singleProduct/${HoLy.id}|}">[[${HoLy.name}]]</a></h3>
                                                         </div>
                                                         <div class="product_info">
                                                             <ul>
                                       
-                                                                <li><a  th:href="@{|/singleProduct/${HoLy.id}|}" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                                                <li><a  th:href="@{|/singleProduct/${HoLy.id}|}">Xem chi tiết</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>

@@ -78,8 +78,14 @@ public class orderHistory {
 	@RequestMapping("/orderHistory/{id}")
 	public String status(Model model, @PathVariable("id") Integer id) {
 		Orders order = orderRepository.getById(id);
+		if(order.getStatus().equals("Đã đặt")) {
 		order.setStatus("Đã hủy");
 		orderRepository.save(order);
+		}
+		if(order.getStatus().equals("Đã giao")) {
+	
+			model.addAttribute("status", true);
+		}
 		return "redirect:/orderHistory";
 	}
 }
