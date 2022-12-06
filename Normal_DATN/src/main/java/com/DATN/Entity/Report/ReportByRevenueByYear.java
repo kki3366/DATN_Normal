@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class ReportByRevenueByYear {
 	int year;
-	long quantity;
-	double totalSub;
-	double minPrice;
-	double maxPrice;
-	double avgPrice;
-	public ReportByRevenueByYear(int year, long quantity, double totalSub, double minPrice, double maxPrice,
-			double avgPrice) {
+	Long quantity;
+	Double totalSub;
+	Double minPrice;
+	Double maxPrice;
+	Double avgPrice;
+	public ReportByRevenueByYear(int year, Long quantity, Double totalSub, Double minPrice, Double maxPrice,
+			Double avgPrice) {
 		super();
 		this.year = year;
 		this.quantity = quantity;
@@ -25,37 +25,37 @@ public class ReportByRevenueByYear {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public long getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(long quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
-	public double getTotalSub() {
+	public Double getTotalSub() {
 		return totalSub;
 	}
-	public void setTotalSub(double totalSub) {
+	public void setTotalSub(Double totalSub) {
 		this.totalSub = totalSub;
 	}
-	public double getMinPrice() {
+	public Double getMinPrice() {
 		return minPrice;
 	}
-	public void setMinPrice(double minPrice) {
+	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
 	}
-	public double getMaxPrice() {
+	public Double getMaxPrice() {
 		return maxPrice;
 	}
-	public void setMaxPrice(double maxPrice) {
+	public void setMaxPrice(Double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
-	public double getAvgPrice() {
+	public Double getAvgPrice() {
 		return avgPrice;
 	}
-	public void setAvgPrice(double avgPrice) {
+	public void setAvgPrice(Double avgPrice) {
 		this.avgPrice = avgPrice;
 	}
-
+	
 	
 	
 }

@@ -39,24 +39,34 @@ public class ReportRepository {
 	}
 	
 	public List<ReportByRevenueByCustomer> reportByRevenueByCustomers(){
-		String sql = "select new " + ReportByRevenueByCustomer.class.getName() +" (users.id, SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+		String sql = "select new " + ReportByRevenueByCustomer.class.getName() +" (users.id,"
+				+ " SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity else 0 end), "
+				+ "SUM(CASE WHEN (ord.status like :status) THEN (ordd.quanlity * ordd.price) else 0 end), "
+				+ "MIN(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end),"
+				+ " MAX(CASE WHEN (ord.status like :status) THEN ordd.price else 0 end), "
+				+ "AVG(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end))"
 				+ " from OrderDetail ordd join ordd.order ord join ord.user users group by users.id";
-		TypedQuery<ReportByRevenueByCustomer> query = entityManager.createQuery(sql,ReportByRevenueByCustomer.class);
+		TypedQuery<ReportByRevenueByCustomer> query = entityManager.createQuery(sql,ReportByRevenueByCustomer.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportByRevenueByCustomer> list = query.getResultList();
 		return list;
 	}
 	
 	public List<ReportRevenueByCategory> reportRevenueByCategories(){
-		String sql = "select new " + ReportRevenueByCategory.class.getName() + " (ordd.namecate, SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
-				+ " from OrderDetail ordd group by ordd.namecate";
-		TypedQuery<ReportRevenueByCategory> query = entityManager.createQuery(sql, ReportRevenueByCategory.class);
+		String sql = "select new " + ReportRevenueByCategory.class.getName() + " (ordd.namecate, "
+				+ "	SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity else 0 end), "
+				+ "	SUM(CASE WHEN (ord.status like :status) THEN (ordd.quanlity * ordd.price) else 0 end), "
+				+ "	MIN(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end),"
+				+ " MAX(CASE WHEN (ord.status like :status) THEN ordd.price else 0 end), "
+				+ "	AVG(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end))"
+				+ " from OrderDetail ordd join ordd.order ord group by ordd.namecate";
+		TypedQuery<ReportRevenueByCategory> query = entityManager.createQuery(sql, ReportRevenueByCategory.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportRevenueByCategory> list = query.getResultList();
 		return list;
 	}
 	
 	public List<ReportByPopularProduct> byPopularProducts(){
 		String sql = "select new " + ReportByPopularProduct.class.getName() + " (ordd.namecate,ordd.name,"
-				+ " COUNT(CASE WHEN (ord.status like :status) THEN ordd.id end))"
+				+ " SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity else 0 end))"
 				+ " from OrderDetail ordd join ordd.order ord group by ordd.namecate,ordd.name";
 		TypedQuery<ReportByPopularProduct> query = entityManager.createQuery(sql,ReportByPopularProduct.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportByPopularProduct> list =query.getResultList();
@@ -64,34 +74,53 @@ public class ReportRepository {
 	}
 	
 	public List<ReportRevenueByProduct> reportRevenueByProducts(){
-		String sql = "select new " + ReportRevenueByProduct.class.getName() + " (ordd.name, SUM(ordd.quanlity),count(ordd.order), SUM(ordd.quanlity * ordd.price))"
-				+ " from OrderDetail ordd group by ordd.name";
-		TypedQuery<ReportRevenueByProduct> query = entityManager.createQuery(sql, ReportRevenueByProduct.class);
+		String key = "Đã giao";
+		String sql = "select new " + ReportRevenueByProduct.class.getName() + " (ordd.name, "
+				+ " SUM(CASE WHEN (ord.status like :status1) THEN ordd.quanlity ELSE 0 end),"
+				+ " COUNT(CASE WHEN (ord.status like :status1) THEN ord.id end), "
+				+ " SUM(CASE WHEN (ord.status like :status1) THEN (ordd.quanlity * ordd.price) ELSE 0 end))"
+				+ " from OrderDetail ordd join ordd.order ord group by ordd.name";
+		TypedQuery<ReportRevenueByProduct> query = entityManager.createQuery(sql, ReportRevenueByProduct.class).setParameter("status1", "%" + key + "%");
 		List<ReportRevenueByProduct> list = query.getResultList();
 		return list;
 	}
 	
 	public List<ReportByRevenueByYear> reportByRevenueByYears(){
-		String sql = "select new " + ReportByRevenueByYear.class.getName() + " (year(ord.orderDate), SUM(ordd.quanlity), SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+		String sql = "select new " + ReportByRevenueByYear.class.getName() + " (year(ord.orderDate), "
+				+ " SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity ELSE 0 end), "
+				+ " SUM(CASE WHEN (ord.status like :status) THEN (ordd.quanlity * ordd.price) ELSE 0 end), "
+				+ " MIN(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end), "
+				+ " MAX(CASE WHEN (ord.status like :status) THEN ordd.price ELSE 0 end), "
+				+ " AVG(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end))"
 				+ " from OrderDetail ordd join ordd.order ord group by year(ord.orderDate)";
-		TypedQuery<ReportByRevenueByYear> query = entityManager.createQuery(sql,ReportByRevenueByYear.class);
+		TypedQuery<ReportByRevenueByYear> query = entityManager.createQuery(sql,ReportByRevenueByYear.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportByRevenueByYear> list = query.getResultList();
 		return list;
 	}
 	
 	
 	public List<ReportRevenueByQuarter> reportRevenueByQuarters(){
-		String sql = "select new " + ReportRevenueByQuarter.class.getName() + " (year(ord.orderDate),CEILING((MONTH(ord.orderDate)+1)/3), SUM(ordd.quanlity),SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+		String sql = "select new " + ReportRevenueByQuarter.class.getName() + " (year(ord.orderDate),CEILING((MONTH(ord.orderDate)+1)/3), "
+				+ "SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity ELSE 0 end),"
+				+ "SUM(CASE WHEN (ord.status like :status) THEN (ordd.quanlity * ordd.price) ELSE 0 end), "
+				+ "MIN(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end), "
+				+ "MAX(CASE WHEN (ord.status like :status) THEN ordd.price ELSE 0 end), "
+				+ "AVG(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end))"
 				+" from OrderDetail ordd join ordd.order ord group by year(ord.orderDate),CEILING((MONTH(ord.orderDate)+1)/3)";
-		TypedQuery<ReportRevenueByQuarter> query = entityManager.createQuery(sql,ReportRevenueByQuarter.class);
+		TypedQuery<ReportRevenueByQuarter> query = entityManager.createQuery(sql,ReportRevenueByQuarter.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportRevenueByQuarter> list = query.getResultList();
 		return list;
 	}
 	
 	public List<ReportRevenueByMonth> reportRevenueByMonths(){
-		String sql = "select new " + ReportRevenueByMonth.class.getName() + " (year(ord.orderDate),MONTH(ord.orderDate), SUM(ordd.quanlity),SUM(ordd.quanlity * ordd.price), MIN(ordd.price), MAX(ordd.price), AVG(ordd.price))"
+		String sql = "select new " + ReportRevenueByMonth.class.getName() + " (year(ord.orderDate),MONTH(ord.orderDate), "
+				+ "SUM(CASE WHEN (ord.status like :status) THEN ordd.quanlity ELSE 0 end),"
+				+ "SUM(CASE WHEN (ord.status like :status) THEN (ordd.quanlity * ordd.price) ELSE 0 end), "
+				+ "MIN(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end), "
+				+ "MAX(CASE WHEN (ord.status like :status) THEN ordd.price ELSE 0 end), "
+				+ "AVG(CASE WHEN (ord.status like :status) THEN NULLIF(ordd.price,0) end))"
 				+" from OrderDetail ordd join ordd.order ord group by year(ord.orderDate),MONTH(ord.orderDate)";
-		TypedQuery<ReportRevenueByMonth> query = entityManager.createQuery(sql,ReportRevenueByMonth.class);
+		TypedQuery<ReportRevenueByMonth> query = entityManager.createQuery(sql,ReportRevenueByMonth.class).setParameter("status", "%" + "Đã giao" + "%");
 		List<ReportRevenueByMonth> list = query.getResultList();
 		return list;
 	}

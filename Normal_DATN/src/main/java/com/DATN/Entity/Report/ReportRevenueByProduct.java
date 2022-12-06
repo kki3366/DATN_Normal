@@ -2,10 +2,10 @@ package com.DATN.Entity.Report;
 
 public class ReportRevenueByProduct {
 	String nameProduct;
-	long totalQuantity;
-	long order;
-	double totalSub;
-	public ReportRevenueByProduct(String nameProduct, long totalQuantity, long order, double totalSub) {
+	Long totalQuantity;
+	Long order;
+	Double totalSub;
+	public ReportRevenueByProduct(String nameProduct, Long totalQuantity, Long order, Double totalSub) {
 		super();
 		this.nameProduct = nameProduct;
 		this.totalQuantity = totalQuantity;
@@ -18,22 +18,22 @@ public class ReportRevenueByProduct {
 	public void setNameProduct(String nameProduct) {
 		this.nameProduct = nameProduct;
 	}
-	public long getTotalQuantity() {
+	public Long getTotalQuantity() {
 		return totalQuantity;
 	}
-	public void setTotalQuantity(long totalQuantity) {
+	public void setTotalQuantity(Long totalQuantity) {
 		this.totalQuantity = totalQuantity;
 	}
-	public long getOrder() {
+	public Long getOrder() {
 		return order;
 	}
-	public void setOrder(long order) {
+	public void setOrder(Long order) {
 		this.order = order;
 	}
-	public double getTotalSub() {
+	public Double getTotalSub() {
 		return totalSub;
 	}
-	public void setTotalSub(double totalSub) {
+	public void setTotalSub(Double totalSub) {
 		this.totalSub = totalSub;
 	}
 	

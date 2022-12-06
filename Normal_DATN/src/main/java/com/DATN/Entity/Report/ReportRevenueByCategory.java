@@ -2,13 +2,13 @@ package com.DATN.Entity.Report;
 
 public class ReportRevenueByCategory {
 	String nameCategory;
-	long quantiyProduct;
-	double subTotal;
-	double minProduct;
-	double maxProdouct;
-	double avgProduct;
-	public ReportRevenueByCategory(String nameCategory, long quantiyProduct, double subTotal, double minProduct,
-			double maxProdouct, double avgProduct) {
+	Long quantiyProduct;
+	Double subTotal;
+	Double minProduct;
+	Double maxProdouct;
+	Double avgProduct;
+	public ReportRevenueByCategory(String nameCategory, Long quantiyProduct, Double subTotal, Double minProduct,
+			Double maxProdouct, Double avgProduct) {
 		super();
 		this.nameCategory = nameCategory;
 		this.quantiyProduct = quantiyProduct;
@@ -23,37 +23,35 @@ public class ReportRevenueByCategory {
 	public void setNameCategory(String nameCategory) {
 		this.nameCategory = nameCategory;
 	}
-	public long getQuantiyProduct() {
+	public Long getQuantiyProduct() {
 		return quantiyProduct;
 	}
-	public void setQuantiyProduct(long quantiyProduct) {
+	public void setQuantiyProduct(Long quantiyProduct) {
 		this.quantiyProduct = quantiyProduct;
 	}
-	public double getSubTotal() {
+	public Double getSubTotal() {
 		return subTotal;
 	}
-	public void setSubTotal(double subTotal) {
+	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
 	}
-	public double getMinProduct() {
+	public Double getMinProduct() {
 		return minProduct;
 	}
-	public void setMinProduct(double minProduct) {
+	public void setMinProduct(Double minProduct) {
 		this.minProduct = minProduct;
 	}
-	public double getMaxProdouct() {
+	public Double getMaxProdouct() {
 		return maxProdouct;
 	}
-	public void setMaxProdouct(double maxProdouct) {
+	public void setMaxProdouct(Double maxProdouct) {
 		this.maxProdouct = maxProdouct;
 	}
-	public double getAvgProduct() {
+	public Double getAvgProduct() {
 		return avgProduct;
 	}
-	public void setAvgProduct(double avgProduct) {
+	public void setAvgProduct(Double avgProduct) {
 		this.avgProduct = avgProduct;
 	}
-	
-	
 	
 }
