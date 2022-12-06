@@ -354,6 +354,10 @@ if (convertUrl.pathname = '/admin/product') {
 						},
 						409: function(error) {
 							$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Vui lòng chọn hoặc tạo danh mục' + '</div>')
+						},
+						423: function(error) {
+							$("#messageProduct").html('<div class="alert alert-danger alert-dismissible">' + '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>' + '<h4><i class="icon fa fa-ban"></i> Thông Báo!</h4>' + 'Trùng tên sản phẩm' + '</div>')
+							$('#nameProduct').focus();
 						}
 					}
 				})

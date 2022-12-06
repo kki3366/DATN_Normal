@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -35,6 +37,7 @@ public class Category implements Serializable{
 	Integer id;
 	
 	@NotEmpty(message = "Không được để trống tên danh mục")
+	@Size(max = 50, message = "Tên danh mục tối đa là 50 kí tự")
 	@Column(name = "Name")
 	String nameCategory;
 	
