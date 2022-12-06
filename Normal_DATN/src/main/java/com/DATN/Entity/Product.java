@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,6 +45,7 @@ public class Product implements Serializable{
 	int id;
 	
 	@NotEmpty(message = "Không được để trống tên sản phẩm")
+	@Size(max = 50, message = "Tên sản phẩm tối là 50 kí tự")
 	@Column(name = "Name")
 	String name;
 	

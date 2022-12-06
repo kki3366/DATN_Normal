@@ -63,11 +63,15 @@ public class RestProduct {
 					System.err.println("dang null");
 					return new ResponseEntity<>(HttpStatus.CONFLICT); 
 				}else {
-					FileUploadUtil fileUtil = new FileUploadUtil();
-					fileUtil.saveFile(file, app);
-					products.setImgage(fileUtil.getGetFileNameForEntity());
-					products.setAvailable(true);
-					return new ResponseEntity<Product>(productService.saveProductsService(products), HttpStatus.CREATED);
+					if(productService.checkProductExit(products.getName())> 0) {
+						return new ResponseEntity<>(HttpStatus.LOCKED); 
+					}else {
+						FileUploadUtil fileUtil = new FileUploadUtil();
+						fileUtil.saveFile(file, app);
+						products.setImgage(fileUtil.getGetFileNameForEntity());
+						products.setAvailable(true);
+						return new ResponseEntity<Product>(productService.saveProductsService(products), HttpStatus.CREATED);
+					}
 				}
 		}
 
