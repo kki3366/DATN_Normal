@@ -125,12 +125,15 @@ public class cart {
 	@RequestMapping("/updateCart")
 	public String update( 
 			@RequestParam("idcart") Integer id,
-			@RequestParam("qty") Integer qty
+			@RequestParam("qty") Integer qty,@RequestParam("idProduct") Integer idProduct
 			) {
 	
-		
+		Product product = productRepository.getById(idProduct);
+		if(qty <=0 || qty> product.getQuantity()) {
+			
+		}else {
 			cart.update(id,qty);
-		
+		}
 		return "redirect:/cart";
 	}
 	@RequestMapping("/deleteCart/{id}")

@@ -79,7 +79,7 @@ public class OrderController {
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
 			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s ){
 	
-	order.setOrderDate(order.getOrderDate());
+	
 	order.setStatus(order.getStatus());
 	ordersRepository.save(order);
 	int currentPage = p.orElse(0);

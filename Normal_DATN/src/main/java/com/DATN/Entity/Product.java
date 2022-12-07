@@ -45,7 +45,7 @@ public class Product implements Serializable{
 	int id;
 	
 	@NotEmpty(message = "Không được để trống tên sản phẩm")
-	@Size(max = 50, message = "Tên sản phẩm tối là 50 kí tự")
+	@Size(max = 100, message = "Tên sản phẩm tối là 100 kí tự")
 	@Column(name = "Name")
 	String name;
 	

@@ -31,11 +31,7 @@
 										placeholder="Enter User">
 								</div>
 							
-							  <div class="form-group">
-									<label for="exampleInputPassword1">Order Date</label><br> <input
-										readonly th:field="*{orderDate}" type="text" class="form-control"
-										placeholder="Enter Order Date">
-								</div> 
+							  <
 								<div class="form-group">
 									<label for="exampleInputPassword1">Phone</label><br> <i
 										style="color: red" th:text="${ktPhone}"></i> <input readonly
@@ -47,16 +43,17 @@
 										readonly th:field="*{address}" type="text"
 										class="form-control" placeholder="Enter Address">
 								</div>
-								<div class="form-group">
-									<label for="exampleInputPassword1">Description</label><br>
-									<Input readonly th:field="*{description}" type="text"
-										class="form-control" placeholder="Enter Description">
-								</div>
-								<div class="form-group">
+										<div class="form-group">
 									<label for="exampleInputPassword1">Amount</label><br> <input
 										readonly th:field="*{amount}"  class="form-control"
 										placeholder="Enter Amount">
 								</div>
+								<div class="form-group">
+									<label for="exampleInputPassword1">Description</label><br>
+									<textarea readonly th:field="*{description}" type="text"
+										class="form-control" placeholder="Enter Description"></textarea>
+								</div>
+						
 								<div>
 									<label for="exampleInputPassword1">Status</label><br> <input
 										th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;

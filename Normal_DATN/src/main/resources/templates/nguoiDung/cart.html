@@ -63,6 +63,7 @@
                                                         <td class="product-price">₫[[${#numbers.formatDecimal(HoLy.priceProductCart, 0, 'POINT', 0, 'NONE')}]]</td>
                                                  <form th:action="@{/updateCart}" th:method="post"  > 
                                                    <input type="hidden" name="idcart" th:value="${HoLy.id}">
+                                                     <input type="hidden" name="idProduct" th:value="${HoLy.product.id}">
                                                         <td class="product_quantity"><input name="qty"  min="1" max="100" type="number" th:value="${HoLy.quanlityProductCart}" th:onblur="this.form.submit()"></td>
                                                         <td class="product_total">₫[[${#numbers.formatDecimal(HoLy.priceProductCart * HoLy.quanlityProductCart, 0, 'POINT', 0, 'NONE')}]]</td>
    									

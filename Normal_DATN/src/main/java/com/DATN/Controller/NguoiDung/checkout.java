@@ -113,8 +113,7 @@ public class checkout {
 			return "nguoiDung/checkout";
 
 		}else {
-			Date date = new Date();
-			order.setOrderDate(date);
+			
 			order.setStatus("Đã đặt");
 			ordersRepository.save(order);
 			int id = order.getId();

@@ -12,12 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,15 +27,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Orders {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Orderid")
 	int id;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Date")
-//	Date orderDate = new Date();
-	Date orderDate;
+	Date orderDate = new Date();
 	
 	@Column(name = "Telephone")
 	String phone;
@@ -50,7 +44,7 @@ public class Orders {
 	String address;
 	
 	@Column(name = "Amount")
-	Double amount;
+	Long amount;
 	
 	@Column(name = "Description")
 	String description;
@@ -94,11 +88,11 @@ public class Orders {
 		this.address = address;
 	}
 
-	public Double getAmount() {
+	public Long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Double amount) {
+	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
 
@@ -125,7 +119,5 @@ public class Orders {
 	public void setUser(users user) {
 		this.user = user;
 	}
-	
-	
-	
+		
 }
