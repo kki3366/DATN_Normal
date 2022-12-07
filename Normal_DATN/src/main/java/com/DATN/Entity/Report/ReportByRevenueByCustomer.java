@@ -2,13 +2,13 @@ package com.DATN.Entity.Report;
 
 public class ReportByRevenueByCustomer {
 	String userId;
-	long quantity;
-	double subTotal;
-	double minPriceProduct;
-	double maxPriceProduct;
-	double avgPriceProduct;
-	public ReportByRevenueByCustomer(String userId, long quantity, double subTotal, double minPriceProduct,
-			double maxPriceProduct, double avgPriceProduct) {
+	Long quantity;
+	Double subTotal;
+	Double minPriceProduct;
+	Double maxPriceProduct;
+	Double avgPriceProduct;
+	public ReportByRevenueByCustomer(String userId, Long quantity, Double subTotal, Double minPriceProduct,
+			Double maxPriceProduct, Double avgPriceProduct) {
 		super();
 		this.userId = userId;
 		this.quantity = quantity;
@@ -23,34 +23,34 @@ public class ReportByRevenueByCustomer {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public long getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(long quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
-	public double getSubTotal() {
+	public Double getSubTotal() {
 		return subTotal;
 	}
-	public void setSubTotal(double subTotal) {
+	public void setSubTotal(Double subTotal) {
 		this.subTotal = subTotal;
 	}
-	public double getMinPriceProduct() {
+	public Double getMinPriceProduct() {
 		return minPriceProduct;
 	}
-	public void setMinPriceProduct(double minPriceProduct) {
+	public void setMinPriceProduct(Double minPriceProduct) {
 		this.minPriceProduct = minPriceProduct;
 	}
-	public double getMaxPriceProduct() {
+	public Double getMaxPriceProduct() {
 		return maxPriceProduct;
 	}
-	public void setMaxPriceProduct(double maxPriceProduct) {
+	public void setMaxPriceProduct(Double maxPriceProduct) {
 		this.maxPriceProduct = maxPriceProduct;
 	}
-	public double getAvgPriceProduct() {
+	public Double getAvgPriceProduct() {
 		return avgPriceProduct;
 	}
-	public void setAvgPriceProduct(double avgPriceProduct) {
+	public void setAvgPriceProduct(Double avgPriceProduct) {
 		this.avgPriceProduct = avgPriceProduct;
 	}
 	
