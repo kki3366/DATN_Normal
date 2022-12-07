@@ -63,6 +63,8 @@ public class index {
 		
         
 		Pageable pageableBanChay = PageRequest.of(0,5);
+		Page<Product> item2 = productRepository.findSPMoi(pageableBanChay);
+		model.addAttribute("item2", item2);
 //		
 		
 		return "nguoiDung/index";

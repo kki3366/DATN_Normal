@@ -147,13 +147,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="product_active owl-carousel">
-                                                <div th:each="HoLy:${item}"  class="col-lg-3">
+                                                <div th:each="HoLy:${item2}"  class="col-lg-3">
                                              
                                                     <div class="single_product">
                                                         <div class="product_thumb">
                                                            <a th:href="@{|/singleProduct/${HoLy.id}|}"><img th:src="@{|/imgProducts/${HoLy.image}.png|}" alt=""></a> 
                                                            <div class="img_icone">
-                                                               <img src="assets\img\cart\span-new.png" alt="">
+                                                              
                                                            </div>
                                                          
                                                                       <div th:if="${HoLy.available} != true">
