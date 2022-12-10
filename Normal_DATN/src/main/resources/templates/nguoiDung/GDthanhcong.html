@@ -1,7 +1,8 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html
-	style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #464646; margin: 0; padding: 0;">
+	style="-moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; background-color: #464646; margin: 0; padding: 0;"
+	xmlns= "http://www.thymeleaf.org">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -99,13 +100,12 @@
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
 								<strong>Chi tiết giao dịch:</strong><br /> Tổng số tiền:
-								€$moneyFormatter.format(${amount}) <br /> Tài khoảng:
-								${accountNumber}.<br />
+								[[${#numbers.formatDecimal(total/100, 0, 'POINT', 0, 'NONE')}]]₫  <br /> Tài khoảng:
+								[[${account}]]<br />
 							</p> <br>
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
-								We advise to keep this email for future
-								reference.&nbsp;&nbsp;&nbsp;&nbsp;<br />
+								Chúng tôi sẽ gửi chi tiết giao dịch này về email của bạn. Bạn nên giữ email này để làm tham khảo trong tương lai
 							</p>
 						</td>
 						<td width="36"
@@ -130,10 +130,10 @@
 							style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;">
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
-								<strong>Số giao dịch: ${authorizationCode}</strong>
+								<strong>Số giao dịch: [[${TranNo}]]</strong>
 							</p>
 							<p
-								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">Ngày giao dịch: [time] [date]</p>
+								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">Ngày giao dịch: [[${#temporals.format(dateTran, 'dd/MM/yyyy')}]]</p>
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;"></p>
 						</td>

@@ -169,12 +169,14 @@ public class checkout {
 					productRepository.save(product);
 				}
 				
+				
+				// KHÚC NÀY LÀ KHÚC THANH TOÁN. CẤM ĐỤNG VÀO
 				VNPayConfiguration config = new VNPayConfiguration();
 				System.err.println("chiu");
 				//test sử lý vnpay
 				String vnp_Version = "2.1.0";
 		        String vnp_Command = "pay";
-		        String vnp_OrderInfo ="Tai khoang " + "[" + acc.getFullname() +"]" + " thanh toan tai hoa don so " + ord.getId() ;
+		        String vnp_OrderInfo = acc.getId() + " " + ord.getId() ;
 		        String orderType = "110004";
 		        String vnp_TxnRef = VNPayConfiguration.getRandomNumber(8);
 		        String vnp_IpAddr = VNPayConfiguration.getIpAddress(req);
@@ -230,19 +232,6 @@ public class checkout {
 		        String vnp_SecureHash = VNPayConfiguration.hmacSHA512(VNPayConfiguration.vnp_HashSecret, hashData.toString());
 		        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		        String paymentUrl = VNPayConfiguration.vnp_PayUrl + "?" + queryUrl;
-//		        URL url = new URL(paymentUrl);
-//		        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//		        connection.setRequestMethod("GET");
-//		        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//		        String inputLine;
-//		        StringBuilder response = new StringBuilder();
-//
-//		        while ((inputLine = in.readLine()) != null) {
-//		            response.append(inputLine);
-//		        }
-//		        in.close();
-//		        String Rsp = response.toString();
-//		        String respDecode = URLDecoder.decode(Rsp, "UTF-8");
 		        System.err.println(paymentUrl);
 				productRepository.save(product);	
 				cartService.clear(cart.getId());
