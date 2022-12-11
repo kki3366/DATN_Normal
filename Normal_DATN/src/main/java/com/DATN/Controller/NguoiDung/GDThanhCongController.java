@@ -4,15 +4,25 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +31,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.HttpStatusCodeException;
 
+import com.DATN.Entity.users;
+import com.DATN.Repository.UserRepository;
 import com.DATN.configuration.VNPayConfiguration;
 
 @Controller
@@ -31,6 +42,8 @@ public class GDThanhCongController {
 	@Autowired
 	HttpServletRequest req;
 
+	@Autowired
+	UserRepository user;
 	@RequestMapping(value = "paymentSuccess", method = RequestMethod.GET)
 	public String a(@RequestParam Map<String, String> getAllParam, Model model) throws UnsupportedEncodingException, ParseException {
 
@@ -76,6 +89,70 @@ public class GDThanhCongController {
 					
 					// Thằng Trung code ở đây cho t
 					//Gửi mấy cái t đánh dấu lại cho email người dùng, xong rồi chuyển trang
+					
+					users acc = user.getById(req.getRemoteUser());
+					
+					Properties props = new Properties(); 
+					props.setProperty("mail.smtp.auth", "true");
+					props.setProperty("mail.smtp.starttls.enable", "true"); 
+					props.setProperty("mail.smtp.host", "smtp.gmail.com"); 
+					props.setProperty("mail.smtp.ssl.trust","smtp.gmail.com");
+					props.setProperty("mail.smtp.ssl.protocols","TLSv1.2");
+					props.setProperty("mail.smtp.port", "587");
+					
+					Session session = Session.getInstance(props, new Authenticator() { 
+						protected PasswordAuthentication getPasswordAuthentication() {
+					
+						String username = "holywatchshop@gmail.com";
+						String password = "wppmztfzsqjazrfw";
+						return new PasswordAuthentication(username, password);
+						}
+					});
+					
+					MimeMessage mime = new MimeMessage(session);
+					
+					try {
+						Multipart mailmultipart = new MimeMultipart();
+						
+						MimeBodyPart bodytext = new MimeBodyPart();
+						
+						String content= "Cảm ơn Quý khách đã thanh toán thành công đơn hàng "+
+								"\n\n Loại thẻ: "+ cardType +
+								"\n Tên ngân hàng: "+bankName+
+								"\n Người dùng: "+name+
+								"\n Tổng giá tiền: "+amount+" ₫"+
+								"\n Mã giao dịch: "+TranNo+
+								"\n Ngày giao dịch: "+ldt+
+								
+								"\n\n Cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
+						          "\n Hotline:(0292) 7300 468"+
+								"\n Email: holywatchshop@gmail.com";
+						String subject="HoLy Watch";
+						bodytext.setText(content);
+						
+						
+						mailmultipart.addBodyPart(bodytext);
+				
+						mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
+						mime.setRecipients(Message.RecipientType.TO,acc.getEmail());
+						mime.setSubject(subject,"utf-8");
+						mime.setReplyTo(mime.getFrom());
+						mime.setText(content,"utf-8");
+						
+						Transport.send(mime);
+						
+		
+					} catch (AddressException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						
+					} catch (MessagingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						
+					}	
 				}else {
 					//Không thành công - Hủy thanh toán
 					if("24".equals(req.getParameter("vnp_ResponseCode"))) {

@@ -255,8 +255,10 @@ public class ContactController {
 			Session session = Session.getInstance(props, new Authenticator() { 
 				protected PasswordAuthentication getPasswordAuthentication() {
 			
-				String username = "holywatchct@gmail.com";
-				String password = "kgmtmuieyixjkwbq";
+				String username = "holywatchshop@gmail.com";
+//				String password = "itjpllfnufgbojki";
+				String password = "wppmztfzsqjazrfw";
+				
 				return new PasswordAuthentication(username, password);
 				}
 			});
@@ -274,7 +276,7 @@ public class ContactController {
 				
 				mailmultipart.addBodyPart(bodytext);
 		
-				mime.setFrom(new InternetAddress("trungttpc01815@fpt.edu.vn"));
+				mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
 				mime.setRecipients(Message.RecipientType.TO,Contact.getEmail());
 				mime.setSubject(subject,"utf-8");
 				mime.setReplyTo(mime.getFrom());

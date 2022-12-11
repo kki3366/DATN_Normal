@@ -262,8 +262,8 @@ public class TaiKhoan {
 		Session session = Session.getInstance(props, new Authenticator() { 
 			protected PasswordAuthentication getPasswordAuthentication() {
 //				   svzdetnyddotvaqs
-			String username = "holywatchct@gmail.com";
-			String password = "kgmtmuieyixjkwbq";
+			String username = "holywatchshop@gmail.com";
+			String password = "wppmztfzsqjazrfw";
 			return new PasswordAuthentication(username, password);
 			}
 		});
@@ -281,7 +281,7 @@ public class TaiKhoan {
 			
 			mailmultipart.addBodyPart(bodytext);
 	
-			mime.setFrom(new InternetAddress("trungttpc01815@fpt.edu.vn"));
+			mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
 			mime.setRecipients(Message.RecipientType.TO,email);
 			mime.setSubject(tieude,"utf-8");
 			mime.setReplyTo(mime.getFrom());
