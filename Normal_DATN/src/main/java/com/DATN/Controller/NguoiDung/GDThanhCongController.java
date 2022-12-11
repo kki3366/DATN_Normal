@@ -3,11 +3,14 @@ package com.DATN.Controller.NguoiDung;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -115,16 +118,15 @@ public class GDThanhCongController {
 						Multipart mailmultipart = new MimeMultipart();
 						
 						MimeBodyPart bodytext = new MimeBodyPart();
-						
+						DecimalFormat formatter = new DecimalFormat("###,###,###");
 						String content= "Cảm ơn Quý khách đã thanh toán thành công đơn hàng "+
 								"\n\n Loại thẻ: "+ cardType +
 								"\n Tên ngân hàng: "+bankName+
 								"\n Người dùng: "+name+
-								"\n Tổng giá tiền: "+amount+" ₫"+
+								"\n Tổng giá tiền: "+formatter.format(Integer.parseInt(amount))+" VNĐ"+
 								"\n Mã giao dịch: "+TranNo+
 								"\n Ngày giao dịch: "+ldt+
-								
-								"\n\n Cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
+								"\n Cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
 						          "\n Hotline:(0292) 7300 468"+
 								"\n Email: holywatchshop@gmail.com";
 						String subject="HoLy Watch";
