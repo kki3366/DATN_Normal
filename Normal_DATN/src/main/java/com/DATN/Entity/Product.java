@@ -50,7 +50,7 @@ public class Product implements Serializable{
 	String name;
 	
 	@NotNull(message = "Không được để trống giá sản phẩm")
-	@Min(value = 1000, message = "Giá nhỏ nhất phải là 1.000 đồng")
+	@Min(value = 40000, message = "Giá nhỏ nhất phải là 40.000 đồng")
 	@Column(name = "Price")
 	Double price;
 	
