@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import com.DATN.configuration.VNPayConfiguration;
@@ -54,6 +55,12 @@ public class GDThanhCongController {
 			String signValue = VNPayConfiguration.hashAllFields(fields);
 			if (signValue.equals(vnp_SecureHash)) {
 				if ("00".equals(req.getParameter("vnp_ResponseCode"))) {
+					
+					 boolean checkOrderId = true; // vnp_TxnRef đơn hàng có tồn tại trong database merchant
+				        boolean checkAmount = true; // vnp_Amount is valid  (so sánh số tiền VNPAY request và sô tiền của giao dịch trong database merchant)
+				        boolean checkOrderStatus = true;
+					
+					
 					// Tên ngân hàng - Cần gửi mail
 					String bankName = getAllParam.get("vnp_BankCode");
 					// Tổng giá tiền - Cần gửi mail

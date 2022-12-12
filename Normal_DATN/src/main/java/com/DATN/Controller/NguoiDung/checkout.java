@@ -23,6 +23,7 @@ import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,8 @@ import com.DATN.Service.CartService;
 import com.DATN.Service.ProductService;
 import com.DATN.Unit.FileUploadUtil;
 import com.DATN.configuration.VNPayConfiguration;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Controller
 @Validated
@@ -66,6 +69,9 @@ public class checkout {
 	UserRepository userRepository;
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	HttpServletResponse resp;
 	
 	@Autowired
 	ProductService productService;
@@ -232,6 +238,12 @@ public class checkout {
 		        String vnp_SecureHash = VNPayConfiguration.hmacSHA512(VNPayConfiguration.vnp_HashSecret, hashData.toString());
 		        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		        String paymentUrl = VNPayConfiguration.vnp_PayUrl + "?" + queryUrl;
+		        JsonObject job = new JsonObject();
+		        job.addProperty("code", "00");
+		        job.addProperty("message", "success");
+		        job.addProperty("data", paymentUrl);
+		        Gson gson = new Gson();
+		        resp.getWriter().write(gson.toJson(job));
 		        System.err.println(paymentUrl);
 				productRepository.save(product);	
 				cartService.clear(cart.getId());
