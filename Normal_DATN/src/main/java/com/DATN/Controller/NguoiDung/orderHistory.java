@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.exceptions.TemplateInputException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -198,45 +199,50 @@ public class orderHistory {
 	
 	@RequestMapping(value = "/refundResult/{t}")
 	public String t(@PathVariable String t, Model model) throws IOException {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		VNPayConfiguration config = new VNPayConfiguration();
-		String paymentUrl = config.vnp_apiUrl + "?" + t;
-		URL url = new URL(paymentUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        String Rsp = response.toString();
-        String respDecode = URLDecoder.decode(Rsp, "UTF-8");
-        MultiValueMap<String, String> query = UriComponentsBuilder.fromUriString(config.vnp_apiUrl + "?" +respDecode).build().getQueryParams();
-        if("[97]".equals(query.get("vnp_ResponseCode").toString())) {
-        	System.err.println("sai chu ki");
-        }else {
-        	String amounRefund = query.get("vnp_Amount").toString().replace("[", "").replace("]", "");
-        	String Ref = query.get("vnp_TxnRef").toString().replace("[", "").replace("]", "");
-        	String dateTran = query.get("vnp_PayDate").toString().replace("[", "").replace("]", "");
-        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern( "uuuuMMddHHmmss" );
-			LocalDateTime ldt = LocalDateTime.parse( dateTran ,dtf);
-            model.addAttribute("amounRefund", Integer.parseInt(amounRefund));
-            model.addAttribute("username", currentPrincipalName);
-            model.addAttribute("Ref", Ref);
-            model.addAttribute("dateTran", ldt);
-            
-            //Mail hoàn tiền
-            
-            
-            
-            System.err.println(query);
-            System.err.println(query.get("vnp_Amount").toString());
-        }
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String currentPrincipalName = authentication.getName();
+			VNPayConfiguration config = new VNPayConfiguration();
+			String paymentUrl = config.vnp_apiUrl + "?" + t;
+			URL url = new URL(paymentUrl);
+	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        connection.setRequestMethod("GET");
+	        BufferedReader in = new BufferedReader(
+	                new InputStreamReader(connection.getInputStream()));
+	        String inputLine;
+	        StringBuilder response = new StringBuilder();
+	        while ((inputLine = in.readLine()) != null) {
+	            response.append(inputLine);
+	        }
+	        in.close();
+	        String Rsp = response.toString();
+	        String respDecode = URLDecoder.decode(Rsp, "UTF-8");
+	        MultiValueMap<String, String> query = UriComponentsBuilder.fromUriString(config.vnp_apiUrl + "?" +respDecode).build().getQueryParams();
+	        if("[97]".equals(query.get("vnp_ResponseCode").toString())) {
+	        	System.err.println("sai chu ki");
+	        }else {
+	        	String amounRefund = query.get("vnp_Amount").toString().replace("[", "").replace("]", "");
+	        	String Ref = query.get("vnp_TxnRef").toString().replace("[", "").replace("]", "");
+	        	String dateTran = query.get("vnp_PayDate").toString().replace("[", "").replace("]", "");
+	        	DateTimeFormatter dtf = DateTimeFormatter.ofPattern( "uuuuMMddHHmmss" );
+				LocalDateTime ldt = LocalDateTime.parse( dateTran ,dtf);
+	            model.addAttribute("amounRefund", Integer.parseInt(amounRefund));
+	            model.addAttribute("username", currentPrincipalName);
+	            model.addAttribute("Ref", Ref);
+	            model.addAttribute("dateTran", ldt);
+	            
+	            //Mail hoàn tiền
+	            
+	            
+	            
+	            System.err.println(query);
+	            System.err.println(query.get("vnp_Amount").toString());
+	        }
+			return "nguoiDung/Refundthanhcong";
+		} catch (NullPointerException e) {
+			return "redirect:/index";
+		}
 
-		return "nguoiDung/Refundthanhcong";
+	
 	}
 }
