@@ -133,7 +133,7 @@ public class GDThanhCongController {
 								"\n\n Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
 								"\n------------------------------------------------------------"+
 								"\n Đây là email tự động, Quý khách vui lòng không trả lời email này.";
-						//
+						
 						String subject="HoLy Watch";
 						bodytext.setText(content);
 						
