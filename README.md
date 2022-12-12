@@ -87,6 +87,13 @@ Em xin chân thành cảm ơn!
 
 + IDE: Eclipse
 
++ Vnpay API: 2.1.0
+    - Thông tin truy cập Merchant Admin để quản lý giao dịch: https://sandbox.vnpayment.vn/merchantv2/
+    - Tên đăng nhập: deathhell1234m@gmail.com
+    - Mật khẩu: Toidaidot123
+    
+
+
 <a name="huongdan"></a>
 ## 3.*Hướng dẫn sử dụng*
 
