@@ -67,7 +67,7 @@
 							style="color: #F16522; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;">
 							<h1
 								style="color: #F16522; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 700; line-height: 34px; margin-bottom: 0; margin-top: 0;">
-								Giao dịch thành công</h1>
+								Hoàn tiền thành công</h1>
 						</td>
 						<td width="36"
 							style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;"></td>
@@ -96,24 +96,19 @@
 						<td
 							style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;">
 							<p
-								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">Bạn đã giao dịch thành công</p> <br>
+								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">Chúng tôi đã hoàn tiền cho bạn</p> <br>
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
-								<strong>Chi tiết giao dịch:</strong><br /> Tổng số tiền:
-								[[${#numbers.formatDecimal(total/100, 0, 'POINT', 0, 'NONE')}]]₫  <br /> Tài khoảng:
-								[[${account}]]<br />
+								<strong>Chi tiết giao dịch:</strong><br /> Tổng số tiền: [[${#numbers.formatDecimal(amounRefund/100, 0, 'POINT', 0, 'NONE')}]]₫
+								 <br /> Tài khoảng: [[${username}]]
+								<br />
 							</p> <br>
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
-								Chúng tôi sẽ gửi chi tiết giao dịch này về email của bạn. Bạn nên giữ email này để làm tham khảo trong tương lai
+								Chúng tôi sẽ gửi chi tiết giao dịch này về email của bạn. Bạn nên giữ email này để làm tham khảo trong tương lai. Thời gian hoàn tiền T+3 (sau 3 ngày)
 							
 							</p>
-							<form action="/">
-							<button formaction="index" style="float: right;display:flex;position:relative;
-							  background: #b10d0d;right:0;
-							  padding: 10px;color:white;text-transform:uppercase;font-weight:bold;
-							  border:none;box-shadow: #eac1c1 3px 5px 20px 1px">Tiếp tục mua sắm</button>
-							  </form>
+							
 						</td>
 						<td width="36"
 							style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;"></td>
@@ -137,10 +132,11 @@
 							style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 16px; vertical-align: top;">
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
-								<strong>Số giao dịch: [[${TranNo}]]</strong>
+								<strong>Số tham chiếu: [[${Ref}]]</strong>
 							</p>
 							<p
-								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">Ngày giao dịch: [[${#temporals.format(dateTran, 'dd/MM/yyyy')}]]</p>
+								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;">
+								Ngày giao dịch: [[${#temporals.format(dateTran, 'dd/MM/yyyy')}]] </p>
 							<p
 								style="color: #464646; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 22px; margin: 0;"></p>
 						</td>

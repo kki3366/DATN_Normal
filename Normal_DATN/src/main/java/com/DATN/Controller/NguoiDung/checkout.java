@@ -178,7 +178,6 @@ public class checkout {
 				
 				// KHÚC NÀY LÀ KHÚC THANH TOÁN. CẤM ĐỤNG VÀO
 				VNPayConfiguration config = new VNPayConfiguration();
-				System.err.println("chiu");
 				//test sử lý vnpay
 				String vnp_Version = "2.1.0";
 		        String vnp_Command = "pay";

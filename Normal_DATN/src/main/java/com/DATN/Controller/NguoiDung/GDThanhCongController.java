@@ -34,12 +34,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpStatusCodeException;
 
-
+import com.DATN.Entity.Payment;
 import com.DATN.Entity.users;
 import com.DATN.Repository.UserRepository;
+import com.DATN.Service.PaymentService;
 import com.DATN.configuration.VNPayConfiguration;
 
 @Controller
@@ -47,6 +49,9 @@ public class GDThanhCongController {
 
 	@Autowired
 	HttpServletRequest req;
+	
+	@Autowired
+	PaymentService paymentService;
 
 	@Autowired
 	UserRepository user;
@@ -85,6 +90,8 @@ public class GDThanhCongController {
 					String amount = getAllParam.get("vnp_Amount");
 					// ID người dùng - Cần gửi mail
 					String name = getAllParam.get("vnp_OrderInfo").split("\\s+")[0];
+					// Mã hóa đơn
+					String orderId = getAllParam.get("vnp_OrderInfo").split("\\s+")[1];
 					//Mã giao dịch ngân hàng - Cần gửi mail
 					String TranNo = getAllParam.get("vnp_BankTranNo");
 					//Ngày giao dịch - Cần gửi mail
@@ -99,6 +106,13 @@ public class GDThanhCongController {
 					model.addAttribute("TranNo", TranNo);
 					model.addAttribute("dateTran", ldt);
 					
+					Payment payment = new Payment();
+					payment.setTxnRef(getAllParam.get("vnp_TxnRef"));
+					payment.setAmount(Integer.parseInt(amount));
+					payment.setStatusPayment(getAllParam.get("vnp_ResponseCode"));
+					payment.setOrderId(Integer.parseInt(orderId));
+					payment.setAction("pay");
+					paymentService.savePayment(payment);
 					// Thằng Trung code ở đây cho t
 					//Gửi mấy cái t đánh dấu lại cho email người dùng, xong rồi chuyển trang
 					
