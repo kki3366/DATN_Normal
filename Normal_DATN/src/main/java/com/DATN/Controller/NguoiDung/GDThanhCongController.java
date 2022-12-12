@@ -106,8 +106,8 @@ public class GDThanhCongController {
 					Session session = Session.getInstance(props, new Authenticator() { 
 						protected PasswordAuthentication getPasswordAuthentication() {
 					
-						String username = "holywatchshop@gmail.com";
-						String password = "wppmztfzsqjazrfw";
+						String username = "trungttpc01815@fpt.edu.vn";
+						String password = "itjpllfnufgbojki";
 						return new PasswordAuthentication(username, password);
 						}
 					});
@@ -119,16 +119,20 @@ public class GDThanhCongController {
 						
 						MimeBodyPart bodytext = new MimeBodyPart();
 						DecimalFormat formatter = new DecimalFormat("###,###,###");
-						String content= "Cảm ơn Quý khách đã thanh toán thành công đơn hàng "+
-								"\n\n Loại thẻ: "+ cardType +
-								"\n Tên ngân hàng: "+bankName+
-								"\n Người dùng: "+name+
-								"\n Tổng giá tiền: "+formatter.format(Integer.parseInt(amount))+" VNĐ"+
-								"\n Mã giao dịch: "+TranNo+
-								"\n Ngày giao dịch: "+ldt+
-								"\n Cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
-						          "\n Hotline:(0292) 7300 468"+
-								"\n Email: holywatchshop@gmail.com";
+						String content= "Kính chào Quý khách,"+
+						         "\n\nQuý khách đã thanh toán thành công với"+
+								" Loại thẻ "+ cardType +
+								", Tên ngân hàng "+bankName+
+								
+								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount))+" đ"+
+								
+								", Ngày giao dịch "+ldt+"."+
+								
+						          "\n Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
+								" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
+								"\n\n Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
+								"\n------------------------------------------------------------"+
+								"\n Đây là email tự động, Quý khách vui lòng không trả lời email này.";
 						String subject="HoLy Watch";
 						bodytext.setText(content);
 						
