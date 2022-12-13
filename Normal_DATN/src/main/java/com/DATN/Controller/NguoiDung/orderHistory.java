@@ -295,7 +295,7 @@ public class orderHistory {
 					
 					
 					mailmultipart.addBodyPart(bodytext);
-			///
+			
 					mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
 					mime.setRecipients(Message.RecipientType.TO,acc.getEmail());
 					mime.setSubject(subject,"utf-8");
