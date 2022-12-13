@@ -27,6 +27,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,9 +41,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -50,10 +64,12 @@ import com.DATN.Entity.Cart;
 import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
 import com.DATN.Entity.Payment;
+import com.DATN.Entity.users;
 import com.DATN.Repository.CartRepository;
 import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
 import com.DATN.Repository.ProductRepository;
+import com.DATN.Repository.UserRepository;
 import com.DATN.Service.PaymentService;
 import com.DATN.configuration.VNPayConfiguration;
 import com.google.gson.Gson;
@@ -72,7 +88,8 @@ public class orderHistory {
 
 	@Autowired
 	PaymentService paymentService;
-	
+	@Autowired
+	UserRepository user;
 	@Autowired
 	HttpServletResponse resp;
 	
@@ -232,7 +249,73 @@ public class orderHistory {
 	            model.addAttribute("dateTran", ldt);
 	            
 	            //Mail hoàn tiền
-	            
+	            users acc = user.getById(req.getRemoteUser());
+				
+				Properties props = new Properties(); 
+				props.setProperty("mail.smtp.auth", "true");
+				props.setProperty("mail.smtp.starttls.enable", "true"); 
+				props.setProperty("mail.smtp.host", "smtp.gmail.com"); 
+				props.setProperty("mail.smtp.ssl.trust","smtp.gmail.com");
+				props.setProperty("mail.smtp.ssl.protocols","TLSv1.2");
+				props.setProperty("mail.smtp.port", "587");
+				
+				Session session = Session.getInstance(props, new Authenticator() { 
+					protected PasswordAuthentication getPasswordAuthentication() {
+				
+					String username = "trungttpc01815@fpt.edu.vn";
+					String password = "itjpllfnufgbojki";
+					return new PasswordAuthentication(username, password);
+					}
+				});
+				
+				MimeMessage mime = new MimeMessage(session);
+				
+				try {
+					Multipart mailmultipart = new MimeMultipart();
+					
+					MimeBodyPart bodytext = new MimeBodyPart();
+					DecimalFormat formatter = new DecimalFormat("###,###,###");
+					String content= "Kính chào Quý khách,"+
+					         "\n\nĐơn hàng của Quý khách đã hủy thành công"+
+					         "\nTôi liên hệ về khoản tiền hoàn lại mà bạn đã thực hiện vào ngày "+ldt+"."+
+
+					         "\n\nKhoản tiền hoàn lại của bạn đã được gửi vào tài khoản của bạn với số tiền "+formatter.format(Integer.parseInt(amounRefund))+" đ"+"."+ 
+					         "\nThông thường, ngân hàng nhận tiền sẽ mất từ ​​3 đến 5 ngày làm việc để ghi có tiền vào tài khoản của bạn."+
+
+					         "\n\nNếu bạn không thấy tiền hoàn lại trong tài khoản của mình,"+
+					         "hãy trả lời email này và chúng tôi sẽ xem xét ngay lập tức."+
+					         "\nTrong thời gian chờ đợi, vui lòng cho tôi biết nếu bạn có thêm bất kỳ câu hỏi hoặc thắc mắc nào — "+
+					          "tôi rất sẵn lòng trợ giúp!"+
+					         "\n\nCảm ơn,";
+							
+					         
+					
+					String subject="HoLy Watch";
+					bodytext.setText(content);
+					
+					
+					mailmultipart.addBodyPart(bodytext);
+			///
+					mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
+					mime.setRecipients(Message.RecipientType.TO,acc.getEmail());
+					mime.setSubject(subject,"utf-8");
+					mime.setReplyTo(mime.getFrom());
+					mime.setText(content,"utf-8");
+					
+					Transport.send(mime);
+					
+	
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+					
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+					
+				}	
 	            
 	            
 	            System.err.println(query);

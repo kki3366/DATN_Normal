@@ -108,8 +108,7 @@ public class GDThanhCongController {
 					payment.setOrderId(Integer.parseInt(orderId));
 					payment.setAction("pay");
 					paymentService.savePayment(payment);
-					// Thằng Trung code ở đây cho t
-					//Gửi mấy cái t đánh dấu lại cho email người dùng, xong rồi chuyển trang
+				
 					
 					users acc = user.getById(req.getRemoteUser());
 					
