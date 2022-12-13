@@ -72,22 +72,24 @@
                                                     </div>   
                                                   	    	    	    	    	    
                                                 </div>
+                                                    <i style="color:red">[[${loicheckout}]]</i>
                                                             <div class="payment_method">
                                                    <div class="panel-default">
-                                                      <!--       <input id="payment" name="check_method" type="radio" data-target="createp_account">
+                                                          <input id="payment" name="checkout" type="radio" data-target="createp_account" value="false">
                                                         <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Thanh toán bằng tiền mặt</label>
--->    
-                                                     <div id="method" class="collapse one" data-parent="#accordion">
+  
+                                                     <div id="methd" class="collapse one" data-parent="#accordion">
                                                            <div class="card-body1">
                                                                <p>Thanh toán khi nhận được hàng</p>
+                                                                 <input id="payment" checked="checked" name="checkout" type="radio" data-target="createp_account" value="null">
                                                             </div>
                                                         </div>
                                                     </div> 
                                                  <div class="panel-default">
-                                                     <!--      <input id="payment_defult" name="check_method" type="radio" data-target="createp_account">
-                                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">Ví điện tử <img src="assets\img\visha\papyel.png" alt=""></label>
-  -->    
-                                                        <div id="collapsedefult" class="collapse one" data-parent="#accordion">
+                                                           <input id="payment_defult" name="checkout" type="radio" data-target="createp_account" value="true">
+                                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">Ví điện tử <img src="assets\img\visha\vnpay.png" alt=""></label>
+   
+                                                        <div id="collapsedeful" class="collapse one" data-parent="#accordion">
                                                             <div class="card-body1">
                                                                <p>Thanh toán qua ví điện tử</p> 
                                                             </div>
