@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -191,12 +193,13 @@ public class checkout {
 				cartService.clear(cart.getId());
 				vnpayUrl = "thanhcong";
 				}else {
-				// KHÚC NÀY LÀ KHÚC THANH TOÁN. CẤM ĐỤNG VÀO
+					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+					String currentPrincipalName = authentication.getName();
 				VNPayConfiguration config = new VNPayConfiguration();
 				//test sử lý vnpay
 				String vnp_Version = "2.1.0";
 		        String vnp_Command = "pay";
-		        String vnp_OrderInfo = acc.getId() + " " + ord.getId() ;
+		        String vnp_OrderInfo = String.valueOf(ord.getId()) ;
 		        String orderType = "110004";
 		        String vnp_TxnRef = VNPayConfiguration.getRandomNumber(8);
 		        String vnp_IpAddr = VNPayConfiguration.getIpAddress(req);
@@ -252,13 +255,6 @@ public class checkout {
 		        String vnp_SecureHash = VNPayConfiguration.hmacSHA512(VNPayConfiguration.vnp_HashSecret, hashData.toString());
 		        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		        String paymentUrl = VNPayConfiguration.vnp_PayUrl + "?" + queryUrl;
-		        JsonObject job = new JsonObject();
-		        job.addProperty("code", "00");
-		        job.addProperty("message", "success");
-		        job.addProperty("data", paymentUrl);
-		        Gson gson = new Gson();
-		        resp.getWriter().write(gson.toJson(job));
-	
 				productRepository.save(product);	
 				cartService.clear(cart.getId());
 				vnpayUrl = paymentUrl;
