@@ -31,7 +31,7 @@
 										placeholder="Enter User">
 								</div>
 							
-							  <
+							  
 								<div class="form-group">
 									<label for="exampleInputPassword1">Phone</label><br> <i
 										style="color: red" th:text="${ktPhone}"></i> <input readonly
@@ -55,8 +55,9 @@
 								</div>
 						
 								<div>
-									<label for="exampleInputPassword1">Status</label><br> <input
-										th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;
+									<label for="exampleInputPassword1">Status</label><br>
+									 <input th:field="*{status}" type="radio" name="status" value="Đã đặt">Đã đặt&ensp;&ensp;
+										 <input th:field="*{status}" type="radio" name="status" value="Đã thanh toán">Đã thanh toán&ensp;&ensp;
 									 <input th:field="*{status}" type="radio"name="status" value="Đã hủy">Đã hủy&ensp;&ensp; 
 										<input th:field="*{status}" type="radio" name="status"value="Đã giao">Đã giao
 								</div>

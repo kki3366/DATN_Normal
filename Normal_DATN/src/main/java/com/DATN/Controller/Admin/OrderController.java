@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.DATN.SessionService;
 import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
+import com.DATN.Entity.Product;
 import com.DATN.Entity.users;
 import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.OrdersRepository;
+import com.DATN.Repository.ProductRepository;
 import com.DATN.Service.OrderService;
 import com.DATN.Service.OrderServiceImpl;
 
@@ -41,6 +43,8 @@ public class OrderController {
 	OrderServiceImpl orderServiceImpl;
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
+	@Autowired
+	ProductRepository productRepository;
 	@Autowired
 	SessionService session;	
 	@RequestMapping("/admin/order")
@@ -78,10 +82,21 @@ public class OrderController {
 	@PostMapping("/admin/order/update")
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
 			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s ){
-	
+		Orders orders = ordersRepository.getById(order.getId());
+		if(orders.getStatus().equals("Đã hủy")) {
+			
+		}else {
 	
 	order.setStatus(order.getStatus());
 	ordersRepository.save(order);
+	if(order.getStatus().equals("Đã hủy")) {
+	List<OrderDetail> item = orderDetailRepository.findByIdOrder(order.getId());
+	for(OrderDetail od:item) {
+		Product product = productRepository.findByNameProduct(od.getName());
+		product.setQuantity(product.getQuantity() + od.getQuanlity());
+		productRepository.save(product);
+	}
+	}}
 	int currentPage = p.orElse(0);
 	int pagesize = s.orElse(5);
 	Pageable pageable = PageRequest.of(currentPage, pagesize);

@@ -257,6 +257,8 @@ public class checkout {
 		        String paymentUrl = VNPayConfiguration.vnp_PayUrl + "?" + queryUrl;
 				productRepository.save(product);	
 				cartService.clear(cart.getId());
+				order.setStatus("Đã thanh toán");
+				ordersRepository.save(order);
 				vnpayUrl = paymentUrl;
 			}
 			}
