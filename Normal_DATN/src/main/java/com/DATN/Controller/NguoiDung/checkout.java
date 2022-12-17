@@ -27,11 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AcceptAction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DATN.Entity.Cart;
 import com.DATN.Entity.Category;
@@ -105,11 +108,17 @@ public class checkout {
 		
 	}
 	
+	@RequestMapping("/thanhcong")
+	public String thanhCong(Model model) {
+		return "nguoiDung/bangtienmat";
+	}
+	
 	@RequestMapping(value = "/addOrder")
-	public String add( Orders order ,Model model) throws IOException {
+	public String add( Orders order ,Model model, @RequestParam("checkout") String checkout) throws IOException {
 		String vnpayUrl = null;
 		users acc = userRepository.getById(req.getRemoteUser());
-		if(order.getPhone().isEmpty() || order.getAddress().isEmpty() || order.getPhone().length()>11 || order.getPhone().length()<9  ) {
+		if(order.getPhone().isEmpty() || order.getAddress().isEmpty() || order.getPhone().length()>11 || order.getPhone().length()<9 
+				|| order.getPhone().equals("0000000000") || checkout.equals("null")) {
 
 			List<Cart> item = cartRepository.findByIdUser(req.getRemoteUser());
 			
@@ -130,14 +139,17 @@ public class checkout {
 			if(order.getPhone().isEmpty()) {		
 			model.addAttribute("loiphone", "Vui lòng nhập số điện thoại");
 			}
-			if(order.getPhone().length()>11 || order.getPhone().length()<9  ) {
+			if(order.getPhone().length()>11 || order.getPhone().length()<9 || order.getPhone().equals("0000000000") ) {
 				model.addAttribute("loiphone", "Vui lòng nhập đúng số điện thoại");
 			}
 		
 			if(order.getAddress().isEmpty()) {	
 				model.addAttribute("loiaddress", "Vui lòng nhập địa chỉ");
 			}
-			
+
+			if(checkout.equals("null")) {	
+				model.addAttribute("loicheckout", "Vui lòng chọn hình thức thanh toán");
+			}
 			return "nguoiDung/checkout";
 
 		}else {
@@ -173,15 +185,21 @@ public class checkout {
 				}else {
 					product.setQuantity(total);
 					productRepository.save(product);
-				}
+				} 
 				
 				
-				// KHÚC NÀY LÀ KHÚC THANH TOÁN. CẤM ĐỤNG VÀO
+				if(checkout.equals("false")) {
+				productRepository.save(product);	
+				cartService.clear(cart.getId());
+				vnpayUrl = "thanhcong";
+				}else {
+					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+					String currentPrincipalName = authentication.getName();
 				VNPayConfiguration config = new VNPayConfiguration();
 				//test sử lý vnpay
 				String vnp_Version = "2.1.0";
 		        String vnp_Command = "pay";
-		        String vnp_OrderInfo = acc.getId() + " " + ord.getId() ;
+		        String vnp_OrderInfo = String.valueOf(ord.getId()) ;
 		        String orderType = "110004";
 		        String vnp_TxnRef = VNPayConfiguration.getRandomNumber(8);
 		        String vnp_IpAddr = VNPayConfiguration.getIpAddress(req);
@@ -237,20 +255,15 @@ public class checkout {
 		        String vnp_SecureHash = VNPayConfiguration.hmacSHA512(VNPayConfiguration.vnp_HashSecret, hashData.toString());
 		        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
 		        String paymentUrl = VNPayConfiguration.vnp_PayUrl + "?" + queryUrl;
-		        JsonObject job = new JsonObject();
-		        job.addProperty("code", "00");
-		        job.addProperty("message", "success");
-		        job.addProperty("data", paymentUrl);
-		        Gson gson = new Gson();
-		        resp.getWriter().write(gson.toJson(job));
-		        System.err.println(paymentUrl);
 				productRepository.save(product);	
 				cartService.clear(cart.getId());
+				order.setStatus("Đã thanh toán");
+				ordersRepository.save(order);
 				vnpayUrl = paymentUrl;
 			}
-		
+			}
 			return "redirect:" + vnpayUrl;
-	
+//			}
 		}
 	}	
 }

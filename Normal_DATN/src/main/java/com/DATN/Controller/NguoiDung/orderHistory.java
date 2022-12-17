@@ -64,6 +64,7 @@ import com.DATN.Entity.Cart;
 import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Orders;
 import com.DATN.Entity.Payment;
+import com.DATN.Entity.Product;
 import com.DATN.Entity.users;
 import com.DATN.Repository.CartRepository;
 import com.DATN.Repository.OrderDetailRepository;
@@ -85,7 +86,8 @@ public class orderHistory {
 	HttpServletRequest req;
 	@Autowired
 	CartRepository cartRepository;
-
+	@Autowired
+	ProductRepository productRepository;
 	@Autowired
 	PaymentService paymentService;
 	@Autowired
@@ -140,7 +142,7 @@ public class orderHistory {
 	@RequestMapping("/orderHistory/{id}")
 	public String status(Model model, @PathVariable("id") Integer id) throws IOException {
 		Orders order = orderRepository.getById(id);
-		if (order.getStatus().equals("Đã đặt")) {
+		if (order.getStatus().equals("Đã thanh toán")) {
 			
 			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 	        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -204,12 +206,30 @@ public class orderHistory {
 	       paymentService.savePayment(payment);
 			order.setStatus("Đã hủy");
 			orderRepository.save(order);
+			
+			List<OrderDetail> item = orderDetailRepository.findByIdOrder(order.getId());
+			for(OrderDetail od:item) {
+				Product product = productRepository.findByNameProduct(od.getName());
+				product.setQuantity(product.getQuantity() + od.getQuanlity());
+				productRepository.save(product);
+			}
 			return "redirect:/refundResult/" + queryUrl;
 
 		}
 		if (order.getStatus().equals("Đã giao")) {
 
 			model.addAttribute("status", true);
+		}
+		if (order.getStatus().equals("Đã đặt")) {
+			order.setStatus("Đã hủy");
+			orderRepository.save(order);
+			//cộng lại số lượng khi hủy
+			List<OrderDetail> item = orderDetailRepository.findByIdOrder(order.getId());
+			for(OrderDetail od:item) {
+				Product product = productRepository.findByNameProduct(od.getName());
+				product.setQuantity(product.getQuantity() + od.getQuanlity());
+				productRepository.save(product);
+			}
 		}
 		return "redirect:/orderHistory";
 	}

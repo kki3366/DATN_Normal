@@ -29,6 +29,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,15 +80,14 @@ public class GDThanhCongController {
 			String signValue = VNPayConfiguration.hashAllFields(fields);
 			if (signValue.equals(vnp_SecureHash)) {
 				if ("00".equals(req.getParameter("vnp_ResponseCode"))) {
-	
+					Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+					String currentPrincipalName = authentication.getName();
 					// Tên ngân hàng - Cần gửi mail
 					String bankName = getAllParam.get("vnp_BankCode");
 					// Tổng giá tiền - Cần gửi mail
 					String amount = getAllParam.get("vnp_Amount");
-					// ID người dùng - Cần gửi mail
-					String name = getAllParam.get("vnp_OrderInfo").split("\\s+")[0];
 					// Mã hóa đơn
-					String orderId = getAllParam.get("vnp_OrderInfo").split("\\s+")[1];
+					String orderId = getAllParam.get("vnp_OrderInfo");
 					//Mã giao dịch ngân hàng - Cần gửi mail
 					String TranNo = getAllParam.get("vnp_BankTranNo");
 					//Ngày giao dịch - Cần gửi mail
@@ -97,7 +98,7 @@ public class GDThanhCongController {
 					String cardType = getAllParam.get("vnp_CardType");
 					
 					model.addAttribute("total", Long.parseLong(amount));
-					model.addAttribute("account", name);
+					model.addAttribute("account", currentPrincipalName);
 					model.addAttribute("TranNo", TranNo);
 					model.addAttribute("dateTran", ldt);
 					
