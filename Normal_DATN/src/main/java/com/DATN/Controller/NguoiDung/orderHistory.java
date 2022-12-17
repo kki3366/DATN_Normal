@@ -282,8 +282,8 @@ public class orderHistory {
 				Session session = Session.getInstance(props, new Authenticator() { 
 					protected PasswordAuthentication getPasswordAuthentication() {
 				
-					String username = "trungttpc01815@fpt.edu.vn";
-					String password = "itjpllfnufgbojki";
+					String username = "holywatchshop@gmail.com";
+					String password = "wppmztfzsqjazrfw";
 					return new PasswordAuthentication(username, password);
 					}
 				});
@@ -299,7 +299,7 @@ public class orderHistory {
 					         "\n\nĐơn hàng của Quý khách đã hủy thành công"+
 					         "\nTôi liên hệ về khoản tiền hoàn lại mà bạn đã thực hiện vào ngày "+ldt+"."+
 
-					         "\n\nKhoản tiền hoàn lại của bạn đã được gửi vào tài khoản của bạn với số tiền "+formatter.format(Integer.parseInt(amounRefund))+" đ"+"."+ 
+					         "\n\nKhoản tiền hoàn lại của bạn đã được gửi vào tài khoản của bạn với số tiền "+formatter.format(Integer.parseInt(amounRefund)/100)+" đ"+"."+ 
 					         "\nThông thường, ngân hàng nhận tiền sẽ mất từ ​​3 đến 5 ngày làm việc để ghi có tiền vào tài khoản của bạn."+
 
 					         "\n\nNếu bạn không thấy tiền hoàn lại trong tài khoản của mình,"+
@@ -338,8 +338,7 @@ public class orderHistory {
 				}	
 	            
 	            
-	            System.err.println(query);
-	            System.err.println(query.get("vnp_Amount").toString());
+	           
 	        }
 			return "nguoiDung/Refundthanhcong";
 		} catch (NullPointerException e) {

@@ -124,8 +124,8 @@ public class GDThanhCongController {
 					Session session = Session.getInstance(props, new Authenticator() { 
 						protected PasswordAuthentication getPasswordAuthentication() {
 					
-						String username = "trungttpc01815@fpt.edu.vn";
-						String password = "itjpllfnufgbojki";
+						String username = "holywatchshop@gmail.com";
+						String password = "wppmztfzsqjazrfw";
 						return new PasswordAuthentication(username, password);
 						}
 					});
@@ -136,13 +136,14 @@ public class GDThanhCongController {
 						Multipart mailmultipart = new MimeMultipart();
 						
 						MimeBodyPart bodytext = new MimeBodyPart();
+						System.err.println(amount);
 						DecimalFormat formatter = new DecimalFormat("###,###,###");
 						String content= "Kính chào Quý khách,"+
 						         "\n\nQuý khách đã thanh toán thành công với"+
 								" Loại thẻ "+ cardType +
 								", Tên ngân hàng "+bankName+
 								
-								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount))+" đ"+
+								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount)/100)+" đ"+
 								
 								", Ngày giao dịch "+ldt+"."+
 								

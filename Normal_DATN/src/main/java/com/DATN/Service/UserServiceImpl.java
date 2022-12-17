@@ -27,6 +27,8 @@ public class UserServiceImpl implements UserService {
 	UserRepository user;
 	@Autowired
 	SessionService session;
+	@Autowired
+	HttpServletRequest req;
 	@Override
 	public List<users> findAllAccountService() {
 		// TODO Auto-generated method stub
@@ -79,6 +81,7 @@ public class UserServiceImpl implements UserService {
 			pass = null;
 			
 		}
+		System.err.println(req.getRemoteUser());
 		UserDetails user = User.withUsername(acc.getId()).password(pass).roles(role+"").build();
 	return user;
 	}
@@ -86,9 +89,10 @@ public class UserServiceImpl implements UserService {
 	public void loginfromOAuth2(OAuth2AuthenticationToken oauth2) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String name = oauth2.getPrincipal().getAttribute("name");
+		
 		String pass = Long.toHexString(System.currentTimeMillis());
 		Boolean role = false;
-		
+		System.err.println(req.getRemoteUser());
 		
 		
 		
