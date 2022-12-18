@@ -90,7 +90,15 @@
 					</div>
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Hover Data Table</h3>
+				<form action="/admin/order/status">
+							<select id="author_id" name="status" onchange="this.form.submit()">
+							    <option>Chọn trạng thái</option>
+							    <option th:selected="${status == 1}" value="Đã đặt">Đã đặt</option>
+							    <option th:selected="${status == 2}" value="Đã thanh toán">Đã thanh toán</option>
+							    <option th:selected="${status == 3}" value="Đã hủy">Đã hủy</option>
+							    <option th:selected="${status == 4}" value="Đã giao">Đã giao</option>
+							</select>
+							</form>
 							<h3 style="float: right;" class="box-title">
 								<form th:action="@{/admin/order/find}" method="post">
 									<input placeholder="User" name="keywords" th:value="${keywords}">
@@ -185,7 +193,8 @@
 											[[${OrderPage.totalPages}]] of [[${OrderPage.totalElements}]] orders</div>
 									</div>
 									<div class="col-sm-7">
-										<div>
+										<div th:if="${orderStatus !=2}">
+										
 											 <nav aria-label="Page navigation example" 
                   th:if="${OrderPage.totalPages >0}">
 			  <ul class="pagination">
@@ -211,6 +220,65 @@
 			  </ul>
 			</nav>
 										</div>
+										
+										
+										<div th:if="${orderStatus ==2}">
+										
+											 <nav aria-label="Page navigation example" 
+                  th:if="${OrderPage.totalPages >0}">
+			  <ul class="pagination">
+          
+			    <li th:class="${1== OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order/status?status=${statusPage}&s=${OrderPage.size}&p =0|}" class="page-link">First</a>
+          </li>
+        
+       
+          <li class="page-item active"
+          th:each="pageNumber :${pageNumbers}" 
+          th:if="${OrderPage.totalPages > 1}"
+          th:class="${pageNumber == OrderPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a  th:href="@{|/admin/order/status?status=${statusPage}&s=${OrderPage.size}&p=${pageNumber-1}|}" 
+          class="page-link"
+          th:text="${pageNumber}"></a>
+          </li>
+
+          <li th:class="${OrderPage.totalPages == OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order/status?status=${statusPage}&s=${OrderPage.size}&p=${OrderPage.totalPages-1}|}" class="page-link">Last</a>
+          </li>
+			    
+			  </ul>
+			</nav>
+										</div>
+										
+															<div th:if="${orderFind ==3}">
+										
+											 <nav aria-label="Page navigation example" 
+                  th:if="${OrderPage.totalPages >0}">
+			  <ul class="pagination">
+          
+			    <li th:class="${1== OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order/find?s=${OrderPage.size}&p =0|}" class="page-link">First</a>
+          </li>
+        
+       
+          <li class="page-item active"
+          th:each="pageNumber :${pageNumbers}" 
+          th:if="${OrderPage.totalPages > 1}"
+          th:class="${pageNumber == OrderPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a  th:href="@{|/admin/order/find?s=${OrderPage.size}&p=${pageNumber-1}|}" 
+          class="page-link"
+          th:text="${pageNumber}"></a>
+          </li>
+
+          <li th:class="${OrderPage.totalPages == OrderPage.number + 1} ? 'page-item disabled ' : 'page-item'">
+            <a  th:href="@{|/admin/order/find?s=${OrderPage.size}&p=${OrderPage.totalPages-1}|}" class="page-link">Last</a>
+          </li>
+			    
+			  </ul>
+			</nav>
+										</div>
+										
+										
 									</div>
 
 								</div>

@@ -82,10 +82,10 @@ public class OrderController {
 	@PostMapping("/admin/order/update")
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
 			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s ){
-		Orders orders = ordersRepository.getById(order.getId());
-		if(orders.getStatus().equals("Đã hủy")) {
-			
-		}else {
+//		Orders orders = ordersRepository.getById(order.getId());
+//		if(orders.getStatus().equals("Đã hủy")) {
+//			
+//		}else {
 	
 	order.setStatus(order.getStatus());
 	ordersRepository.save(order);
@@ -95,7 +95,7 @@ public class OrderController {
 		Product product = productRepository.findByNameProduct(od.getName());
 		product.setQuantity(product.getQuantity() + od.getQuanlity());
 		productRepository.save(product);
-	}
+//	}
 	}}
 	int currentPage = p.orElse(0);
 	int pagesize = s.orElse(5);
@@ -128,7 +128,7 @@ public class OrderController {
 	public String edit(Model m,@RequestParam("edit") Boolean edit,@RequestParam("order") Integer Order
 			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 		Orders ord = ordersRepository.getById(Order);
-		if(ord.getStatus().equals("Đã giao")) {
+		if(ord.getStatus().equals("Đã giao")|| ord.getStatus().equals("Đã hủy")) {
 			m.addAttribute("status",true);
 		}else {
 		m.addAttribute("status",false);
@@ -165,7 +165,7 @@ public class OrderController {
 			@RequestParam("keywords") Optional<String> kw,
 			@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
 
-		
+		model.addAttribute("orderFind", 3);
 		String kwords = kw.orElse(session.getAttribute("keywords"));
 		session.setAttribute("keywords", kwords);
 		int currentPage = p.orElse(0);
@@ -194,6 +194,55 @@ public class OrderController {
 		
 		model.addAttribute("order",new Orders());
 		model.addAttribute("keywords", kwords);
+		return "Admin/page/order";
+	}
+	
+	@RequestMapping("/admin/order/status")
+	public String status(Model model,
+			@RequestParam("status") Optional<String> kw,
+			@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s) {
+
+		model.addAttribute("orderStatus", 2);
+		String kwords = kw.orElse(session.getAttribute("status"));
+		session.setAttribute("status", kwords);
+		int currentPage = p.orElse(0);
+		int pagesize = s.orElse(5);
+		Pageable pageable = PageRequest.of(currentPage, pagesize);
+		Page<Orders> resultPage = ordersRepository.findByStatus("%"+kwords+"%", pageable);
+		int totalPages = resultPage.getTotalPages();
+		if(totalPages >0) {
+			int start = Math.max(1,currentPage-2);
+			int end = Math.min(currentPage +2,totalPages);
+			
+			if(totalPages >5) {
+				if(end == totalPages) {
+					start = end -5;
+				}else if(start == 1) {
+					end = start +5;
+				}
+			}
+			List<Integer> pageNumber = IntStream.rangeClosed(start,end)
+					.boxed()
+					.collect(Collectors.toList());
+			
+			model.addAttribute("pageNumbers",pageNumber);
+		}
+		model.addAttribute("OrderPage",resultPage);
+		
+		model.addAttribute("order",new Orders());
+		if(kwords.equals("Đã đặt")) {
+		model.addAttribute("status", 1);
+		}
+		if(kwords.equals("Đã thanh toán")) {
+			model.addAttribute("status", 2);
+			}
+		if(kwords.equals("Đã hủy")) {
+			model.addAttribute("status", 3);
+			}
+		if(kwords.equals("Đã giao")) {
+			model.addAttribute("status", 4);
+			}
+		model.addAttribute("statusPage", kwords);
 		return "Admin/page/order";
 	}
 	@RequestMapping("/admin/orderDetail/{id}")
