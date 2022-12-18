@@ -736,32 +736,49 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 				{
 					"data": "quantity",
 					render: function(data, type, row) {
+						if (data == 0) {
+							return 'Hóa đơn chưa được giao';
+						}
 						return formatToVND(data, '')
 					}
 				},
 				{
 					"data": "subTotal",
 					render: function(data, type, row) {
+						if (data == 0) {
+							return 'Hóa đơn chưa được giao';
+						}
 						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "minPriceProduct",
 					render: function(data, type, row) {
+						if (data == null) {
+							return 'Hóa đơn chưa được giao';
+						}
 						return formatToVND(data, '₫')
 					}
 				},
 				{
 					"data": "maxPriceProduct",
 					render: function(data, type, row) {
+						if(data == 0){
+							return 'Hóa đơn chưa được giao';
+						}
 						return formatToVND(data, '₫')
 					}
 				},
 				{
-					"data": "avgPriceProduct",
+					data: "avgPriceProduct",
 					render: function(data, type, row) {
+						if(data == null){
+							return 'Hóa đơn chưa được giao';
+						}
 						return formatToVND(data.toFixed(), '₫')
+						
 					}
+					
 				}
 			],
 			pageLength: 5,
@@ -801,6 +818,9 @@ if (convertUrl.pathname = 'admin/report/revenueByCategories') {
 				{
 					"data": "minProduct",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + '₫';
+						}
 						return formatToVND(data, '₫')
 					}
 				},
@@ -813,6 +833,9 @@ if (convertUrl.pathname = 'admin/report/revenueByCategories') {
 				{
 					"data": "avgProduct",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + '₫';
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				}
@@ -910,6 +933,7 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByYears') {
 				"type": "GET",
 				"url": getRevenueByYearUrl,
 				"dataSrc": function(resp) {
+					console.log(resp)
 					return resp;
 				}
 			},
@@ -930,6 +954,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByYears') {
 				{
 					"data": "minPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				},
@@ -942,6 +969,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByYears') {
 				{
 					"data": "avgPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				}
@@ -990,6 +1020,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByQuarter') {
 				{
 					"data": "minPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				},
@@ -1002,6 +1035,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByQuarter') {
 				{
 					"data": "avgPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				}
@@ -1050,6 +1086,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByMonth') {
 				{
 					"data": "minPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				},
@@ -1062,6 +1101,9 @@ if (convertUrl.pathname = 'admin/report/reportRevenueByMonth') {
 				{
 					"data": "avgPrice",
 					render: function(data, type, row) {
+						if(data == null){
+							return 0 + " " + "₫"  
+						}
 						return formatToVND(data.toFixed(), '₫')
 					}
 				}
