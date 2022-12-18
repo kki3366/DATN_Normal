@@ -737,7 +737,7 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 					"data": "quantity",
 					render: function(data, type, row) {
 						if (data == 0) {
-							return 'Hóa đơn chưa được giao';
+							return 'Hủy/Chưa được giao';
 						}
 						return formatToVND(data, '')
 					}
@@ -746,7 +746,7 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 					"data": "subTotal",
 					render: function(data, type, row) {
 						if (data == 0) {
-							return 'Hóa đơn chưa được giao';
+							return 'Hủy/Chưa được giao';
 						}
 						return formatToVND(data, '₫')
 					}
@@ -755,7 +755,7 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 					"data": "minPriceProduct",
 					render: function(data, type, row) {
 						if (data == null) {
-							return 'Hóa đơn chưa được giao';
+							return 'Hủy/Chưa được giao';
 						}
 						return formatToVND(data, '₫')
 					}
@@ -764,7 +764,7 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 					"data": "maxPriceProduct",
 					render: function(data, type, row) {
 						if(data == 0){
-							return 'Hóa đơn chưa được giao';
+							return 'Hủy/Chưa được giao';
 						}
 						return formatToVND(data, '₫')
 					}
@@ -773,7 +773,7 @@ if (convertUrl.pathname = 'admin/report/revenueByCustomer') {
 					data: "avgPriceProduct",
 					render: function(data, type, row) {
 						if(data == null){
-							return 'Hóa đơn chưa được giao';
+							return 'Hủy/Chưa được giao';
 						}
 						return formatToVND(data.toFixed(), '₫')
 						
