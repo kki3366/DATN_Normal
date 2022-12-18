@@ -18,4 +18,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer>{
 	
 	@Query("SELECT o FROM Orders o WHERE o.user.id LIKE ?1")
 	Page<Orders> findByKeywords(String keywords, Pageable pgeable);
+	
+	@Query("SELECT o FROM Orders o WHERE o.status LIKE ?1")
+	Page<Orders> findByStatus(String status, Pageable pgeable);
 }
