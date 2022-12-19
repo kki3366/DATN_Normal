@@ -193,7 +193,7 @@
 											[[${OrderPage.totalPages}]] of [[${OrderPage.totalElements}]] orders</div>
 									</div>
 									<div class="col-sm-7">
-										<div th:if="${orderStatus !=2}">
+										<div th:if="${orderStatus !=2 && orderFind !=3}">
 										
 											 <nav aria-label="Page navigation example" 
                   th:if="${OrderPage.totalPages >0}">
