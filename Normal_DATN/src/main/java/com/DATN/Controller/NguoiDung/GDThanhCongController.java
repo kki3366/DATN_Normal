@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
@@ -40,8 +41,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import com.DATN.Entity.OrderDetail;
 import com.DATN.Entity.Payment;
 import com.DATN.Entity.users;
+import com.DATN.Repository.OrderDetailRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.PaymentService;
 import com.DATN.configuration.VNPayConfiguration;
@@ -57,6 +60,8 @@ public class GDThanhCongController {
 
 	@Autowired
 	UserRepository user;
+	@Autowired
+	OrderDetailRepository orderdetai;
 	@RequestMapping(value = "paymentSuccess", method = RequestMethod.GET)
 	public String a(@RequestParam Map<String, String> getAllParam, Model model) throws UnsupportedEncodingException, ParseException {
 
@@ -88,6 +93,7 @@ public class GDThanhCongController {
 					String amount = getAllParam.get("vnp_Amount");
 					// Mã hóa đơn
 					String orderId = getAllParam.get("vnp_OrderInfo");
+					
 					//Mã giao dịch ngân hàng - Cần gửi mail
 					String TranNo = getAllParam.get("vnp_BankTranNo");
 					//Ngày giao dịch - Cần gửi mail
@@ -110,6 +116,8 @@ public class GDThanhCongController {
 					payment.setAction("pay");
 					paymentService.savePayment(payment);
 				
+					List<OrderDetail> orderf = (List<OrderDetail>) orderdetai.findByIdOrder(Integer.parseInt(orderId));
+					
 					
 					users acc = user.getById(req.getRemoteUser());
 					
@@ -136,8 +144,10 @@ public class GDThanhCongController {
 						Multipart mailmultipart = new MimeMultipart();
 						
 						MimeBodyPart bodytext = new MimeBodyPart();
-						System.err.println(amount);
+						
 						DecimalFormat formatter = new DecimalFormat("###,###,###");
+						
+						
 						String content= "Kính chào Quý khách,"+
 						         "\n\nQuý khách đã thanh toán thành công với"+
 								" Loại thẻ "+ cardType +
@@ -146,6 +156,7 @@ public class GDThanhCongController {
 								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount)/100)+" đ"+
 								
 								", Ngày giao dịch "+ldt+"."+
+
 								
 						          "\n Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
 								" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
