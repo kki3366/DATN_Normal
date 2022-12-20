@@ -147,7 +147,7 @@ public class GDThanhCongController {
 						
 						DecimalFormat formatter = new DecimalFormat("###,###,###");
 						
-						
+						//h
 						String content= "Kính chào Quý khách,"+
 						         "\n\nQuý khách đã thanh toán thành công với"+
 								" Loại thẻ "+ cardType +
