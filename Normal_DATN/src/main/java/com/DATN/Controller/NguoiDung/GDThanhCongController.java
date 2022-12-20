@@ -4,14 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -38,13 +36,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.HttpStatusCodeException;
-
 import com.DATN.Entity.OrderDetail;
+import com.DATN.Entity.Orders;
 import com.DATN.Entity.Payment;
 import com.DATN.Entity.users;
 import com.DATN.Repository.OrderDetailRepository;
+import com.DATN.Repository.OrdersRepository;
 import com.DATN.Repository.UserRepository;
 import com.DATN.Service.PaymentService;
 import com.DATN.configuration.VNPayConfiguration;
@@ -62,6 +59,8 @@ public class GDThanhCongController {
 	UserRepository user;
 	@Autowired
 	OrderDetailRepository orderdetai;
+	@Autowired
+	OrdersRepository order;
 	@RequestMapping(value = "paymentSuccess", method = RequestMethod.GET)
 	public String a(@RequestParam Map<String, String> getAllParam, Model model) throws UnsupportedEncodingException, ParseException {
 
@@ -117,7 +116,7 @@ public class GDThanhCongController {
 					paymentService.savePayment(payment);
 				
 					List<OrderDetail> orderf = (List<OrderDetail>) orderdetai.findByIdOrder(Integer.parseInt(orderId));
-					
+					Orders Order = order.getById(Integer.parseInt(orderId));
 					
 					users acc = user.getById(req.getRemoteUser());
 					
@@ -141,7 +140,7 @@ public class GDThanhCongController {
 					MimeMessage mime = new MimeMessage(session);
 					
 					try {
-						Multipart mailmultipart = new MimeMultipart();
+						Multipart mailmultipart = new MimeMultipart("utf-8");
 						
 						MimeBodyPart bodytext = new MimeBodyPart();
 						
@@ -156,18 +155,33 @@ public class GDThanhCongController {
 								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount)/100)+" đ"+
 								
 								", Ngày giao dịch "+ldt+"."+
-
-								
-						          "\n Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
-								" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
-								"\n\n Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
-								"\n------------------------------------------------------------"+
-								"\n Đây là email tự động, Quý khách vui lòng không trả lời email này.";
-						
+								"Sản phẩm:";
+							for (OrderDetail orderDetail : orderf) {
+								content+=orderDetail.toString();						
+													}
+							content+="\n Tổng tiền sản phẩm "+formatter.format(Order.getAmount()-30000)+" đ";
+							content+="\n Phí vận chuyển 30.000 đ";
+							content+="\n Tổng tiền "+formatter.format(Order.getAmount())+" đ";
+							content+="\n Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
+									" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
+									"\n\n Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
+									"\n------------------------------------------------------------"+
+									"\n Đây là email tự động, Quý khách vui lòng không trả lời email này.";
 						String subject="HoLy Watch";
 						bodytext.setText(content);
 						
-						
+						String test = "<table border=1>"
+								+ "<tr>"
+								+ "<th>Sản Phẩm</th>"
+								+ "<th>Số lượng</th>"
+								+ "<th>Giá</th>"
+								+ "</tr>"
+								+ "<tr>"
+								+ "<td>Đồng hồ</td>"
+								+ "<td>2</td>"
+								+ "<td>120.000</td>"
+								+ "</tr>"
+								+ "</table>";
 						mailmultipart.addBodyPart(bodytext);
 				///
 						mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
@@ -175,7 +189,7 @@ public class GDThanhCongController {
 						mime.setSubject(subject,"utf-8");
 						mime.setReplyTo(mime.getFrom());
 						mime.setText(content,"utf-8");
-						
+						mime.setContent(test,"text/html");
 						Transport.send(mime);
 						
 		

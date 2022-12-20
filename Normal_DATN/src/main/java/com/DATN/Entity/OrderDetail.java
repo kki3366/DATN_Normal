@@ -1,6 +1,8 @@
 
 package com.DATN.Entity;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -101,6 +103,12 @@ public class OrderDetail {
 
 	public void setOrder(Orders order) {
 		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		return  "\n -"+name + " x " + quanlity + "     Giá " +formatter.format(price)  ;
 	}
 
 	
