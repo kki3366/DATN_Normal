@@ -101,18 +101,29 @@ public class OrderDetail {
 		return order;
 	}
 
+	@Override
+	public String toString() {
+		return "<td>" + name + "</td>" + " <td>" + quanlity + "</td>" + " <td>" + price + "</td>";
+	}
+
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
-
-	@Override
-	public String toString() {
-		DecimalFormat formatter = new DecimalFormat("###,###,###");
-		return  "\n -"+name + " x " + quanlity + "     Giá " +formatter.format(price)  ;
-	}
-
-	
-	
+//
+//	
+//	public String name() {
+//		
+//		return  "\n"+ "<td>" + name + "</td>";
+//	}
+//
+//	public String quanlity() {
+//		
+//		return  "\n"+"<td>"+ quanlity+"</td>";
+//	}
+//	public String price() {
+//		DecimalFormat formatter = new DecimalFormat("###,###,###");
+//		return  "\n"+"<td>"+formatter.format(price)+"</td>"  ;
+//	}
 	
 }
 

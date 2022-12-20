@@ -154,42 +154,54 @@ public class GDThanhCongController {
 								
 								", Tổng giá tiền "+formatter.format(Integer.parseInt(amount)/100)+" đ"+
 								
-								", Ngày giao dịch "+ldt+"."+
-								"Sản phẩm:";
-							for (OrderDetail orderDetail : orderf) {
-								content+=orderDetail.toString();						
-													}
-							content+="\n Tổng tiền sản phẩm "+formatter.format(Order.getAmount()-30000)+" đ";
-							content+="\n Phí vận chuyển 30.000 đ";
-							content+="\n Tổng tiền "+formatter.format(Order.getAmount())+" đ";
-							content+="\n Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
-									" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
-									"\n\n Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
-									"\n------------------------------------------------------------"+
-									"\n Đây là email tự động, Quý khách vui lòng không trả lời email này.";
-						String subject="HoLy Watch";
-						bodytext.setText(content);
-						
-						String test = "<table border=1>"
+								", Ngày giao dịch "+ldt+".";
+						 content += "<table border=1>"
 								+ "<tr>"
 								+ "<th>Sản Phẩm</th>"
 								+ "<th>Số lượng</th>"
 								+ "<th>Giá</th>"
-								+ "</tr>"
-								+ "<tr>"
-								+ "<td>Đồng hồ</td>"
-								+ "<td>2</td>"
-								+ "<td>120.000</td>"
-								+ "</tr>"
-								+ "</table>";
+								+ "</tr>";
+								
+						 content+= "<tr>";
+						for (OrderDetail orderDetail : orderf) {
+							content+= "<tr>";
+							content+=orderDetail.toString();
+							content += "</tr>";
+							
+							}
+						content+= "<tr>";
+						content+="<td colspan='2'>Tổng tiền sản phẩm</td>";
+						content+="<td>"+formatter.format(Order.getAmount()-30000)+" đ</td>";
+						content += "</tr>";
+						content+= "<tr>";
+						content+="<td colspan='2'>Phí vận chuyển</td>";
+						content+="<td>30.000 đ</td>";
+						content += "</tr>";
+						content+= "<tr>";
+						content+="<td colspan='2'>Tổng tiền</td>";
+						content+="<td>"+formatter.format(Order.getAmount())+" đ</td>";
+						content += "</tr>";
+						content += "</table>";	
+							
+							
+							
+							content+="<br> Mọi thắc mắc/thông tin phản hồi, Quý khách vui lòng liên hệ qua Hotline:(0292) 7300 468"+
+									" hoặc qua email: holywatchshop@gmail.com để được giải đáp."+
+									"<br><br> Chân thành cảm ơn Quý khách đã mua hàng tại HoLy Watch!"+
+									"<br>------------------------------------------------------------"+
+									"<br> Đây là email tự động, Quý khách vui lòng không trả lời email này.";
+						String subject="HoLy Watch";
+						bodytext.setText(content);
+						
+						
 						mailmultipart.addBodyPart(bodytext);
 				///
 						mime.setFrom(new InternetAddress("holywatchshop@gmail.com"));
 						mime.setRecipients(Message.RecipientType.TO,acc.getEmail());
 						mime.setSubject(subject,"utf-8");
 						mime.setReplyTo(mime.getFrom());
-						mime.setText(content,"utf-8");
-						mime.setContent(test,"text/html");
+//						mime.setText(content,"utf-8");
+						mime.setContent(content,"text/html; charset=UTF-8");
 						Transport.send(mime);
 						
 		
