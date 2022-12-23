@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
 			pass = null;
 			
 		}
-		System.err.println(req.getRemoteUser());
+		
 		UserDetails user = User.withUsername(acc.getId()).password(pass).roles(role+"").build();
 	return user;
 	}

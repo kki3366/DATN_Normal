@@ -31,7 +31,9 @@
 		<input type="text"name="username" th:value="${username}" placeholder="Username"readonly/>
 					
 		<input type="text"name="fullname" th:value="${fullname}" placeholder="Username" required/>
+		 <i style="color:red">${ktPhone}</i>
 		<input type="number"name="phone" th:value="${phone}" maxlength="10" placeholder="Phone" required/>
+		<i style="color:red">${ktEmail}</i>
 		<input type="email"name="email" th:value="${email}" placeholder="Email"/>	
 		<div class="forgot">
 							<h6>  <a href="/login">Đăng nhập</a></h6>

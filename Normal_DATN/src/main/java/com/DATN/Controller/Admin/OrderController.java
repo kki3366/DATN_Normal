@@ -82,10 +82,6 @@ public class OrderController {
 	@PostMapping("/admin/order/update")
 	public String add(Model m,@Validated @ModelAttribute("order") Orders order
 			,	@RequestParam("p") Optional<Integer> p,@RequestParam("s") Optional<Integer> s ){
-//		Orders orders = ordersRepository.getById(order.getId());
-//		if(orders.getStatus().equals("Đã hủy")) {
-//			
-//		}else {
 	
 	order.setStatus(order.getStatus());
 	ordersRepository.save(order);
@@ -95,7 +91,6 @@ public class OrderController {
 		Product product = productRepository.findByNameProduct(od.getName());
 		product.setQuantity(product.getQuantity() + od.getQuanlity());
 		productRepository.save(product);
-//	}
 	}}
 	int currentPage = p.orElse(0);
 	int pagesize = s.orElse(5);

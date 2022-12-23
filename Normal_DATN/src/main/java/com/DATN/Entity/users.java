@@ -44,7 +44,7 @@ public class users implements Serializable{
 	@NotBlank(message = "Bạn chưa nhập họ tên")
 	@Column(name = "fullname")
 	String fullname;
-	@NotBlank(message = "Bạn chưa nhập Phone")
+	@NotBlank(message = "Bạn chưa nhập số điện thoại")
 	@Length(min = 10,max=10,message = "Số điện thoại chưa đúng")
 	@Column(name = "Phone")
 	String phone;

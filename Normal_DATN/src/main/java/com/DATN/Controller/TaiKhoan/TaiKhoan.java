@@ -85,7 +85,7 @@ public class TaiKhoan {
 //			}
 			if (!account.isEmpty()) {
 				kt++;
-				m.addAttribute("ktTonTai", "User đã tồn tại.");
+				m.addAttribute("ktTonTai", "username đã tồn tại");
 			}
 			if (users.findByEmailService(acc.getEmail()) != null) {
 				kt++;
@@ -93,7 +93,7 @@ public class TaiKhoan {
 			}
 			if (users.findByPhoneService(acc.getPhone()) != null) {
 				kt++;
-				m.addAttribute("ktPhone", "Phone đã tồn tại");
+				m.addAttribute("ktPhone", "Số điện thoại đã tồn tại");
 			}
 			if (!NLpass.equals(acc.getPassword())) {
 				kt++;
@@ -184,7 +184,7 @@ public class TaiKhoan {
 				if(!pe.matches(pass,acc.getPassword())) {
 					
 					
-					m.addAttribute("tb","Mật khẩu cũ không đúng");
+					m.addAttribute("tb","Mật khẩu không đúng");
 					check =false;
 				}
 			
@@ -225,26 +225,52 @@ public class TaiKhoan {
 	public String editProfile(Model m
 			,@RequestParam("fullname") String fullname,
 			@RequestParam("email") String email,@RequestParam("phone") String phone) {
-		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		
 		m.addAttribute("username",req.getRemoteUser());
-		users acc = u.getById(req.getRemoteUser());
-		if(acc != null) {
+		users account = u.getById(req.getRemoteUser());
+		if(account != null) {
 			
-			
-			m.addAttribute("fullname",acc.getFullname());
-			m.addAttribute("email", acc.getEmail());
-			m.addAttribute("phone", acc.getPhone());
+			int kt =0;
+			m.addAttribute("fullname",account.getFullname());
+			m.addAttribute("email", account.getEmail());
+			m.addAttribute("phone", account.getPhone());
 			
 					
-					acc.setFullname(fullname);
-					acc.setEmail(email);
-					acc.setPhone(phone);
-					users.saveAccountService(acc);
-					m.addAttribute("tb","Cập nhật thành công");
-					return "redirect:/security/logout";
+			account.setFullname(fullname);
+			account.setEmail(email);
+			account.setPhone(phone);
+					
+					
 				
-				
-			
+					if (u.findByEmail(account.getEmail()) != null) {
+						
+						users x = u.findByEmailAndUser(account.getId(),account.getEmail());
+						if(x == null) {
+							kt++;
+							m.addAttribute("ktEmail", "Email đã tồn tại");
+						}
+						
+					}
+////					
+					if (u.findByPhone(account.getPhone()) != null) {
+						users x = u.findByPhoneAndUser(account.getId(),account.getPhone());
+						System.err.println(x);
+						if(x == null) {
+							kt++;
+							System.err.println("Số điện thoại đã tồn tại");
+							m.addAttribute("ktPhone", "Số điện thoại đã tồn tại");
+						}
+					}
+					if(kt ==0) {
+						users.saveAccountService(account);
+						m.addAttribute("tb","Cập nhật thành công");
+						return "redirect:/security/logout";
+					}
+					else {
+						return "taiKhoan/EditProfile";
+					}
+					
+		
 		}else {
 			return "taiKhoan/EditProfile";
 		}

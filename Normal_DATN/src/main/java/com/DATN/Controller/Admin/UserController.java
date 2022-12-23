@@ -146,7 +146,7 @@ public class UserController {
 			if (account != null) {
 				kt++;
 				
-				m.addAttribute("ktTonTai", "User đã tồn tại.");
+				m.addAttribute("ktTonTai", "username đã tồn tại");
 			}
 			if (user.findByEmailService(acc.getEmail()) != null) {
 				kt++;

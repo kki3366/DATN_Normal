@@ -103,7 +103,8 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "<td>" + name + "</td>" + " <td>" + quanlity + "</td>" + " <td>" + price + "</td>";
+		DecimalFormat formatter = new DecimalFormat("###,###,###");
+		return "<td>" + name + "</td>" + " <td>" + quanlity + "</td>" + " <td>" + formatter.format(price) + "đ</td>";
 	}
 
 	public void setOrder(Orders order) {
