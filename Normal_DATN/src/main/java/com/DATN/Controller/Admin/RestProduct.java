@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.DATN.Entity.Category;
 import com.DATN.Entity.Product;
 import com.DATN.Service.CartService;
+import com.DATN.Service.OrderService;
 import com.DATN.Service.ProductService;
 import com.DATN.Unit.FileUploadUtil;
 
@@ -42,6 +43,9 @@ public class RestProduct {
 	
 	@Autowired
 	CartService cartService;
+	
+	@Autowired
+	OrderService orderService;
 
 	@Autowired
 	ServletContext app;

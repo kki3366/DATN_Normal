@@ -13,5 +13,5 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public OrderDetail save(OrderDetail orderdetail) {
 		return orderDetailRepository.save(orderdetail);
 	}
-
+	
 }

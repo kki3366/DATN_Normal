@@ -6,4 +6,5 @@ import com.DATN.Entity.OrderDetail;
 public interface OrderDetailService {
 
 	OrderDetail save (OrderDetail orderdetail);
+
 }
